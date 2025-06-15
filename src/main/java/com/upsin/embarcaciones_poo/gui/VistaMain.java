@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.upsin.embarcaciones_poo.gui;
 
 import java.awt.Insets;
 import javax.swing.SwingConstants;
+import org.springframework.stereotype.Component;
 
-/**
- *
- * @author miguel
- */
+@Component
 public class VistaMain extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaMain.class.getName());
@@ -61,7 +55,6 @@ public class VistaMain extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("© 2025 MAR AZUL EMBARCACIONES");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
 
@@ -70,12 +63,10 @@ public class VistaMain extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(153, 204, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("© 2025 MAR AZUL EMBARCACIONES");
         jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Century", 0, 36)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("GESTOR DEL PUERTO");
 
         btnEnbarcaciones.setBackground(new java.awt.Color(51, 102, 255));
@@ -127,11 +118,9 @@ public class VistaMain extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("BARCOS");
 
         jLabel8.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("CONTENEDORES");
 
         btnCargaDescarga.setBackground(new java.awt.Color(255, 153, 51));
@@ -184,7 +173,6 @@ public class VistaMain extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("ADMINISTRACION");
 
         btnContenedor.setBackground(new java.awt.Color(255, 153, 51));
@@ -242,7 +230,6 @@ public class VistaMain extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(153, 204, 255));
         jButton1.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("LGO-EMPRESA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
