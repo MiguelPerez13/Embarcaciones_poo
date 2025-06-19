@@ -12,13 +12,15 @@ import lombok.*;
 public class EmbarcacionContenedor {
 
     @EmbeddedId
-    private Integer id;
+    private EmbarcacionContenedorId id;
     
     @ManyToOne
-    @JoinColumn(name = "idEmbarcacion", referencedColumnName = "idEmbarcacion")
+    @MapsId("idEmbarcacion")
+    @JoinColumn(name = "idEmbarcacion", insertable = false, updatable = false)
     private Embarcacion embarcacion;
 
     @ManyToOne
-    @JoinColumn(name = "idContenedor", referencedColumnName = "idContenedor")
+    @MapsId("idContenedor")
+    @JoinColumn(name = "idEmbarcacion", insertable = false, updatable = false)
     private Contenedor contenedor;
 }
