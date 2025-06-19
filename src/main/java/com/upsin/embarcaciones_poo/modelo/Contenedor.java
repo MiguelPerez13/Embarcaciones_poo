@@ -13,7 +13,11 @@ public class Contenedor {
     @Id
     @GeneratedValue
     private Integer idContenedor;
-    private Integer idEmpresa;
+    
+    @ManyToOne
+    @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
+    private Empresa idEmpresa;
+    
     private Double unidadMedida;
     private Double pesoTotal;
     private String observaciones;

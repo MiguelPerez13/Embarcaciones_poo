@@ -10,19 +10,19 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class embarcacioncarga {
+public class EmbarcacionDescarga {
     @Id
     @GeneratedValue
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "idEmbarcacion", referencedColumnName = "idEmbarcacion")
-    private embarcacion embarcacion;
+    @JoinColumn(name = "idContenedor", referencedColumnName = "idContenedor")
+    private Contenedor contenedor;
 
     @Temporal(TemporalType.DATE)
     private Date fechaLlegada;
 
     @ManyToOne
-    @JoinColumn(name = "idAlmacen", referencedColumnName = "idAlmacen")
-    private almacen almacen;
+    @JoinColumn(name = "loteAlmacen", referencedColumnName = "loteAlmacen")
+    private Almacen almacen;
 }

@@ -1,7 +1,7 @@
 package com.upsin.embarcaciones_poo;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.upsin.embarcaciones_poo.gui.VistaLogin;
+import com.upsin.embarcaciones_poo.gui.VistaMain;
 import io.github.cdimascio.dotenv.Dotenv;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -34,8 +34,8 @@ public class EmbarcacionesPooApplication {
                         .run(args);
                 
                 SwingUtilities.invokeLater(() -> {
-                        VistaLogin vistaLogin = contextoSpring.getBean(VistaLogin.class);
-                        vistaLogin.setVisible(true);
+                        VistaMain vistaMain = contextoSpring.getBean(VistaMain.class);
+                        vistaMain.setVisible(true);
                 });
                 
 		SpringApplication.run(EmbarcacionesPooApplication.class, args);

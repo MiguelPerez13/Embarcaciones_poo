@@ -1,6 +1,7 @@
 package com.upsin.embarcaciones_poo.modelo;
 
 import jakarta.persistence.*;
+import java.util.Date;
 import lombok.*;
 
 @Entity
@@ -9,16 +10,17 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class embarcacioncontenedor {
+public class Almacen {
     @Id
     @GeneratedValue
-    private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "idEmbarcacion", referencedColumnName = "idEmbarcacion")
-    private embarcacion embarcacion;
+    private Integer loteAlmacen;
 
     @ManyToOne
     @JoinColumn(name = "idContenedor", referencedColumnName = "idContenedor")
     private Contenedor contenedor;
+
+    @Temporal(TemporalType.DATE)
+    private Date fechaLlegada;
+    
+    private String estado;
 }

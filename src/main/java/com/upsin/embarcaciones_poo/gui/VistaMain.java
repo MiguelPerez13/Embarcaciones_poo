@@ -6,11 +6,9 @@ package com.upsin.embarcaciones_poo.gui;
 
 import java.awt.Insets;
 import javax.swing.SwingConstants;
+import org.springframework.stereotype.Component;
 
-/**
- *
- * @author miguel
- */
+@Component
 public class VistaMain extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaMain.class.getName());

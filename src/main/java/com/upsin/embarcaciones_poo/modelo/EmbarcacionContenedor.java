@@ -9,14 +9,16 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class almacen {
-    @Id
-    @GeneratedValue
-    private Integer idAlmacen;
+public class EmbarcacionContenedor {
+
+    @EmbeddedId
+    private Integer id;
+    
+    @ManyToOne
+    @JoinColumn(name = "idEmbarcacion", referencedColumnName = "idEmbarcacion")
+    private Embarcacion embarcacion;
 
     @ManyToOne
     @JoinColumn(name = "idContenedor", referencedColumnName = "idContenedor")
     private Contenedor contenedor;
-
-    private String estatus;
 }

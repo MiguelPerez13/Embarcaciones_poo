@@ -10,15 +10,18 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class retirocontenedor {
+public class Empresa {
     @Id
     @GeneratedValue
-    private Integer idRetiro;
+    private Integer idEmpresa;
 
-    private String nombreReceptor;
-    private String tipoTransporte;
-    private String empresaTransportista;
+    private String nombre;
+    private String rfc;
+    private String telefono;
+    private String email;
+    private String direccion;
+    private String tipoEmpresa;
 
     @Temporal(TemporalType.DATE)
-    private Date fechaRetiro;
+    private Date fechaRegistro;
 }
