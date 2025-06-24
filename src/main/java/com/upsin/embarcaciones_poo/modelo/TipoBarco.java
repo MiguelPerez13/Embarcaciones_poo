@@ -12,7 +12,7 @@ import lombok.*;
 public class TipoBarco {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idTipoBarco;
 
     private String nombreTipo;
