@@ -16,6 +16,52 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     private TipoBarco tipoBarco;
     private VistaMain vistaMain;
     
+    // constructor de la vista con @Autowired
+    @Autowired
+    public VistaTipoBarcos(TipoBarcoServicio tipoBarcoServicio) {
+        this.tipoBarcoServicio = tipoBarcoServicio;
+        initComponents();
+        iniciarTabla();
+    }    
+    
+    // setter de vista main
+    public void setVistaMain(VistaMain vistaMain) {
+        this.vistaMain = vistaMain;
+    }
+    
+    // inicializar la tabla con el formato de la tabla tipo barcos
+    public void iniciarTabla(){
+            // evitar la edicion de tablas
+        this.tablaModelo = new DefaultTableModel(0, 3){
+            @Override
+            public boolean isCellEditable(int row,int column){return false;}
+        };
+
+        String[] nombresColumnas = {"ID", "Nombre", "Descripcion"};
+        this.tablaModelo.setColumnIdentifiers(nombresColumnas);
+        this.tabla.setModel(tablaModelo);
+        this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        //Cargar listado de pacientes
+        listar();
+    }
+
+    // listar los tipos de barcos de la base de datos
+    private void listar(){
+        this.tablaModelo.setRowCount(0);
+        List<TipoBarco> tiposBarcos = tipoBarcoServicio.listarBarcos();
+        tiposBarcos.forEach(tipoBarco -> {
+            Object[] renglon = {
+                tipoBarco.getIdTipoBarco(),
+                tipoBarco.getNombreTipo(),
+                tipoBarco.getDescripcion()
+            };
+            this.tablaModelo.addRow(renglon);
+        });
+    }
+    
+    //guarda el registro en la base de datos, en caso de que la variable tipoBarco  
+    //tenga un id, en vez de guardar va a editar ese registro
     public void guardar(){      
         String nombre = nombreLabel.getText();
         String descripcion = descripcionLabel.getText();
@@ -34,50 +80,7 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         limpiar();
     }
     
-    public void iniciar(){
-        iniciarTabla();
-    }
-    
-    public void iniciarTabla(){
-            // evitar la edicion de tablas
-        this.tablaModelo = new DefaultTableModel(0, 3){
-            @Override
-            public boolean isCellEditable(int row,int column){return false;}
-        };
-
-        String[] nombresColumnas = {"ID", "Nombre", "Descripcion"};
-        this.tablaModelo.setColumnIdentifiers(nombresColumnas);
-        this.tabla.setModel(tablaModelo);
-        this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        //Cargar listado de pacientes
-        listar();
-    }
-
-    private void listar(){
-        this.tablaModelo.setRowCount(0);
-        List<TipoBarco> tiposBarcos = tipoBarcoServicio.listarBarcos();
-        tiposBarcos.forEach(tipoBarco -> {
-            Object[] renglon = {
-                tipoBarco.getIdTipoBarco(),
-                tipoBarco.getNombreTipo(),
-                tipoBarco.getDescripcion()
-            };
-            this.tablaModelo.addRow(renglon);
-        });
-    }  
-    
-    @Autowired
-    public VistaTipoBarcos(TipoBarcoServicio tipoBarcoServicio) {
-        this.tipoBarcoServicio = tipoBarcoServicio;
-        initComponents();
-        iniciar();
-    }    
-    
-    public void setVistaMain(VistaMain vistaMain) {
-        this.vistaMain = vistaMain;
-    }
-    
+    //carga el registro seleccionado de la tabla para su edicion o eliminacion
     public void cargarSeleccion(){
         var renglon = tabla.getSelectedRow();
         Integer id = (Integer) tabla.getModel().getValueAt(renglon, 0);
@@ -88,16 +91,19 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         descripcionLabel.setText(tipoBarco.getDescripcion());
     }
     
+    //elimina el registro seleccionado
     public void eliminar(){
         tipoBarcoServicio.eliminarTipoBarco(tipoBarco);
     }
     
+    //limpia el formulatio y la variable tipoBarco
     public void limpiar(){
         nombreLabel.setText("");
         descripcionLabel.setText("");
         this.tipoBarco=null;
     }
     
+    //regresa a la vista main
     public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
