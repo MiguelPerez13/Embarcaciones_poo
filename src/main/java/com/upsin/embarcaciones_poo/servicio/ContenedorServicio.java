@@ -4,7 +4,9 @@ import com.upsin.embarcaciones_poo.modelo.Contenedor;
 import com.upsin.embarcaciones_poo.repositorio.ContenedorRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ContenedorServicio implements IContenedorServicio{
 
     @Autowired

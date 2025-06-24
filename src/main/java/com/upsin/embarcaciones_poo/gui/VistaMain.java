@@ -1,18 +1,59 @@
 package com.upsin.embarcaciones_poo.gui;
 
-import java.awt.Insets;
-import javax.swing.SwingConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VistaMain extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaMain.class.getName());
 
-    /**
-     * Creates new form VistaMain
-     */
-    public VistaMain() {
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaMain.class.getName());
+    private final VistaAlmacen vistaAlmacen;
+    private final VistaBarcos vistaBarcos;
+    private final VistaCarga vistaCarga;
+    private final VistaContenedor vistaContenedor;
+    private final VistaEmbarcaciones vistaEmbarcaciones;
+    private final VistaEmbarcacionesContenedores vistaEmbarcacionesContenedores;
+    private final VistaEmpresas vistaEmpresas;
+    private final VistaProductos vistaProductos;
+    private final VistaRetiros vistaRetiros;
+    private final VistaTipoBarcos vistaTipoBarcos;
+
+    @Autowired
+    public VistaMain(
+            VistaAlmacen vistaAlmacen,
+            VistaBarcos vistaBarcos,
+            VistaCarga vistaCarga,
+            VistaContenedor vistaContenedor,
+            VistaEmbarcaciones vistaEmbarcaciones,
+            VistaEmbarcacionesContenedores vistaEmbarcacionesContenedores,
+            VistaEmpresas vistaEmpresas,
+            VistaProductos vistaProductos,
+            VistaRetiros vistaRetiros,
+            VistaTipoBarcos vistaTipoBarcos
+    ) {
+        this.vistaAlmacen = vistaAlmacen;
+        this.vistaBarcos = vistaBarcos;
+        this.vistaCarga = vistaCarga;
+        this.vistaContenedor = vistaContenedor;
+        this.vistaEmbarcaciones = vistaEmbarcaciones;
+        this.vistaEmbarcacionesContenedores = vistaEmbarcacionesContenedores;
+        this.vistaEmpresas = vistaEmpresas;
+        this.vistaProductos = vistaProductos;
+        this.vistaRetiros = vistaRetiros;
+        this.vistaTipoBarcos = vistaTipoBarcos;
+
+        // Le asignamos esta ventana como principal a cada vista que lo necesite
+        this.vistaTipoBarcos.setVistaMain(this);
+        this.vistaAlmacen.setVistaMain(this);
+        this.vistaBarcos.setVistaMain(this);
+        this.vistaCarga.setVistaMain(this);
+        this.vistaContenedor.setVistaMain(this);
+        this.vistaEmbarcaciones.setVistaMain(this);
+        this.vistaEmbarcacionesContenedores.setVistaMain(this);
+        this.vistaEmpresas.setVistaMain(this);
+        this.vistaProductos.setVistaMain(this);
+        this.vistaRetiros.setVistaMain(this);
+
         initComponents();
     }
 
@@ -45,7 +86,7 @@ public class VistaMain extends javax.swing.JFrame {
         btnProducto = new javax.swing.JButton();
         btnAlmacen = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        tipoBarcoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -228,31 +269,23 @@ public class VistaMain extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(153, 204, 255));
 
-        jButton1.setBackground(new java.awt.Color(153, 204, 255));
-        jButton1.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jButton1.setText("LGO-EMPRESA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(1014, Short.MAX_VALUE))
+            .addGap(0, 1238, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jButton1)
-                .addContainerGap(24, Short.MAX_VALUE))
+            .addGap(0, 78, Short.MAX_VALUE)
         );
+
+        tipoBarcoButton.setText("tipos barcos");
+        tipoBarcoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoBarcoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -264,20 +297,23 @@ public class VistaMain extends javax.swing.JFrame {
                 .addGap(368, 368, 368))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(99, 99, 99)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEnbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                        .addComponent(btnContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEnbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnCE, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCargaDescarga, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(tipoBarcoButton)
+                        .addGap(8, 8, 8)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnContenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCargaDescarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(btnContRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -326,7 +362,10 @@ public class VistaMain extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnCargaDescarga)
-                                    .addComponent(btnCE)))))
+                                    .addComponent(btnCE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(tipoBarcoButton))))
                     .addComponent(btnEmpresa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -369,89 +408,55 @@ public class VistaMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
-        VistaAlmacen ventana = new VistaAlmacen(); // Instancia la vistaAlmacen
-        ventana.setVisible(true);                // La muestra
-        this.dispose();
+        vistaAlmacen.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAlmacenActionPerformed
 
     private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
-        VistaProductos ventana = new VistaProductos(); // Instancia la vistaProducto
-        ventana.setVisible(true);                // La muestra
-        this.dispose();
+        vistaProductos.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnProductoActionPerformed
 
     private void btnContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContenedorActionPerformed
-        VistaContenedor ventana = new VistaContenedor(); // Instancia la vistaContenedor
-        ventana.setVisible(true);                // La muestra
-        this.dispose();
+        vistaContenedor.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnContenedorActionPerformed
 
     private void btnContRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContRetiroActionPerformed
-        VistaRetiros ventana = new VistaRetiros(); // Instancia la vistaRetiro
-        ventana.setVisible(true);                // La muestra
-        this.dispose();
+        vistaRetiros.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnContRetiroActionPerformed
 
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
-        VistaEmpresas ventana = new VistaEmpresas(); // Instancia la vistaEmpresa
-        ventana.setVisible(true);                // La muestra
-        this.dispose();
+        vistaEmpresas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
     private void btnCargaDescargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaDescargaActionPerformed
-        VistaCarga ventana = new VistaCarga(); // Instancia la vistaCarga
-        ventana.setVisible(true);                // La muestra
-        this.dispose();
+        vistaCarga.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCargaDescargaActionPerformed
 
     private void btnCEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCEActionPerformed
-        VistaEmbarcacionesContenedores ventana = new VistaEmbarcacionesContenedores(); // Instancia la VistaContenedor
-        ventana.setVisible(true);                // La muestra
-        this.dispose();
+        vistaEmbarcacionesContenedores.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCEActionPerformed
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        VistaBarcos ventana = new VistaBarcos(); // Instancia la VistaRegistroBarcos
-        ventana.setVisible(true);                // La muestra
-        this.dispose();              
+        vistaBarcos.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     private void btnEnbarcacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnbarcacionesActionPerformed
-        VistaEmbarcaciones ventana = new VistaEmbarcaciones(); // Instancia la vistaEmbarcaciones
-        ventana.setVisible(true);                // La muestra
-        this.dispose();    
+        vistaEmbarcaciones.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnEnbarcacionesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VistaMain ventana = new VistaMain(); // Instancia la vistaMain
-        ventana.setVisible(true);                // La muestra
-        this.dispose();    
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void tipoBarcoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoBarcoButtonActionPerformed
+        this.setVisible(false);
+        vistaTipoBarcos.setVisible(true);
+    }//GEN-LAST:event_tipoBarcoButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VistaMain().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlmacen;
@@ -463,7 +468,6 @@ public class VistaMain extends javax.swing.JFrame {
     private javax.swing.JButton btnEnbarcaciones;
     private javax.swing.JButton btnProducto;
     private javax.swing.JButton btnRegistro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -475,5 +479,6 @@ public class VistaMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JButton tipoBarcoButton;
     // End of variables declaration//GEN-END:variables
 }
