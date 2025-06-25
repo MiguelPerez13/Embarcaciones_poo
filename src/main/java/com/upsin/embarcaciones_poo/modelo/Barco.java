@@ -12,7 +12,7 @@ import lombok.*;
 public class Barco {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idBarco;
 
     @ManyToOne
@@ -21,7 +21,7 @@ public class Barco {
 
     private String nombre;
 
-    private Double capacidadCarga;
+    private Float capacidadCarga;
 
     private String estado;
 }

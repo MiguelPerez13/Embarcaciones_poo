@@ -7,7 +7,6 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode
 public class TipoBarco {
 
@@ -18,4 +17,10 @@ public class TipoBarco {
     private String nombreTipo;
 
     private String descripcion;
+
+    @Override
+    public String toString() {
+        return nombreTipo;
+    }
+
 }
