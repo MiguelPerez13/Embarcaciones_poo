@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class VistaMain extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaMain.class.getName());
+     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaMain.class.getName());
     private final VistaAlmacen vistaAlmacen;
     private final VistaBarcos vistaBarcos;
     private final VistaCarga vistaCarga;
@@ -17,6 +17,7 @@ public class VistaMain extends javax.swing.JFrame {
     private final VistaProductos vistaProductos;
     private final VistaRetiros vistaRetiros;
     private final VistaTipoBarcos vistaTipoBarcos;
+
 
     @Autowired
     public VistaMain(
@@ -30,6 +31,8 @@ public class VistaMain extends javax.swing.JFrame {
             VistaProductos vistaProductos,
             VistaRetiros vistaRetiros,
             VistaTipoBarcos vistaTipoBarcos
+
+
     ) {
         this.vistaAlmacen = vistaAlmacen;
         this.vistaBarcos = vistaBarcos;
@@ -66,166 +69,115 @@ public class VistaMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        btnMain = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnBarcos = new javax.swing.JButton();
+        btnEmbarcaciones = new javax.swing.JButton();
+        btnEmbarcacionContenedor = new javax.swing.JButton();
+        btnContenedor = new javax.swing.JButton();
+        btnRetiro = new javax.swing.JButton();
+        btnCarga = new javax.swing.JButton();
+        btnTipoBarco = new javax.swing.JButton();
+        btnProducto = new javax.swing.JButton();
+        btnEmpresa = new javax.swing.JButton();
+        bntAlmacen = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        btnEnbarcaciones = new javax.swing.JButton();
-        btnRegistro = new javax.swing.JButton();
-        btnCE = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        btnCargaDescarga = new javax.swing.JButton();
-        btnEmpresa = new javax.swing.JButton();
-        btnContRetiro = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        btnContenedor = new javax.swing.JButton();
-        btnProducto = new javax.swing.JButton();
-        btnAlmacen = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        tipoBarcoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(248, 248, 248));
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        jPanel3.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
 
-        jLabel2.setText("© 2025 MAR AZUL EMBARCACIONES");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
-
-        jPanel4.setBackground(new java.awt.Color(248, 248, 248));
-
-        jPanel6.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setText("© 2025 MAR AZUL EMBARCACIONES");
-        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Century", 0, 36)); // NOI18N
-        jLabel6.setText("GESTOR DEL PUERTO");
-
-        btnEnbarcaciones.setBackground(new java.awt.Color(51, 102, 255));
-        btnEnbarcaciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnEnbarcaciones.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnbarcaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-embarcacion2.png"))); // NOI18N
-        btnEnbarcaciones.setText("ACTIVOS");
-        btnEnbarcaciones.setAlignmentX(0.5F);
-        btnEnbarcaciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEnbarcaciones.setIconTextGap(1);
-        btnEnbarcaciones.setInheritsPopupMenu(true);
-        btnEnbarcaciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnEnbarcaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnbarcacionesActionPerformed(evt);
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
             }
         });
 
-        btnRegistro.setBackground(new java.awt.Color(51, 102, 255));
-        btnRegistro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnRegistro.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_barco3.png"))); // NOI18N
-        btnRegistro.setText("REGISTRO");
-        btnRegistro.setAlignmentX(0.5F);
-        btnRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRegistro.setIconTextGap(5);
-        btnRegistro.setInheritsPopupMenu(true);
-        btnRegistro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRegistro.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(btnMain)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogin)
+                .addGap(62, 62, 62))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogin)
+                    .addComponent(btnMain))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel3.setFont(new java.awt.Font("Century", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("GESTOR DEL PUERTO");
+
+        btnBarcos.setBackground(new java.awt.Color(51, 153, 255));
+        btnBarcos.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        btnBarcos.setForeground(new java.awt.Color(255, 255, 255));
+        btnBarcos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_barco3.png"))); // NOI18N
+        btnBarcos.setText("REGISTRO");
+        btnBarcos.setBorderPainted(false);
+        btnBarcos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnBarcos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnBarcos.addMouseListener(new java.awt.event.MouseAdapter() {
+        });
+        btnBarcos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistroActionPerformed(evt);
+                btnBarcosActionPerformed(evt);
             }
         });
 
-        btnCE.setBackground(new java.awt.Color(51, 102, 255));
-        btnCE.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnCE.setForeground(new java.awt.Color(255, 255, 255));
-        btnCE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_Cont_Embarcacion.png"))); // NOI18N
-        btnCE.setText("CE");
-        btnCE.setAlignmentX(0.5F);
-        btnCE.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCE.setIconTextGap(5);
-        btnCE.setInheritsPopupMenu(true);
-        btnCE.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnCE.addActionListener(new java.awt.event.ActionListener() {
+        btnEmbarcaciones.setBackground(new java.awt.Color(51, 153, 255));
+        btnEmbarcaciones.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        btnEmbarcaciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmbarcaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-embarcacion2.png"))); // NOI18N
+        btnEmbarcaciones.setText("ACTIVOS");
+        btnEmbarcaciones.setBorderPainted(false);
+        btnEmbarcaciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEmbarcaciones.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEmbarcaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCEActionPerformed(evt);
+                btnEmbarcacionesActionPerformed(evt);
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jLabel7.setText("BARCOS");
-
-        jLabel8.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jLabel8.setText("CONTENEDORES");
-
-        btnCargaDescarga.setBackground(new java.awt.Color(255, 153, 51));
-        btnCargaDescarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnCargaDescarga.setForeground(new java.awt.Color(255, 255, 255));
-        btnCargaDescarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CyD.png"))); // NOI18N
-        btnCargaDescarga.setText("CARGA");
-        btnCargaDescarga.setAlignmentX(0.5F);
-        btnCargaDescarga.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCargaDescarga.setIconTextGap(5);
-        btnCargaDescarga.setInheritsPopupMenu(true);
-        btnCargaDescarga.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnCargaDescarga.addActionListener(new java.awt.event.ActionListener() {
+        btnEmbarcacionContenedor.setBackground(new java.awt.Color(51, 153, 255));
+        btnEmbarcacionContenedor.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        btnEmbarcacionContenedor.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmbarcacionContenedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_Cont_Embarcacion.png"))); // NOI18N
+        btnEmbarcacionContenedor.setText("CE");
+        btnEmbarcacionContenedor.setBorderPainted(false);
+        btnEmbarcacionContenedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEmbarcacionContenedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEmbarcacionContenedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargaDescargaActionPerformed(evt);
+                btnEmbarcacionContenedorActionPerformed(evt);
             }
         });
-
-        btnEmpresa.setBackground(new java.awt.Color(153, 0, 255));
-        btnEmpresa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnEmpresa.setForeground(new java.awt.Color(255, 255, 255));
-        btnEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-empresa.png"))); // NOI18N
-        btnEmpresa.setText("EMPRESA");
-        btnEmpresa.setToolTipText("");
-        btnEmpresa.setAlignmentX(0.5F);
-        btnEmpresa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEmpresa.setIconTextGap(5);
-        btnEmpresa.setInheritsPopupMenu(true);
-        btnEmpresa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEmpresaActionPerformed(evt);
-            }
-        });
-
-        btnContRetiro.setBackground(new java.awt.Color(255, 153, 51));
-        btnContRetiro.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnContRetiro.setForeground(new java.awt.Color(255, 255, 255));
-        btnContRetiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-retiro.png"))); // NOI18N
-        btnContRetiro.setText("RETIRO");
-        btnContRetiro.setAlignmentX(0.5F);
-        btnContRetiro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnContRetiro.setIconTextGap(5);
-        btnContRetiro.setInheritsPopupMenu(true);
-        btnContRetiro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnContRetiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnContRetiroActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
-        jLabel9.setText("ADMINISTRACION");
 
         btnContenedor.setBackground(new java.awt.Color(255, 153, 51));
-        btnContenedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnContenedor.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
         btnContenedor.setForeground(new java.awt.Color(255, 255, 255));
         btnContenedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-contenedor.png"))); // NOI18N
         btnContenedor.setText("CONTEN");
-        btnContenedor.setToolTipText("");
-        btnContenedor.setAlignmentX(0.5F);
+        btnContenedor.setBorderPainted(false);
         btnContenedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnContenedor.setIconTextGap(5);
-        btnContenedor.setInheritsPopupMenu(true);
         btnContenedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnContenedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,16 +185,55 @@ public class VistaMain extends javax.swing.JFrame {
             }
         });
 
+        btnRetiro.setBackground(new java.awt.Color(255, 153, 51));
+        btnRetiro.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        btnRetiro.setForeground(new java.awt.Color(255, 255, 255));
+        btnRetiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-retiro.png"))); // NOI18N
+        btnRetiro.setText("RETIRO");
+        btnRetiro.setBorderPainted(false);
+        btnRetiro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRetiro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRetiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetiroActionPerformed(evt);
+            }
+        });
+
+        btnCarga.setBackground(new java.awt.Color(255, 153, 51));
+        btnCarga.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        btnCarga.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CyD.png"))); // NOI18N
+        btnCarga.setText("CARGA");
+        btnCarga.setBorderPainted(false);
+        btnCarga.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCarga.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargaActionPerformed(evt);
+            }
+        });
+
+        btnTipoBarco.setBackground(new java.awt.Color(153, 0, 255));
+        btnTipoBarco.setFont(new java.awt.Font("Century", 1, 15)); // NOI18N
+        btnTipoBarco.setForeground(new java.awt.Color(255, 255, 255));
+        btnTipoBarco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_TipoBarco.png"))); // NOI18N
+        btnTipoBarco.setText("TIPOBARCO");
+        btnTipoBarco.setBorderPainted(false);
+        btnTipoBarco.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTipoBarco.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTipoBarco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTipoBarcoActionPerformed(evt);
+            }
+        });
+
         btnProducto.setBackground(new java.awt.Color(153, 51, 255));
-        btnProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnProducto.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
         btnProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-producto.png"))); // NOI18N
-        btnProducto.setText("PRODUCT");
-        btnProducto.setToolTipText("");
-        btnProducto.setAlignmentX(0.5F);
+        btnProducto.setText("PRODUCTO");
+        btnProducto.setBorderPainted(false);
         btnProducto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnProducto.setIconTextGap(5);
-        btnProducto.setInheritsPopupMenu(true);
         btnProducto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,235 +241,199 @@ public class VistaMain extends javax.swing.JFrame {
             }
         });
 
-        btnAlmacen.setBackground(new java.awt.Color(153, 0, 255));
-        btnAlmacen.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnAlmacen.setForeground(new java.awt.Color(255, 255, 255));
-        btnAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-almacen.png"))); // NOI18N
-        btnAlmacen.setText("ALMACEN");
-        btnAlmacen.setToolTipText("");
-        btnAlmacen.setAlignmentX(0.5F);
-        btnAlmacen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAlmacen.setIconTextGap(5);
-        btnAlmacen.setInheritsPopupMenu(true);
-        btnAlmacen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAlmacen.addActionListener(new java.awt.event.ActionListener() {
+        btnEmpresa.setBackground(new java.awt.Color(153, 0, 255));
+        btnEmpresa.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        btnEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-empresa.png"))); // NOI18N
+        btnEmpresa.setText("EMPRESA");
+        btnEmpresa.setBorderPainted(false);
+        btnEmpresa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEmpresa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlmacenActionPerformed(evt);
+                btnEmpresaActionPerformed(evt);
             }
         });
 
-        jPanel7.setBackground(new java.awt.Color(153, 204, 255));
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1238, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 78, Short.MAX_VALUE)
-        );
-
-        tipoBarcoButton.setText("tipos barcos");
-        tipoBarcoButton.addActionListener(new java.awt.event.ActionListener() {
+        bntAlmacen.setBackground(new java.awt.Color(153, 51, 255));
+        bntAlmacen.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        bntAlmacen.setForeground(new java.awt.Color(255, 255, 255));
+        bntAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-almacen.png"))); // NOI18N
+        bntAlmacen.setText("ALMACEN");
+        bntAlmacen.setBorderPainted(false);
+        bntAlmacen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bntAlmacen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bntAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoBarcoButtonActionPerformed(evt);
+                bntAlmacenActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(368, 368, 368))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEnbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnCE, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(tipoBarcoButton)
-                        .addGap(8, 8, 8)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnContenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCargaDescarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(btnContRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(106, 106, 106))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(176, 176, 176)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(151, 151, 151)
-                .addComponent(jLabel9)
-                .addGap(132, 132, 132))
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1232, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel6)
-                .addGap(43, 43, 43)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEnbarcaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnContRetiro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAlmacen))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCargaDescarga)
-                                    .addComponent(btnCE)))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addComponent(tipoBarcoButton))))
-                    .addComponent(btnEmpresa))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jLabel5.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        jLabel5.setText("BARCOS");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1238, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(756, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
+        jLabel6.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        jLabel6.setText("CONTENEDORES");
+
+        jLabel7.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        jLabel7.setText("ADMINISTRACION");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(392, 392, 392))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBarcos, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEmbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEmbarcacionContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addComponent(btnContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(145, 145, 145)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntAlmacen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTipoBarco, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(130, 130, 130))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(222, 222, 222)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(261, 261, 261)
+                .addComponent(jLabel7)
+                .addGap(187, 187, 187))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(jLabel3)
+                .addGap(68, 68, 68)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBarcos, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEmbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEmbarcacionContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnTipoBarco, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bntAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 123, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
-        vistaAlmacen.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnAlmacenActionPerformed
+    
 
-    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
-        vistaProductos.setVisible(true);
+
+    private void btnBarcosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarcosActionPerformed
+        vistaBarcos.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnProductoActionPerformed
+    }//GEN-LAST:event_btnBarcosActionPerformed
+
+    private void btnEmbarcacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmbarcacionesActionPerformed
+        vistaEmbarcaciones.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnEmbarcacionesActionPerformed
+
+    private void btnEmbarcacionContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmbarcacionContenedorActionPerformed
+        vistaEmbarcacionesContenedores.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnEmbarcacionContenedorActionPerformed
 
     private void btnContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContenedorActionPerformed
         vistaContenedor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnContenedorActionPerformed
 
-    private void btnContRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContRetiroActionPerformed
+    private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiroActionPerformed
         vistaRetiros.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnContRetiroActionPerformed
+    }//GEN-LAST:event_btnRetiroActionPerformed
+
+    private void btnCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaActionPerformed
+        vistaCarga.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCargaActionPerformed
+
+    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
+        vistaProductos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnProductoActionPerformed
 
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
         vistaEmpresas.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
-    private void btnCargaDescargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaDescargaActionPerformed
-        vistaCarga.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnCargaDescargaActionPerformed
-
-    private void btnCEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCEActionPerformed
-        vistaEmbarcacionesContenedores.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnCEActionPerformed
-
-    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        vistaBarcos.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnRegistroActionPerformed
-
-    private void btnEnbarcacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnbarcacionesActionPerformed
-        vistaEmbarcaciones.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnEnbarcacionesActionPerformed
-
-    private void tipoBarcoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoBarcoButtonActionPerformed
-        this.setVisible(false);
+    private void btnTipoBarcoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoBarcoActionPerformed
         vistaTipoBarcos.setVisible(true);
-    }//GEN-LAST:event_tipoBarcoButtonActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnTipoBarcoActionPerformed
 
+    private void bntAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAlmacenActionPerformed
+        vistaAlmacen.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bntAlmacenActionPerformed
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        VistaLogin login = new VistaLogin();  // Crear instancia
+        login.setVisible(true);               // Mostrar nueva ventana
+        this.setVisible(false);               // Ocultar la actual
+    }//GEN-LAST:event_btnLoginMouseClicked
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlmacen;
-    private javax.swing.JButton btnCE;
-    private javax.swing.JButton btnCargaDescarga;
-    private javax.swing.JButton btnContRetiro;
+    private javax.swing.JButton bntAlmacen;
+    private javax.swing.JButton btnBarcos;
+    private javax.swing.JButton btnCarga;
     private javax.swing.JButton btnContenedor;
+    private javax.swing.JButton btnEmbarcacionContenedor;
+    private javax.swing.JButton btnEmbarcaciones;
     private javax.swing.JButton btnEmpresa;
-    private javax.swing.JButton btnEnbarcaciones;
+    private javax.swing.JLabel btnLogin;
+    private javax.swing.JLabel btnMain;
     private javax.swing.JButton btnProducto;
-    private javax.swing.JButton btnRegistro;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnRetiro;
+    private javax.swing.JButton btnTipoBarco;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JButton tipoBarcoButton;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
