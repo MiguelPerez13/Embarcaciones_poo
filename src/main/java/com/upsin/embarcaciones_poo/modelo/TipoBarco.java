@@ -18,4 +18,9 @@ public class TipoBarco {
     private String nombreTipo;
 
     private String descripcion;
+
+    @Override
+    public String toString() {
+        return nombreTipo;
+    }
 }
