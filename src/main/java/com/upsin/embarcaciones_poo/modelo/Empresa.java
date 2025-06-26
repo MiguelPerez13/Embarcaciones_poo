@@ -15,6 +15,7 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEmpresa;
 
+
     private String nombre;
     private String rfc;
     private String telefono;
