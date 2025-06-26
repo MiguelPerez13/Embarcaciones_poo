@@ -65,7 +65,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         });
     }
 
-    private void inicializarCombobox(){
+    public void inicializarCombobox(){
         List<TipoBarco> tiposBarcos = tipoBarcoServicio.listarBarcos();
 
         tiposBarcos.forEach(tipoBarco -> {
@@ -79,26 +79,38 @@ public class VistaBarcos extends javax.swing.JFrame {
     }
 
     public void guardar(){
+        boolean guardar = true;
+
         TipoBarco tipoBarco = (TipoBarco) tipoBarcoComboBox.getSelectedItem();
         String nombre = nombreLabel.getText();
-        Float capacidad = Float.parseFloat(capacidadLabel.getText());
+        Float capacidad=(float) 0;
+        try {
+            capacidad = Float.parseFloat(capacidadLabel.getText());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,"Ingrese un numero decimal para la capacidad");
+            guardar = false;
+        }
         String estado = estadoLabel.getText();
+
+        if(nombre.isEmpty() || estado.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Llena todos los campos del formulario antes de continuar");
+            guardar = false;
+        }
 
         //el de capacidad ocuparia un try catch para validar que fuera un float
 
-        if(true){
+        if(guardar){
             barco.setTipoBarco(tipoBarco);
             barco.setNombre(nombre);
             barco.setCapacidadCarga(capacidad);
             barco.setEstado(estado);
 
             barcoServicio.guardar(barco);
-        }else{
-            System.out.println("hola");
+
+            limpiar();
+            listar();
         }
 
-        limpiar();
-        listar();
     }
 
     public void limpiar(){
@@ -125,6 +137,15 @@ public class VistaBarcos extends javax.swing.JFrame {
         listar();
     }
 
+    public boolean verificarSeleccion(){
+        if(this.barco.getIdBarco() != null ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"Selecciona un registro primero");
+            return false;
+        }
+    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -148,6 +169,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         tipoBarcoComboBox = new javax.swing.JComboBox<>();
         eliminarButton = new javax.swing.JButton();
         editarButton = new javax.swing.JButton();
+        limpiarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -273,6 +295,13 @@ public class VistaBarcos extends javax.swing.JFrame {
             }
         });
 
+        limpiarButton.setText("Limpiar");
+        limpiarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -280,16 +309,15 @@ public class VistaBarcos extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(171, 171, 171)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(nombreLabel)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(capacidadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(estadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nombreLabel)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(capacidadLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(estadoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipoBarcoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tipoBarcoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -308,8 +336,10 @@ public class VistaBarcos extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(editarButton)
                         .addGap(47, 47, 47)
-                        .addComponent(eliminarButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(eliminarButton)
+                        .addGap(30, 30, 30)
+                        .addComponent(limpiarButton)))
+                .addContainerGap(830, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +351,7 @@ public class VistaBarcos extends javax.swing.JFrame {
                 .addComponent(regresarButton)
                 .addGap(66, 66, 66)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tipoBarcoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,7 +372,8 @@ public class VistaBarcos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardarButton)
                     .addComponent(editarButton)
-                    .addComponent(eliminarButton))
+                    .addComponent(eliminarButton)
+                    .addComponent(limpiarButton))
                 .addGap(88, 88, 88))
         );
 
@@ -385,17 +416,23 @@ public class VistaBarcos extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreLabelActionPerformed
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
-        eliminar();
-        limpiar();
+       if(verificarSeleccion()){
+            eliminar();
+            limpiar();
+        }
     }//GEN-LAST:event_eliminarButtonActionPerformed
 
     private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
-        guardar();
+        if(verificarSeleccion()) guardar();
     }//GEN-LAST:event_editarButtonActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         cargarSeleccion();
     }//GEN-LAST:event_tablaMouseClicked
+
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+        limpiar();
+    }//GEN-LAST:event_limpiarButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -413,6 +450,7 @@ public class VistaBarcos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton limpiarButton;
     private javax.swing.JTextField nombreLabel;
     private javax.swing.JButton regresarButton;
     private javax.swing.JTable tabla;

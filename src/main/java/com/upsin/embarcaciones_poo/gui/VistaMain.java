@@ -360,6 +360,7 @@ public class VistaMain extends javax.swing.JFrame {
 
 
     private void btnBarcosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarcosActionPerformed
+        vistaBarcos.inicializarCombobox();
         vistaBarcos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBarcosActionPerformed
