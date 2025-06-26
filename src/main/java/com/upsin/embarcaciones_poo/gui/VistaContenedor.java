@@ -4,9 +4,17 @@
  */
 package com.upsin.embarcaciones_poo.gui;
 
+import com.upsin.embarcaciones_poo.modelo.Contenedor;
+import com.upsin.embarcaciones_poo.modelo.Empresa;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
+import com.upsin.embarcaciones_poo.servicio.EmpresaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 @Component
 public class VistaContenedor extends javax.swing.JFrame {
@@ -14,20 +22,146 @@ public class VistaContenedor extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaContenedor.class.getName());
     private VistaMain vistaMain;
     private ContenedorServicio contenedorServicio;
+    private EmpresaServicio empresaServicio;
+    private DefaultTableModel tablaModelo;
+    private Contenedor contenedor;
     
     @Autowired
-    public VistaContenedor(ContenedorServicio contenedorServicio) {
+    public VistaContenedor(ContenedorServicio contenedorServicio, EmpresaServicio empresaServicio) {
         this.contenedorServicio = contenedorServicio;
+        this.empresaServicio = empresaServicio;
         initComponents();
+        iniciarTabla();
+        inicializarComboBox();
     }
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
     }
+
+    public void iniciarTabla(){
+        // evitar la edicion de tablas
+        this.tablaModelo = new DefaultTableModel(0, 5){
+            @Override
+            public boolean isCellEditable(int row,int column){return false;}
+        };
+
+        String[] nombresColumnas = {"ID", "Empresa", "Unidad de medida","Peso total","Observaciones"};
+        this.tablaModelo.setColumnIdentifiers(nombresColumnas);
+        this.tabla.setModel(tablaModelo);
+        this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        //Cargar listado de pacientes
+        listar();
+    }
+
+    public void listar(){
+        this.tablaModelo.setRowCount(0);
+
+        List<Contenedor> contenedores = contenedorServicio.listarContenedores();
+
+        contenedores.forEach(contenedor -> {
+            Object[] renglon ={
+                    contenedor.getIdContenedor(),
+                    contenedor.getEmpresa().getNombre(),
+                    contenedor.getUnidadMedida(),
+                    contenedor.getPesoTotal(),
+                    contenedor.getObservaciones()
+            };
+            tablaModelo.addRow(renglon);
+        });
+    }
    
    public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
+    }
+
+    public void inicializarComboBox(){
+        empresaComboBox.removeAllItems();
+
+        List<Empresa> empresas = empresaServicio.listarEmpresa();
+
+        empresas.forEach(empresa ->{
+            empresaComboBox.addItem(empresa);
+        });
+    }
+
+    public void guardar(){
+        Empresa empresa = (Empresa) empresaComboBox.getSelectedItem();
+        Float unidadMedida = (float) 0;
+        Float peso = (float) 0;
+        String observaciones = observacionesField.getText();
+
+        boolean verificar = true;
+
+        try{
+            unidadMedida = Float.parseFloat(medidaField.getText());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,"Digite un numero en el campo de unidad de medida");
+            verificar = false;
+        }
+
+        try{
+            peso = Float.parseFloat(medidaField.getText());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,"Digite un numero en el campo de peso");
+            verificar = false;
+        }
+
+        if(observaciones.isEmpty()){
+            verificar = false;
+            JOptionPane.showMessageDialog(this,"Rellene todos los campos antes de continuar");
+        }
+
+        if(verificar){
+            contenedor.setEmpresa(empresa);
+            contenedor.setUnidadMedida(unidadMedida);
+            contenedor.setPesoTotal(peso);
+            contenedor.setObservaciones(observaciones);
+
+            contenedorServicio.guardarContenedor(contenedor);
+
+            limpiar();
+            listar();
+        }
+
+    }
+
+    public void cargarSeleccion(){
+        var renglon = tabla.getSelectedRow();
+        Integer id = (Integer) tabla.getModel().getValueAt(renglon,0);
+
+        this.contenedor = contenedorServicio.buscarContendorPorId(id);
+
+        empresaComboBox.setSelectedItem(contenedor.getEmpresa());
+        medidaField.setText(String.valueOf(contenedor.getUnidadMedida()));
+        pesoField.setText(String.valueOf(contenedor.getPesoTotal()));
+        observacionesField.setText(contenedor.getObservaciones());
+    }
+
+    public boolean verificarSeleccion(){
+        if(contenedor.getIdContenedor() != null){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"Seleccione un registro de la tabla antes de continuar");
+            return false;
+        }
+    }
+
+    public void eliminar(){
+        contenedorServicio.eliminarContenedor(contenedor);
+
+        limpiar();
+        listar();
+    }
+
+    public void limpiar(){
+        medidaField.setText("");
+        pesoField.setText("");
+        observacionesField.setText("");
+
+        contenedor=null;
     }
     
     @SuppressWarnings("unchecked")
@@ -35,51 +169,58 @@ public class VistaContenedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        empresaComboBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        medidaField = new javax.swing.JTextField();
+        pesoField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        observacionesField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
         regresarButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnMain = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        limpiarButton = new javax.swing.JButton();
+        guardarButton = new javax.swing.JButton();
+        editarButton = new javax.swing.JButton();
+        eliminarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setText("Empresa");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setText("Unidad de medida");
 
         jLabel4.setText("Peso total");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
         jLabel5.setText("Observaciones");
 
-        jTextField3.setText("jTextField3");
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabla);
 
         regresarButton.setText("Regresar");
         regresarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +270,34 @@ public class VistaContenedor extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Arial Black", 0, 48)); // NOI18N
         jLabel6.setText("CONTENEDORES");
 
+        limpiarButton.setText("Limpiar");
+        limpiarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarButtonActionPerformed(evt);
+            }
+        });
+
+        guardarButton.setText("Guardar");
+        guardarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarButtonActionPerformed(evt);
+            }
+        });
+
+        editarButton.setText("Editar");
+        editarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarButtonActionPerformed(evt);
+            }
+        });
+
+        eliminarButton.setText("Eliminar");
+        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,36 +309,50 @@ public class VistaContenedor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(123, 123, 123)
+                            .addComponent(empresaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(99, 99, 99)
+                            .addComponent(medidaField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(104, 104, 104)
+                            .addComponent(pesoField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(107, 107, 107)
-                                .addComponent(regresarButton))
+                                .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80)
+                                .addComponent(limpiarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(guardarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(editarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(eliminarButton))
                             .addComponent(jLabel5)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1214, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(105, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addGap(449, 449, 449))
+                .addGap(252, 252, 252)
+                .addComponent(regresarButton)
+                .addGap(114, 114, 114))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(regresarButton)
+                        .addGap(38, 38, 38)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -177,11 +360,14 @@ public class VistaContenedor extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(regresarButton))
+                    .addComponent(empresaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(medidaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pesoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(limpiarButton)
+                    .addComponent(guardarButton)
+                    .addComponent(editarButton)
+                    .addComponent(eliminarButton))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(86, 86, 86))
@@ -204,11 +390,43 @@ public class VistaContenedor extends javax.swing.JFrame {
         this.setVisible(false);               // Ocultar la actual
     }//GEN-LAST:event_btnLoginMouseClicked
 
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+        limpiar();
+    }//GEN-LAST:event_limpiarButtonActionPerformed
+
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
+        contenedor = new Contenedor();
+        guardar();
+    }//GEN-LAST:event_guardarButtonActionPerformed
+
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
+        if(verificarSeleccion()){
+            guardar();
+        }
+    }//GEN-LAST:event_editarButtonActionPerformed
+
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+        if(verificarSeleccion()){
+            eliminar();
+        }
+    }//GEN-LAST:event_eliminarButtonActionPerformed
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        cargarSeleccion();
+    }//GEN-LAST:event_tablaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton editarButton;
+    private javax.swing.JButton eliminarButton;
+    private javax.swing.JComboBox<Empresa> empresaComboBox;
+    private javax.swing.JButton guardarButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -216,10 +434,11 @@ public class VistaContenedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton limpiarButton;
+    private javax.swing.JTextField medidaField;
+    private javax.swing.JTextField observacionesField;
+    private javax.swing.JTextField pesoField;
     private javax.swing.JButton regresarButton;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

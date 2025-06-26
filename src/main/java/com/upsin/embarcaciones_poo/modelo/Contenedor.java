@@ -16,9 +16,9 @@ public class Contenedor {
     
     @ManyToOne
     @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
-    private Empresa idEmpresa;
+    private Empresa empresa;
     
-    private Double unidadMedida;
-    private Double pesoTotal;
+    private Float unidadMedida;
+    private Float pesoTotal;
     private String observaciones;
 }
