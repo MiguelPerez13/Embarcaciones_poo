@@ -11,7 +11,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class Contenedor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idContenedor;
     
     @ManyToOne

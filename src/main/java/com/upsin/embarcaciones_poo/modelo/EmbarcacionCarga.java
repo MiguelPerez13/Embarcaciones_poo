@@ -12,7 +12,7 @@ import java.util.Date;
 @EqualsAndHashCode
 public class EmbarcacionCarga {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne

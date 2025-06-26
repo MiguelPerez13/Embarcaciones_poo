@@ -12,7 +12,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class Almacen {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer loteAlmacen;
 
     @ManyToOne

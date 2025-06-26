@@ -12,7 +12,7 @@ import java.util.Date;
 @EqualsAndHashCode
 public class Empresa {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEmpresa;
 
     private String nombre;
