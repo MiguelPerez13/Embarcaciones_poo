@@ -376,6 +376,7 @@ public class VistaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEmbarcacionContenedorActionPerformed
 
     private void btnContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContenedorActionPerformed
+        vistaContenedor.inicializarComboBox();
         vistaContenedor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnContenedorActionPerformed

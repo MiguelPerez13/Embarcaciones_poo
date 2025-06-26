@@ -66,6 +66,7 @@ public class VistaBarcos extends javax.swing.JFrame {
     }
 
     public void inicializarCombobox(){
+        tipoBarcoComboBox.removeAllItems();
         List<TipoBarco> tiposBarcos = tipoBarcoServicio.listarBarcos();
 
         tiposBarcos.forEach(tipoBarco -> {

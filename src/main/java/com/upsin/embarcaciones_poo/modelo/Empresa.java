@@ -25,4 +25,9 @@ public class Empresa {
 
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
+
+    @Override
+    public String toString(){
+        return nombre;
+    }
 }
