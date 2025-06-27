@@ -3,7 +3,7 @@ import com.upsin.embarcaciones_poo.modelo.TipoBarco;
 import com.upsin.embarcaciones_poo.servicio.TipoBarcoServicio;
 import java.util.List;
 
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +22,7 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         this.tipoBarcoServicio = tipoBarcoServicio;
         initComponents();
         iniciarTabla();
+        tipoBarco = new TipoBarco();
     }    
     
     // setter de vista main
@@ -47,7 +48,7 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     }
 
     // listar los tipos de barcos de la base de datos
-    private void listar(){
+    public void listar(){
         this.tablaModelo.setRowCount(0);
         List<TipoBarco> tiposBarcos = tipoBarcoServicio.listarBarcos();
         tiposBarcos.forEach(tipoBarco -> {
@@ -65,17 +66,18 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     public void guardar(){      
         String nombre = nombreLabel.getText();
         String descripcion = descripcionLabel.getText();
-        
-        if( true ){
-            //aca irian las validaciones          
-            tipoBarco.setNombreTipo(nombre);
-            tipoBarco.setDescripcion(descripcion);
-            
-            tipoBarcoServicio.guardarTipoBarco(tipoBarco);
-        }else{
-            //aca si no se se validan
-            System.out.println("hola");
+
+        if(nombre.isEmpty() || descripcion.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Llene todos los campos antes de continuar");
+            return;
         }
+
+            //aca irian las validaciones          
+        tipoBarco.setNombreTipo(nombre);
+        tipoBarco.setDescripcion(descripcion);
+            
+        tipoBarcoServicio.guardarTipoBarco(tipoBarco);
+
         listar();
         limpiar();
     }
@@ -94,19 +96,30 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     //elimina el registro seleccionado
     public void eliminar(){
         tipoBarcoServicio.eliminarTipoBarco(tipoBarco);
+        listar();
+        limpiar();
     }
     
     //limpia el formulatio y la variable tipoBarco
     public void limpiar(){
         nombreLabel.setText("");
         descripcionLabel.setText("");
-        this.tipoBarco=null;
+        this.tipoBarco= new TipoBarco();
     }
     
     //regresa a la vista main
     public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
+    }
+
+    private boolean verificarSeleccion(){
+        if(tipoBarco.getIdTipoBarco() != null){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"Seleccione un registro antes de continuar");
+            return false;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -302,17 +315,19 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     }//GEN-LAST:event_guardatButtonActionPerformed
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
-        eliminar();
-        limpiar();
-        listar();
+        if(verificarSeleccion()){
+            eliminar();
+        }
     }//GEN-LAST:event_eliminarButtonActionPerformed
 
     private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
-        guardar();
+        if(verificarSeleccion()){
+            guardar();
+        }
     }//GEN-LAST:event_editarButtonActionPerformed
 
     private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
-        regresar();
+        limpiar();
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked

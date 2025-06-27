@@ -361,6 +361,7 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnBarcosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarcosActionPerformed
         vistaBarcos.inicializarCombobox();
+        vistaBarcos.listar();
         vistaBarcos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBarcosActionPerformed
@@ -377,6 +378,7 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContenedorActionPerformed
         vistaContenedor.inicializarComboBox();
+        vistaContenedor.listar();
         vistaContenedor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnContenedorActionPerformed
@@ -392,17 +394,21 @@ public class VistaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCargaActionPerformed
 
     private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
+        vistaProductos.inicializarComboBox();
+        vistaProductos.listar();
         vistaProductos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnProductoActionPerformed
 
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
         vistaEmpresas.setVisible(true);
+        vistaEmpresas.listar();
         this.setVisible(false);
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
     private void btnTipoBarcoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoBarcoActionPerformed
         vistaTipoBarcos.setVisible(true);
+        vistaTipoBarcos.listar();
         this.setVisible(false);
     }//GEN-LAST:event_btnTipoBarcoActionPerformed
 

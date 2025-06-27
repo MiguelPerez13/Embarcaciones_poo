@@ -19,7 +19,6 @@ public class VistaProductos extends javax.swing.JFrame {
     private ProductoServicio productoServicio;
     private Producto producto;
     private DefaultTableModel tablaModelo;
-    private Contenedor contenedor;
     private ContenedorServicio contenedorServicio;
 
 
@@ -29,7 +28,9 @@ public class VistaProductos extends javax.swing.JFrame {
         this.contenedorServicio = contenedorServicio;
         initComponents();
         iniciarTabla();
+        inicializarComboBox();
         listar();
+        producto = new Producto();
     }
 
     private void llenarComboTipoProducto() {
@@ -65,18 +66,36 @@ public class VistaProductos extends javax.swing.JFrame {
         String[] columnas = {"ID", "Nombre", "Tipo", "Cantidad", "Peso Unitario", "ID Contenedor", "Observaciones"};
         this.tablaModelo.setColumnIdentifiers(columnas);
         jTable1.setModel(tablaModelo);
+
+        listar();
+    }
+
+    public void inicializarComboBox(){
+        contenedorComboBox.removeAllItems();
+
+        List<Contenedor> contenedores = contenedorServicio.listarContenedores();
+        contenedores.forEach(contenedor -> {
+            contenedorComboBox.addItem(contenedor);
+        });
+
     }
 
 
     private void guardar() {
-        boolean valido = true;
 
         // Validar si existen contenedores registrados
-        List<Contenedor> contenedores = contenedorServicio.listarContenedores();
-        if (contenedores.isEmpty()) {
+
+        if (contenedorComboBox.getItemCount() == 0) {
             JOptionPane.showMessageDialog(this, "⚠️ No hay contenedores registrados. Por favor, registre uno antes de continuar.");
             return;
         }
+
+        if(contenedorComboBox.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(this,"Seleccione un contenedor antes de continuar");
+            return;
+        }
+
+        Contenedor contenedor = (Contenedor) contenedorComboBox.getSelectedItem();
 
         String tipoProducto = (String) jComboBox1.getSelectedItem();
         String nombre = NombreText.getText().trim();
@@ -86,12 +105,12 @@ public class VistaProductos extends javax.swing.JFrame {
 
         if (tipoProducto == null || tipoProducto.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un tipo de producto válido");
-            valido = false;
+            return;
         }
 
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(this, "El nombre del producto no puede estar vacío");
-            valido = false;
+            return;
         }
 
         int cantidad = 0;
@@ -99,14 +118,14 @@ public class VistaProductos extends javax.swing.JFrame {
             cantidad = Integer.parseInt(cantidadStr);
             if (cantidad < 0) {
                 JOptionPane.showMessageDialog(this, "La cantidad no puede ser negativa");
-                valido = false;
+                return;
             }
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Ingrese un número entero válido para la cantidad");
-            valido = false;
+            return;
         } catch (NullPointerException npe) {
             JOptionPane.showMessageDialog(this, "El campo cantidad no puede estar vacío");
-            valido = false;
+            return;
         }
 
         double pesoUnitario = 0;
@@ -114,22 +133,18 @@ public class VistaProductos extends javax.swing.JFrame {
             pesoUnitario = Double.parseDouble(pesoStr);
             if (pesoUnitario < 0) {
                 JOptionPane.showMessageDialog(this, "El peso unitario no puede ser negativo");
-                valido = false;
+                return;
             }
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Ingrese un número decimal válido para el peso unitario");
-            valido = false;
+            return;
         } catch (NullPointerException npe) {
             JOptionPane.showMessageDialog(this, "El campo peso unitario no puede estar vacío");
-            valido = false;
+            return;
         }
 
         if (descripcion.isEmpty()) {
             JOptionPane.showMessageDialog(this, "La descripción no puede estar vacía");
-            valido = false;
-        }
-
-        if (!valido) {
             return;
         }
 
@@ -142,6 +157,7 @@ public class VistaProductos extends javax.swing.JFrame {
         producto.setCantidad(cantidad);
         producto.setPesoUnitario(pesoUnitario);
         producto.setDescripcion(descripcion);
+        producto.setContenedor(contenedor);
 
 
         productoServicio.guardar(producto);
@@ -151,32 +167,7 @@ public class VistaProductos extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Producto guardado correctamente");
     }
 
-
-
-
-
-    private void editar() {
-        if (producto != null) {
-            producto.setTipoProducto((String) jComboBox1.getSelectedItem());
-            producto.setNombreProducto(NombreText.getText());
-            producto.setCantidad(Integer.parseInt(CantidadNumber.getText()));
-            producto.setPesoUnitario(Double.parseDouble(PesoUDouble.getText()));
-            producto.setDescripcion(DescripcionText.getText());
-
-
-            productoServicio.guardar(producto);
-            listar();
-            limpiar();
-            System.out.println("Producto actualizado correctamente.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un producto para editar.");
-        }
-    }
-
-
-
-
-    private void listar() {
+    public void listar() {
         tablaModelo.setRowCount(0);
 
         List<Producto> productos = productoServicio.listarProducto();
@@ -188,7 +179,7 @@ public class VistaProductos extends javax.swing.JFrame {
                     producto.getTipoProducto(),
                     producto.getCantidad(),
                     producto.getPesoUnitario(),
-                    producto.getContenedor() != null ? producto.getContenedor().getIdContenedor() : null,
+                    producto.getContenedor() != null ? producto.getContenedor().getIdContenedor() : "Contenedor no seleccionado",
                     producto.getDescripcion()
             };
             tablaModelo.addRow(fila);
@@ -210,7 +201,7 @@ public class VistaProductos extends javax.swing.JFrame {
 
 
     private void limpiar() {
-        producto = null;
+        producto = new Producto();
         jComboBox1.setSelectedIndex(0);
         NombreText.setText("");
         CantidadNumber.setText("");
@@ -234,6 +225,15 @@ public class VistaProductos extends javax.swing.JFrame {
             CantidadNumber.setText(producto.getCantidad().toString());
             PesoUDouble.setText(producto.getPesoUnitario().toString());
             DescripcionText.setText(producto.getDescripcion());
+        }
+    }
+
+    private boolean verificarSeleccion(){
+        if(producto.getIdProducto() != null){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"Seleccione un registro para continuar");
+            return false;
         }
     }
     
@@ -261,6 +261,8 @@ public class VistaProductos extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         CantidadNumber = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        contenedorComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -400,6 +402,8 @@ public class VistaProductos extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Contenedor");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -411,36 +415,40 @@ public class VistaProductos extends javax.swing.JFrame {
                 .addGap(320, 320, 320))
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NombreText))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CantidadNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(PesoUDouble)
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(CantidadNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(PesoUDouble, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DescripcionText))
+                            .addComponent(DescripcionText, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(contenedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Guardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(Editar)
-                        .addGap(18, 18, 18)
-                        .addComponent(Eliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(Limpiar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Eliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(Limpiar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Guardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(Editar))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1253, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -448,37 +456,44 @@ public class VistaProductos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addGap(1, 1, 1)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(NombreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CantidadNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(PesoUDouble, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(DescripcionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(contenedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Guardar)
-                            .addComponent(Limpiar)
-                            .addComponent(Eliminar)
                             .addComponent(Editar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(NombreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CantidadNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PesoUDouble, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DescripcionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel9))
+                            .addComponent(Limpiar)
+                            .addComponent(Eliminar))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();
@@ -516,11 +531,15 @@ public class VistaProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_CantidadNumberActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        editar();
+        if(verificarSeleccion()){
+            guardar();
+        }
     }//GEN-LAST:event_EditarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        eliminar();        // TODO add your handling code here:
+        if(verificarSeleccion()){
+            eliminar();
+        }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
@@ -557,7 +576,9 @@ public class VistaProductos extends javax.swing.JFrame {
     private javax.swing.JTextField PesoUDouble;
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
+    private javax.swing.JComboBox<Contenedor> contenedorComboBox;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

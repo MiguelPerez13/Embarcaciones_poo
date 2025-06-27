@@ -21,4 +21,9 @@ public class Contenedor {
     private Float unidadMedida;
     private Float pesoTotal;
     private String observaciones;
+
+    @Override
+    public String toString(){
+        return String.valueOf(idContenedor);
+    }
 }
