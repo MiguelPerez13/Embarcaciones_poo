@@ -25,7 +25,7 @@ public class VistaContenedor extends javax.swing.JFrame {
     private EmpresaServicio empresaServicio;
     private DefaultTableModel tablaModelo;
     private Contenedor contenedor;
-    
+
     @Autowired
     public VistaContenedor(ContenedorServicio contenedorServicio, EmpresaServicio empresaServicio) {
         this.contenedorServicio = contenedorServicio;
@@ -33,6 +33,7 @@ public class VistaContenedor extends javax.swing.JFrame {
         initComponents();
         iniciarTabla();
         inicializarComboBox();
+        contenedor = new Contenedor();
     }
 
     public void setVistaMain(VistaMain vistaMain) {
@@ -61,9 +62,10 @@ public class VistaContenedor extends javax.swing.JFrame {
         List<Contenedor> contenedores = contenedorServicio.listarContenedores();
 
         contenedores.forEach(contenedor -> {
+
             Object[] renglon ={
                     contenedor.getIdContenedor(),
-                    contenedor.getEmpresa().getNombre(),
+                    (contenedor.getEmpresa() == null) ? "Empresa no seleccionada" : contenedor.getEmpresa().getNombre(),
                     contenedor.getUnidadMedida(),
                     contenedor.getPesoTotal(),
                     contenedor.getObservaciones()
@@ -71,8 +73,9 @@ public class VistaContenedor extends javax.swing.JFrame {
             tablaModelo.addRow(renglon);
         });
     }
-   
-   public void regresar(){
+
+
+    public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
     }
@@ -87,46 +90,70 @@ public class VistaContenedor extends javax.swing.JFrame {
         });
     }
 
-    public void guardar(){
-        Empresa empresa = (Empresa) empresaComboBox.getSelectedItem();
-        Float unidadMedida = (float) 0;
-        Float peso = (float) 0;
+    public void guardar() {
+
+        float unidadMedida = 0f;
+        float peso = 0f;
         String observaciones = observacionesField.getText();
 
-        boolean verificar = true;
+        if (empresaComboBox.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(this, "⚠️ No hay empresas registradas. No se puede guardar el contenedor.");
+            return; // detener el método
+        }
 
-        try{
+        if(empresaComboBox.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(this,"Seleccione una empresa para continuar");
+            return;
+        }
+
+        Empresa empresa = (Empresa) empresaComboBox.getSelectedItem();
+
+        try {
             unidadMedida = Float.parseFloat(medidaField.getText());
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(this,"Digite un numero en el campo de unidad de medida");
-            verificar = false;
+            if(unidadMedida<0){
+                JOptionPane.showMessageDialog(this,"El numero no puede ser negativo");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Digite un número válido en el campo de unidad de medida");
+            return;
         }
 
-        try{
-            peso = Float.parseFloat(medidaField.getText());
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(this,"Digite un numero en el campo de peso");
-            verificar = false;
+        try {
+            peso = Float.parseFloat(pesoField.getText());
+            if(peso<0){
+                JOptionPane.showMessageDialog(this,"El numero no puede ser negativo");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Digite un número válido en el campo de peso");
+            return;
         }
 
-        if(observaciones.isEmpty()){
-            verificar = false;
-            JOptionPane.showMessageDialog(this,"Rellene todos los campos antes de continuar");
+        if (observaciones.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos antes de continuar");
+            return;
         }
 
-        if(verificar){
-            contenedor.setEmpresa(empresa);
-            contenedor.setUnidadMedida(unidadMedida);
-            contenedor.setPesoTotal(peso);
-            contenedor.setObservaciones(observaciones);
-
-            contenedorServicio.guardarContenedor(contenedor);
-
-            limpiar();
-            listar();
+        if (empresa == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione una empresa");
+            return;
         }
+
+
+        contenedor.setEmpresa(empresa);
+        contenedor.setUnidadMedida(unidadMedida);
+        contenedor.setPesoTotal(peso);
+        contenedor.setObservaciones(observaciones);
+
+        contenedorServicio.guardarContenedor(contenedor);
+
+        limpiar();
+        listar();
 
     }
+
+
 
     public void cargarSeleccion(){
         var renglon = tabla.getSelectedRow();
@@ -161,7 +188,7 @@ public class VistaContenedor extends javax.swing.JFrame {
         pesoField.setText("");
         observacionesField.setText("");
 
-        contenedor=null;
+        contenedor = new Contenedor();
     }
     
     @SuppressWarnings("unchecked")

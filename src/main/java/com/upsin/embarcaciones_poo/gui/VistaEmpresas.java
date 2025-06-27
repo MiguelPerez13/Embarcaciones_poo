@@ -6,66 +6,118 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VistaEmpresas extends javax.swing.JFrame {
-    
+
     private VistaMain vistaMain;
     private DefaultTableModel tablaModelo;
     private EmpresaServicio empresaServicio;
     private Empresa empresa;
 
-    
     @Autowired
     public VistaEmpresas(EmpresaServicio empresaServicio) {
         this.empresaServicio = empresaServicio;
         initComponents();
         iniciarTabla();
         listar();
+        empresa = new Empresa();
     }
-
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
     }
-    
-    private void iniciarTabla() {
-    this.tablaModelo = new DefaultTableModel(0, 8) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false; // evitar edición directa
-        }
-    };
-    String[] columnas = {"Id", "Nombre", "RFC", "Telefono", "Email", "Direccion", "Tipo Empresa", "Fecha Registro"};
-    this.tablaModelo.setColumnIdentifiers(columnas);
-    TablaEmpresas.setModel(tablaModelo);
-}
 
-   
-   public void regresar(){
+    private void iniciarTabla() {
+        this.tablaModelo = new DefaultTableModel(0, 8) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // evitar edición directa
+            }
+        };
+        String[] columnas = {"Id", "Nombre", "RFC", "Telefono", "Email", "Direccion", "Tipo Empresa", "Fecha Registro"};
+        this.tablaModelo.setColumnIdentifiers(columnas);
+        TablaEmpresas.setModel(tablaModelo);
+    }
+
+    public void regresar() {
         this.setVisible(false);
         vistaMain.setVisible(true);
     }
 
-    private void guardar() {
-        // Asignar datos de los campos a la entidad
-        empresa.setNombre(NombreText.getText());
-        empresa.setRfc(RFCText.getText());
-        empresa.setTelefono(TelefonoText.getText());
-        empresa.setEmail(emailText.getText());
-        empresa.setDireccion(DireccionText.getText());
-        empresa.setTipoEmpresa(TipoEmpresaText.getText());
-        empresa.setFechaRegistro(fechaRegistroDate.getDate());
+    public void guardar() {
 
-        // Guardar en base de datos
-        empresaServicio.guardar(empresa);
+        String nombre = NombreText.getText().trim();
+        String rfc = RFCText.getText().trim();
+        String telefono = TelefonoText.getText().trim();
+        String email = emailText.getText().trim();
+        String direccion = DireccionText.getText().trim();
+        String tipoEmpresa = tipoEmpresaField.getText().trim();
+        Date fecha = fechaRegistroDate.getDate();
 
-        // Actualizar tabla y limpiar campos
-        listar();
-        limpiar();
+        // Validar nombre (no vacío)
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
+            return;
+        }
+
+        // Validar RFC (ejemplo simple: no vacío y longitud mínima)
+        if (rfc.isEmpty() || rfc.length() < 10) {
+            JOptionPane.showMessageDialog(this, "El RFC es inválido o está vacío.");
+            return;
+        }
+
+        // Validar teléfono (debe ser numérico)
+        try {
+            Long.parseLong(telefono);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El teléfono debe contener solo números.");
+            return;
+        }
+
+        // Validar email (mínimo que tenga un '@')
+        if (!email.contains("@") || email.startsWith("@") || email.endsWith("@")) {
+            JOptionPane.showMessageDialog(this, "El correo electrónico no es válido.");
+            return;
+        }
+
+        // Validar dirección (no vacío)
+        if (direccion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía.");
+            return;
+        }
+
+        if(tipoEmpresa.isEmpty()){
+            JOptionPane.showMessageDialog(this,"El tipo de empresa no puede estar vacio");
+            return;
+        }
+
+        if(fecha == null){
+            JOptionPane.showMessageDialog(this,"Seleccione una fecha");
+            return;
+        }
+
+            try {
+                empresa.setNombre(nombre);
+                empresa.setRfc(rfc);
+                empresa.setTelefono(telefono);
+                empresa.setEmail(email);
+                empresa.setDireccion(direccion);
+                empresa.setTipoEmpresa(tipoEmpresa);
+                empresa.setFechaRegistro(fecha);
+
+                empresaServicio.guardar(empresa);
+                limpiar();
+                listar();
+                JOptionPane.showMessageDialog(this, "Empresa guardada correctamente.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar la empresa: " + ex.getMessage());
+                ex.printStackTrace();
+            }
     }
 
     public void cargarSeleccion() {
@@ -84,55 +136,60 @@ public class VistaEmpresas extends javax.swing.JFrame {
             TelefonoText.setText(empresa.getTelefono());
             emailText.setText(empresa.getEmail());
             DireccionText.setText(empresa.getDireccion());
-            TipoEmpresaText.setText(empresa.getTipoEmpresa());
+            tipoEmpresaField.setText(empresa.getTipoEmpresa());
             fechaRegistroDate.setDate(empresa.getFechaRegistro());
         }
     }
 
-
     public void eliminar() {
-    if (empresa != null) {
-        empresaServicio.eliminar(empresa);
-        listar();   // Actualizar la tabla
-        limpiar();  // Limpiar campos y resetear entidad
-    } else {
-        System.out.println("No hay empresa seleccionada para eliminar");
+        if (empresa != null) {
+            empresaServicio.eliminar(empresa);
+            listar();   // Actualizar la tabla
+            limpiar();  // Limpiar campos y resetear entidad
+        } else {
+            System.out.println("No hay empresa seleccionada para eliminar");
+        }
     }
-}
 
-public void limpiar() {
-    empresa = null;
-    NombreText.setText("");
-    RFCText.setText("");
-    TelefonoText.setText("");
-    emailText.setText("");
-    DireccionText.setText("");
-    TipoEmpresaText.setText("");
-}
+    public void limpiar() {
+        empresa = new Empresa();
+        NombreText.setText("");
+        RFCText.setText("");
+        TelefonoText.setText("");
+        emailText.setText("");
+        DireccionText.setText("");
+        tipoEmpresaField.setText("");
+    }
 
-    private void listar() {
+    public void listar() {
         this.tablaModelo.setRowCount(0); // Limpiar la tabla
 
         List<Empresa> empresas = empresaServicio.listarEmpresa();
 
         empresas.forEach(empresa -> {
             Object[] fila = {
-                    empresa.getIdEmpresa(),
-                    empresa.getNombre(),
-                    empresa.getRfc(),
-                    empresa.getTelefono(),
-                    empresa.getEmail(),
-                    empresa.getDireccion(),
-                    empresa.getTipoEmpresa(),
-                    empresa.getFechaRegistro()
+                empresa.getIdEmpresa(),
+                empresa.getNombre(),
+                empresa.getRfc(),
+                empresa.getTelefono(),
+                empresa.getEmail(),
+                empresa.getDireccion(),
+                empresa.getTipoEmpresa(),
+                empresa.getFechaRegistro()
             };
             this.tablaModelo.addRow(fila);
         });
     }
 
+    private boolean verificarSeleccion(){
+        if(empresa.getIdEmpresa() != null){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"Seleccione un registro antes de continuar");
+            return false;
+        }
+    }
 
-
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -144,7 +201,6 @@ public void limpiar() {
         jLabel6 = new javax.swing.JLabel();
         RFCText = new javax.swing.JTextField();
         DireccionText = new javax.swing.JTextField();
-        Search = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaEmpresas = new javax.swing.JTable();
@@ -154,7 +210,7 @@ public void limpiar() {
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        TipoEmpresaText = new javax.swing.JTextField();
+        tipoEmpresaField = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnMain = new javax.swing.JLabel();
@@ -196,13 +252,6 @@ public void limpiar() {
         DireccionText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DireccionTextActionPerformed(evt);
-            }
-        });
-
-        Search.setText("Buscar.....");
-        Search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchActionPerformed(evt);
             }
         });
 
@@ -251,9 +300,9 @@ public void limpiar() {
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setText("Tipo de Empresa");
 
-        TipoEmpresaText.addActionListener(new java.awt.event.ActionListener() {
+        tipoEmpresaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TipoEmpresaTextActionPerformed(evt);
+                tipoEmpresaFieldActionPerformed(evt);
             }
         });
 
@@ -333,8 +382,7 @@ public void limpiar() {
                             .addComponent(jLabel3)
                             .addGap(253, 253, 253))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addGap(872, 872, 872)
                             .addComponent(btnGuardar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(btnEditar)
@@ -361,7 +409,7 @@ public void limpiar() {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(DireccionText, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TipoEmpresaText, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tipoEmpresaField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(41, 41, 41)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
@@ -376,44 +424,44 @@ public void limpiar() {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(38, 38, 38)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel11))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(RFCText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(NombreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(63, 63, 63)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(limpiarButton)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel10)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(fechaRegistroDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(TipoEmpresaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(DireccionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel7)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TelefonoText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RFCText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(NombreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(limpiarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaRegistroDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(tipoEmpresaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(3, 3, 3)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TelefonoText, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(DireccionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar))
@@ -442,17 +490,13 @@ public void limpiar() {
         // TODO add your handling code here:
     }//GEN-LAST:event_DireccionTextActionPerformed
 
-    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SearchActionPerformed
-
     private void emailTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailTextActionPerformed
 
-    private void TipoEmpresaTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoEmpresaTextActionPerformed
+    private void tipoEmpresaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoEmpresaFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TipoEmpresaTextActionPerformed
+    }//GEN-LAST:event_tipoEmpresaFieldActionPerformed
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
         regresar();
@@ -469,13 +513,17 @@ public void limpiar() {
     }//GEN-LAST:event_NombreTextActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       guardar();
+        if(verificarSeleccion()){
+            guardar();
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminar();
-        limpiar();
-        listar();
+        if(verificarSeleccion()){
+            eliminar();
+            listar();
+            limpiar();
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void TablaEmpresasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaEmpresasMouseClicked
@@ -491,10 +539,8 @@ public void limpiar() {
     private javax.swing.JTextField DireccionText;
     private javax.swing.JTextField NombreText;
     private javax.swing.JTextField RFCText;
-    private javax.swing.JTextField Search;
     private javax.swing.JTable TablaEmpresas;
     private javax.swing.JTextField TelefonoText;
-    private javax.swing.JTextField TipoEmpresaText;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
@@ -513,5 +559,6 @@ public void limpiar() {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpiarButton;
+    private javax.swing.JTextField tipoEmpresaField;
     // End of variables declaration//GEN-END:variables
 }

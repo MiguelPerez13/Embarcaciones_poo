@@ -56,7 +56,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         barcos.forEach(barco -> {
             Object[] renglon = {
                     barco.getIdBarco(),
-                    barco.getTipoBarco().getNombreTipo(),
+                    (barco.getTipoBarco() == null) ? "Tipo no seleccionado" : barco.getTipoBarco().getNombreTipo(),
                     barco.getNombre(),
                     barco.getCapacidadCarga(),
                     barco.getEstado()
@@ -80,37 +80,51 @@ public class VistaBarcos extends javax.swing.JFrame {
     }
 
     public void guardar(){
-        boolean guardar = true;
+
+        String nombre = nombreLabel.getText();
+        Float capacidad= (float) 0;
+
+        if(tipoBarcoComboBox.getItemCount() == 0){
+            JOptionPane.showMessageDialog(this,"Agregue un tipo de barco antes de continuar");
+            return;
+        }
+
+        if(tipoBarcoComboBox.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(this,"Seleccione un tipo de barco");
+            return;
+        }
 
         TipoBarco tipoBarco = (TipoBarco) tipoBarcoComboBox.getSelectedItem();
-        String nombre = nombreLabel.getText();
-        Float capacidad=(float) 0;
+
         try {
             capacidad = Float.parseFloat(capacidadLabel.getText());
+            if(capacidad < 0 ){
+                JOptionPane.showMessageDialog(this,"La capacidad no puede ser negativa");
+                return;
+            }
         }catch (Exception e){
             JOptionPane.showMessageDialog(this,"Ingrese un numero decimal para la capacidad");
-            guardar = false;
+            return;
         }
         String estado = estadoLabel.getText();
 
         if(nombre.isEmpty() || estado.isEmpty()){
             JOptionPane.showMessageDialog(this,"Llena todos los campos del formulario antes de continuar");
-            guardar = false;
+            return;
         }
 
-        //el de capacidad ocuparia un try catch para validar que fuera un float
 
-        if(guardar){
-            barco.setTipoBarco(tipoBarco);
-            barco.setNombre(nombre);
-            barco.setCapacidadCarga(capacidad);
-            barco.setEstado(estado);
 
-            barcoServicio.guardar(barco);
+        barco.setTipoBarco(tipoBarco);
+        barco.setNombre(nombre);
+        barco.setCapacidadCarga(capacidad);
+        barco.setEstado(estado);
 
-            limpiar();
-            listar();
-        }
+        barcoServicio.guardar(barco);
+
+        limpiar();
+        listar();
+
 
     }
 
@@ -118,7 +132,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         nombreLabel.setText("");
         capacidadLabel.setText("");
         estadoLabel.setText("");
-        barco = null;
+        barco = new Barco();
     }
 
     public void cargarSeleccion(){
@@ -136,6 +150,7 @@ public class VistaBarcos extends javax.swing.JFrame {
     public void eliminar(){
         barcoServicio.eliminar(barco);
         listar();
+        limpiar();
     }
 
     public boolean verificarSeleccion(){
@@ -419,7 +434,6 @@ public class VistaBarcos extends javax.swing.JFrame {
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
        if(verificarSeleccion()){
             eliminar();
-            limpiar();
         }
     }//GEN-LAST:event_eliminarButtonActionPerformed
 
