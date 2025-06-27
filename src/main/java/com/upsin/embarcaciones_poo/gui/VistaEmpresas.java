@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -50,22 +51,64 @@ public class VistaEmpresas extends javax.swing.JFrame {
         vistaMain.setVisible(true);
     }
 
-    private void guardar() {
-        // Asignar datos de los campos a la entidad
-        empresa.setNombre(NombreText.getText());
-        empresa.setRfc(RFCText.getText());
-        empresa.setTelefono(TelefonoText.getText());
-        empresa.setEmail(emailText.getText());
-        empresa.setDireccion(DireccionText.getText());
-        empresa.setTipoEmpresa(TipoEmpresaText.getText());
-        empresa.setFechaRegistro(fechaRegistroDate.getDate());
+    public void guardar() {
+        boolean guardar = true;
 
-        // Guardar en base de datos
-        empresaServicio.guardar(empresa);
+        String nombre = NombreText.getText().trim();
+        String rfc = RFCText.getText().trim();
+        String telefono = TelefonoText.getText().trim();
+        String email = emailText.getText().trim();
+        String direccion = DireccionText.getText().trim();
 
-        // Actualizar tabla y limpiar campos
-        listar();
-        limpiar();
+        // Validar nombre (no vacío)
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
+            guardar = false;
+        }
+
+        // Validar RFC (ejemplo simple: no vacío y longitud mínima)
+        if (rfc.isEmpty() || rfc.length() < 10) {
+            JOptionPane.showMessageDialog(this, "El RFC es inválido o está vacío.");
+            guardar = false;
+        }
+
+        // Validar teléfono (debe ser numérico)
+        try {
+            Long.parseLong(telefono);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El teléfono debe contener solo números.");
+            guardar = false;
+        }
+
+        // Validar email (mínimo que tenga un '@')
+        if (!email.contains("@") || email.startsWith("@") || email.endsWith("@")) {
+            JOptionPane.showMessageDialog(this, "El correo electrónico no es válido.");
+            guardar = false;
+        }
+
+        // Validar dirección (no vacío)
+        if (direccion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía.");
+            guardar = false;
+        }
+
+        if (guardar) {
+            try {
+                empresa.setNombre(nombre);
+                empresa.setRfc(rfc);
+                empresa.setTelefono(telefono);
+                empresa.setEmail(email);
+                empresa.setDireccion(direccion);
+
+                empresaServicio.guardar(empresa);
+                limpiar();
+                listar();
+                JOptionPane.showMessageDialog(this, "Empresa guardada correctamente.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar la empresa: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void cargarSeleccion() {
