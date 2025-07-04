@@ -94,6 +94,11 @@ public class VistaMain extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
         btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //btnMainMouseClicked(evt);
+            }
+        });
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -136,6 +141,9 @@ public class VistaMain extends javax.swing.JFrame {
         btnBarcos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnBarcos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnBarcos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //btnBarcosMouseClicked(evt);
+            }
         });
         btnBarcos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
