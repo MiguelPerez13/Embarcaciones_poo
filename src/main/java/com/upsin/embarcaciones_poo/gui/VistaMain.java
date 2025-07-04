@@ -367,11 +367,15 @@ public class VistaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBarcosActionPerformed
 
     private void btnEmbarcacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmbarcacionesActionPerformed
+        vistaEmbarcaciones.inicializarComboBox();
+        vistaEmbarcaciones.listar();
         vistaEmbarcaciones.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnEmbarcacionesActionPerformed
 
     private void btnEmbarcacionContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmbarcacionContenedorActionPerformed
+        vistaEmbarcacionesContenedores.inicializarContenedores();
+        vistaEmbarcacionesContenedores.inicializarEmbarcaciones();
         vistaEmbarcacionesContenedores.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnEmbarcacionContenedorActionPerformed
