@@ -24,6 +24,6 @@ public class Contenedor {
 
     @Override
     public String toString(){
-        return String.valueOf(idContenedor);
+        return observaciones;
     }
 }

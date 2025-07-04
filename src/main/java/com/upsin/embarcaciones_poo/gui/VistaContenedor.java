@@ -47,7 +47,7 @@ public class VistaContenedor extends javax.swing.JFrame {
             public boolean isCellEditable(int row,int column){return false;}
         };
 
-        String[] nombresColumnas = {"ID", "Empresa", "Unidad de medida","Peso total","Observaciones"};
+        String[] nombresColumnas = {"ID", "Empresa", "Unidad de medida","Peso total","Serie"};
         this.tablaModelo.setColumnIdentifiers(nombresColumnas);
         this.tabla.setModel(tablaModelo);
         this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -223,7 +223,7 @@ public class VistaContenedor extends javax.swing.JFrame {
 
         jLabel4.setText("Peso total");
 
-        jLabel5.setText("Observaciones");
+        jLabel5.setText("Serie");
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

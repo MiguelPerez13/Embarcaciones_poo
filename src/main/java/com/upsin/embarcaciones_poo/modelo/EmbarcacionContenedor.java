@@ -13,14 +13,14 @@ public class EmbarcacionContenedor {
 
     @EmbeddedId
     private EmbarcacionContenedorId id;
-    
+
     @ManyToOne
     @MapsId("idEmbarcacion")
-    @JoinColumn(name = "idEmbarcacion", insertable = false, updatable = false)
+    @JoinColumn(name = "idEmbarcacion") // <-- CORRECTO
     private Embarcacion embarcacion;
 
     @ManyToOne
     @MapsId("idContenedor")
-    @JoinColumn(name = "idEmbarcacion", insertable = false, updatable = false)
+    @JoinColumn(name = "idContenedor") // <-- CORREGIDO
     private Contenedor contenedor;
 }
