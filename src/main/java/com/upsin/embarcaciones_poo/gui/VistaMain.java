@@ -425,6 +425,7 @@ public class VistaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTipoBarcoActionPerformed
 
     private void bntAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAlmacenActionPerformed
+        vistaAlmacen.inicializarContenedores();
         vistaAlmacen.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bntAlmacenActionPerformed
