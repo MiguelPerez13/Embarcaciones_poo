@@ -26,10 +26,10 @@ public class VistaLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        userTEXT = new javax.swing.JTextPane();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane2 = new javax.swing.JTextPane();
+        pswTEXT = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
@@ -53,12 +53,12 @@ public class VistaLogin extends javax.swing.JFrame {
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTextPane1.setBackground(new java.awt.Color(238, 238, 238));
-        jTextPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextPane1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextPane1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane1.setViewportView(jTextPane1);
+        userTEXT.setBackground(new java.awt.Color(255, 255, 255));
+        userTEXT.setBorder(null);
+        userTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        userTEXT.setForeground(new java.awt.Color(0, 0, 0));
+        userTEXT.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jScrollPane1.setViewportView(userTEXT);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -67,16 +67,22 @@ public class VistaLogin extends javax.swing.JFrame {
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTextPane2.setBackground(new java.awt.Color(238, 238, 238));
-        jTextPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextPane2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextPane2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane2.setViewportView(jTextPane2);
+        pswTEXT.setBackground(new java.awt.Color(255, 255, 255));
+        pswTEXT.setBorder(null);
+        pswTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        pswTEXT.setForeground(new java.awt.Color(0, 0, 0));
+        pswTEXT.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jScrollPane2.setViewportView(pswTEXT);
 
         jButton1.setBackground(new java.awt.Color(0, 133, 189));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("ENTRAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/PanelLogin.png"))); // NOI18N
 
@@ -96,9 +102,9 @@ public class VistaLogin extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(jLabel5))
         );
         PanelFondoLayout.setVerticalGroup(
@@ -134,11 +140,34 @@ public class VistaLogin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1238, Short.MAX_VALUE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         try {
+        String usuario = userTEXT.getText().trim();
+        char[] passwordChars = pswTEXT.getPassword();
+        String contraseña = new String(passwordChars).trim();
+
+        if (usuario.isEmpty()) {
+            throw new IllegalArgumentException("El campo USUARIO no puede estar vacío.");
+        }
+
+        if (contraseña.isEmpty()) {
+            throw new IllegalArgumentException("El campo CONTRASEÑA no puede estar vacío.");
+        }
+
+        // Aquí puedes poner la lógica real de autenticación
+        System.out.println("Usuario: " + usuario);
+        System.out.println("Contraseña: " + contraseña);
+
+    } catch (IllegalArgumentException ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Campos vacíos", javax.swing.JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,7 +217,7 @@ public class VistaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane jTextPane2;
+    private javax.swing.JPasswordField pswTEXT;
+    private javax.swing.JTextPane userTEXT;
     // End of variables declaration//GEN-END:variables
 }

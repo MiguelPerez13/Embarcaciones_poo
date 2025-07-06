@@ -128,8 +128,9 @@ public class VistaMain extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Century", 1, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("GESTOR DEL PUERTO");
 
         btnBarcos.setBackground(new java.awt.Color(51, 153, 255));
@@ -278,12 +279,15 @@ public class VistaMain extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("BARCOS");
 
         jLabel6.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("CONTENEDORES");
 
         jLabel7.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("ADMINISTRACION");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

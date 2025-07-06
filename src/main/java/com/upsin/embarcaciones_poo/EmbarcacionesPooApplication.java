@@ -23,11 +23,13 @@ public class EmbarcacionesPooApplication {
         System.setProperty("DATABASE_PASSWORD", dotenv.get("DATABASE_PASSWORD"));
 
         // poner modo oscuro en las vistas
+        /*
         try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
+        */
 
         ConfigurableApplicationContext contextoSpring = new SpringApplicationBuilder(EmbarcacionesPooApplication.class)
                 .headless(false)
