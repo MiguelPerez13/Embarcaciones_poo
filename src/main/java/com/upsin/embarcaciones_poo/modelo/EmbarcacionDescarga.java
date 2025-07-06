@@ -20,7 +20,7 @@ public class EmbarcacionDescarga {
     private Contenedor contenedor;
 
     @Temporal(TemporalType.DATE)
-    private Date fechaLlegada;
+    private Date fechaDescarga;
 
     @ManyToOne
     @JoinColumn(name = "loteAlmacen", referencedColumnName = "loteAlmacen")

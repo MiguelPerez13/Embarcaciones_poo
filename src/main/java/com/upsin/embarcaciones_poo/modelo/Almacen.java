@@ -13,7 +13,9 @@ import lombok.*;
 public class Almacen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer loteAlmacen;
+    private Integer idAlmacen;
+
+    private String loteAlmacen;
 
     @ManyToOne
     @JoinColumn(name = "idContenedor", referencedColumnName = "idContenedor")
