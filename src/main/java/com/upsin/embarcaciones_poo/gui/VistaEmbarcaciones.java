@@ -339,20 +339,14 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Barco:");
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Puerto de origen:");
 
-        PueroOrigenTEXT.setBackground(new java.awt.Color(255, 255, 255));
         PueroOrigenTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        PueroOrigenTEXT.setForeground(new java.awt.Color(0, 0, 0));
         PueroOrigenTEXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PueroOrigenTEXTActionPerformed(evt);
@@ -360,28 +354,21 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Puerto de destino:");
 
-        PuertoDestinoTEXT.setBackground(new java.awt.Color(255, 255, 255));
         PuertoDestinoTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        PuertoDestinoTEXT.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Fecha de salida:");
 
         FechaSalidaDATE.setBackground(new java.awt.Color(255, 255, 255));
         FechaSalidaDATE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        FechaSalidaDATE.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Fecha de llegada:");
 
         FechaLlegadaDATE.setBackground(new java.awt.Color(255, 255, 255));
         FechaLlegadaDATE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        FechaLlegadaDATE.setForeground(new java.awt.Color(0, 0, 0));
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -589,7 +576,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Barco> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
