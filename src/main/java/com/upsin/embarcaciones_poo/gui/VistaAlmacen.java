@@ -275,7 +275,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
 
         limpiarButton.setText("Limpiar");
 
-        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almacen", "Enviado" }));
+        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almacen", "Transito" }));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Fecha de llegada:");
