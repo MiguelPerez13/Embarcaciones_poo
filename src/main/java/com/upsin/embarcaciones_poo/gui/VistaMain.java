@@ -3,6 +3,9 @@ package com.upsin.embarcaciones_poo.gui;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
+import java.awt.*;
+
 @Component
 public class VistaMain extends javax.swing.JFrame {
 
@@ -10,6 +13,7 @@ public class VistaMain extends javax.swing.JFrame {
     private final VistaAlmacen vistaAlmacen;
     private final VistaBarcos vistaBarcos;
     private final VistaCarga vistaCarga;
+   // private final VistaDescarga vistaDescarga;
     private final VistaContenedor vistaContenedor;
     private final VistaEmbarcaciones vistaEmbarcaciones;
     private final VistaEmbarcacionesContenedores vistaEmbarcacionesContenedores;
@@ -17,6 +21,7 @@ public class VistaMain extends javax.swing.JFrame {
     private final VistaProductos vistaProductos;
     private final VistaRetiros vistaRetiros;
     private final VistaTipoBarcos vistaTipoBarcos;
+    
 
 
     @Autowired
@@ -24,6 +29,7 @@ public class VistaMain extends javax.swing.JFrame {
             VistaAlmacen vistaAlmacen,
             VistaBarcos vistaBarcos,
             VistaCarga vistaCarga,
+            //VistaDescarga vistaDescarga,
             VistaContenedor vistaContenedor,
             VistaEmbarcaciones vistaEmbarcaciones,
             VistaEmbarcacionesContenedores vistaEmbarcacionesContenedores,
@@ -37,6 +43,7 @@ public class VistaMain extends javax.swing.JFrame {
         this.vistaAlmacen = vistaAlmacen;
         this.vistaBarcos = vistaBarcos;
         this.vistaCarga = vistaCarga;
+        //this.vistaDescarga = vistaDescarga;
         this.vistaContenedor = vistaContenedor;
         this.vistaEmbarcaciones = vistaEmbarcaciones;
         this.vistaEmbarcacionesContenedores = vistaEmbarcacionesContenedores;
@@ -50,6 +57,7 @@ public class VistaMain extends javax.swing.JFrame {
         this.vistaAlmacen.setVistaMain(this);
         this.vistaBarcos.setVistaMain(this);
         this.vistaCarga.setVistaMain(this);
+        //this.vistaDescarga.setVistaMain(this);
         this.vistaContenedor.setVistaMain(this);
         this.vistaEmbarcaciones.setVistaMain(this);
         this.vistaEmbarcacionesContenedores.setVistaMain(this);
@@ -59,6 +67,8 @@ public class VistaMain extends javax.swing.JFrame {
 
         initComponents();
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,6 +96,7 @@ public class VistaMain extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        btnDescarga = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -96,7 +107,7 @@ public class VistaMain extends javax.swing.JFrame {
         btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                //btnMainMouseClicked(evt);
+                btnMainMouseClicked(evt);
             }
         });
 
@@ -143,7 +154,7 @@ public class VistaMain extends javax.swing.JFrame {
         btnBarcos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnBarcos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                //btnBarcosMouseClicked(evt);
+                btnBarcosMouseClicked(evt);
             }
         });
         btnBarcos.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +195,7 @@ public class VistaMain extends javax.swing.JFrame {
         btnContenedor.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
         btnContenedor.setForeground(new java.awt.Color(255, 255, 255));
         btnContenedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-contenedor.png"))); // NOI18N
-        btnContenedor.setText("CONTEN");
+        btnContenedor.setText("CONTENEDOR");
         btnContenedor.setBorderPainted(false);
         btnContenedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnContenedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -222,7 +233,7 @@ public class VistaMain extends javax.swing.JFrame {
             }
         });
 
-        btnTipoBarco.setBackground(new java.awt.Color(153, 0, 255));
+        btnTipoBarco.setBackground(new java.awt.Color(51, 153, 255));
         btnTipoBarco.setFont(new java.awt.Font("Century", 1, 15)); // NOI18N
         btnTipoBarco.setForeground(new java.awt.Color(255, 255, 255));
         btnTipoBarco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_TipoBarco.png"))); // NOI18N
@@ -236,7 +247,7 @@ public class VistaMain extends javax.swing.JFrame {
             }
         });
 
-        btnProducto.setBackground(new java.awt.Color(153, 51, 255));
+        btnProducto.setBackground(new java.awt.Color(153, 0, 255));
         btnProducto.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
         btnProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-producto.png"))); // NOI18N
@@ -264,7 +275,7 @@ public class VistaMain extends javax.swing.JFrame {
             }
         });
 
-        bntAlmacen.setBackground(new java.awt.Color(153, 51, 255));
+        bntAlmacen.setBackground(new java.awt.Color(153, 0, 255));
         bntAlmacen.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
         bntAlmacen.setForeground(new java.awt.Color(255, 255, 255));
         bntAlmacen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-almacen.png"))); // NOI18N
@@ -290,79 +301,108 @@ public class VistaMain extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("ADMINISTRACION");
 
+        btnDescarga.setBackground(new java.awt.Color(255, 153, 51));
+        btnDescarga.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
+        btnDescarga.setForeground(new java.awt.Color(255, 255, 255));
+        btnDescarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono-contenedor.png"))); // NOI18N
+        btnDescarga.setText("DESCARGA");
+        btnDescarga.setBorderPainted(false);
+        btnDescarga.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDescarga.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDescarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescargaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(439, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(392, 392, 392))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(128, 128, 128)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(129, 129, 129)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBarcos, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEmbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnEmbarcacionContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
-                .addComponent(btnContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(145, 145, 145)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bntAlmacen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTipoBarco, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(130, 130, 130))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(222, 222, 222)
-                .addComponent(jLabel5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnEmbarcacionContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTipoBarco, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(261, 261, 261)
-                .addComponent(jLabel7)
-                .addGap(187, 187, 187))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDescarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(64, 64, 64)))
+                .addGap(157, 157, 157)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bntAlmacen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(57, 57, 57)))
+                .addGap(107, 107, 107))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addComponent(jLabel3)
-                .addGap(68, 68, 68)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBarcos, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEmbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEmbarcacionContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBarcos, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEmbarcaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEmbarcacionContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnTipoBarco, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnContenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnDescarga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnTipoBarco, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bntAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 123, Short.MAX_VALUE))
+                        .addComponent(bntAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 155, Short.MAX_VALUE))
         );
 
         pack();
@@ -440,13 +480,27 @@ public class VistaMain extends javax.swing.JFrame {
         this.setVisible(false);               // Ocultar la actual
     }//GEN-LAST:event_btnLoginMouseClicked
 
-    
+    private void btnDescargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargaActionPerformed
+
+    }//GEN-LAST:event_btnDescargaActionPerformed
+
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
+        // Por ahora no hace nada
+    }
+    private void btnBarcosMouseClicked(java.awt.event.MouseEvent evt) {
+        // Por ahora no hace nada
+    }
+
+
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntAlmacen;
     private javax.swing.JButton btnBarcos;
     private javax.swing.JButton btnCarga;
     private javax.swing.JButton btnContenedor;
+    private javax.swing.JButton btnDescarga;
     private javax.swing.JButton btnEmbarcacionContenedor;
     private javax.swing.JButton btnEmbarcaciones;
     private javax.swing.JButton btnEmpresa;

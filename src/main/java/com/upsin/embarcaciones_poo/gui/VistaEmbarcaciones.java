@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +33,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         initComponents();
         inicializarComboBox();
         iniciarTabla();
+        personalizarTablaEmbarcaciones2();
 
         Tabla.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
@@ -41,6 +44,27 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         btnModificar.addActionListener(evt -> btnModificarActionPerformed(evt));
         embarcacion = new Embarcacion();
     }
+
+    private void personalizarTablaEmbarcaciones2() {
+        JTableHeader header = Tabla.getTableHeader();
+        header.setBackground(new Color(0, 133, 189));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(Color.WHITE);
+        cellRenderer.setForeground(Color.BLACK);
+        cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+
+        for (int i = 0; i < Tabla.getColumnCount(); i++) {
+            Tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        Tabla.setRowHeight(25);
+        Tabla.setShowGrid(true);
+        Tabla.setGridColor(new Color(0, 133, 189));
+    }
+
 
     public void inicializarComboBox() {
         try {
@@ -61,6 +85,26 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error cargando barcos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void personalizarTablaEmbarcaciones() {
+        JTableHeader header = Tabla.getTableHeader();
+        header.setBackground(new Color(0, 133, 189));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(Color.WHITE);
+        cellRenderer.setForeground(Color.BLACK);
+        cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+
+        for (int i = 0; i < Tabla.getColumnCount(); i++) {
+            Tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        Tabla.setRowHeight(25);
+        Tabla.setShowGrid(true);
+        Tabla.setGridColor(new Color(0, 133, 189));
     }
 
     public void iniciarTabla() {
@@ -341,11 +385,13 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Barco:");
 
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setText("Puerto de origen:");
 
+        PueroOrigenTEXT.setBackground(new java.awt.Color(255, 255, 255));
         PueroOrigenTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         PueroOrigenTEXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,10 +525,10 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(jLabel5)
                         .addComponent(jLabel2)
-                        .addComponent(jComboBox1, 0, 422, Short.MAX_VALUE)
                         .addComponent(jLabel3)
-                        .addComponent(PueroOrigenTEXT)
-                        .addComponent(PuertoDestinoTEXT))
+                        .addComponent(PueroOrigenTEXT, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                        .addComponent(PuertoDestinoTEXT)
+                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)

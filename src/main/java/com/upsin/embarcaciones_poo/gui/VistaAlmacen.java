@@ -3,6 +3,8 @@ package com.upsin.embarcaciones_poo.gui;
 import com.upsin.embarcaciones_poo.modelo.*;
 import com.upsin.embarcaciones_poo.servicio.AlmacenServicio;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
+import java.awt.Color;
+import java.awt.Font;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 import java.util.List;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 @Component
 public class VistaAlmacen extends javax.swing.JFrame {
@@ -27,11 +31,34 @@ public class VistaAlmacen extends javax.swing.JFrame {
         this.almacen = new Almacen();
         initComponents();
         iniciarTabla();
+        personalizarTablaBarcos();
         inicializarContenedores();
     }
 
    public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
+    }
+   
+   private void personalizarTablaBarcos() {
+        // Estilo del encabezado
+        JTableHeader header = tabla.getTableHeader();
+        header.setBackground(new Color(0, 133, 189)); // Azul marino
+        header.setForeground(Color.WHITE);            // Letras blancas
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        // Estilo de celdas (datos)
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(Color.WHITE);       // Fondo blanco
+        cellRenderer.setForeground(Color.BLACK);       // Texto negro
+        cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        tabla.setRowHeight(25);
+        tabla.setShowGrid(true);
+        tabla.setGridColor(new Color(0, 133, 189)); // Líneas azuladas
     }
    
    public void regresar(){
@@ -149,10 +176,8 @@ public class VistaAlmacen extends javax.swing.JFrame {
     private void initComponents() {
 
         guardarButton = new javax.swing.JButton();
-        regresarButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -160,6 +185,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnMain = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         editarButton = new javax.swing.JButton();
         eliminarButton = new javax.swing.JButton();
         limpiarButton = new javax.swing.JButton();
@@ -170,17 +196,13 @@ public class VistaAlmacen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        guardarButton.setText("Guardar");
+        guardarButton.setBackground(new java.awt.Color(0, 133, 189));
+        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        guardarButton.setForeground(new java.awt.Color(255, 255, 255));
+        guardarButton.setText("GUARDAR");
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guardarButtonActionPerformed(evt);
-            }
-        });
-
-        regresarButton.setText("Regresar");
-        regresarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regresarButtonActionPerformed(evt);
             }
         });
 
@@ -209,17 +231,17 @@ public class VistaAlmacen extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 48)); // NOI18N
-        jLabel2.setText("ALMACEN");
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setText("Lote:");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("Lote");
-
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("Contenedor");
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setText("Contenedor:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Estado:");
+
+        loteField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        loteField.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
@@ -238,6 +260,10 @@ public class VistaAlmacen extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel2.setText("ALMACEN");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -245,6 +271,8 @@ public class VistaAlmacen extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(btnMain)
+                .addGap(401, 401, 401)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogin)
                 .addGap(62, 62, 62))
@@ -254,111 +282,119 @@ public class VistaAlmacen extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addComponent(btnLogin)
                     .addComponent(btnMain))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        editarButton.setText("Editar");
+        editarButton.setBackground(new java.awt.Color(0, 133, 189));
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editarButton.setForeground(new java.awt.Color(255, 255, 255));
+        editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarButtonActionPerformed(evt);
             }
         });
 
-        eliminarButton.setText("Eliminar");
+        eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
+        eliminarButton.setText("ELIMINAR");
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarButtonActionPerformed(evt);
             }
         });
 
-        limpiarButton.setText("Limpiar");
+        limpiarButton.setBackground(new java.awt.Color(0, 133, 189));
+        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
+        limpiarButton.setText("LIMPIAR");
+        limpiarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarButtonActionPerformed(evt);
+            }
+        });
 
+        contenedoresComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        contenedoresComboBox.setForeground(new java.awt.Color(0, 0, 0));
+
+        estadoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        estadoComboBox.setForeground(new java.awt.Color(0, 0, 0));
         estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almacen", "Enviado" }));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Fecha de llegada:");
+
+        dateChooser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        dateChooser.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(guardarButton)
-                        .addGap(26, 26, 26)
-                        .addComponent(editarButton)
-                        .addGap(26, 26, 26)
-                        .addComponent(eliminarButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(limpiarButton))
+                        .addComponent(jLabel3)
+                        .addGap(107, 1313, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loteField, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(87, 87, 87)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(contenedoresComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 162, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(guardarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(editarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(eliminarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(limpiarButton))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(contenedoresComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(loteField)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(estadoComboBox, 0, 402, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(regresarButton)
-                .addGap(432, 432, 432)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(regresarButton)))
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                        .addComponent(loteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(loteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(contenedoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(contenedoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(85, 85, 85)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(estadoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(guardarButton)
-                            .addComponent(editarButton)
-                            .addComponent(eliminarButton)
-                            .addComponent(limpiarButton))))
-                .addGap(0, 150, Short.MAX_VALUE))
+                            .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
+                .addGap(111, 111, 111))
         );
 
         pack();
@@ -368,10 +404,6 @@ public class VistaAlmacen extends javax.swing.JFrame {
         almacen = new Almacen();
         guardar();
     }//GEN-LAST:event_guardarButtonActionPerformed
-
-    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
-        regresar();
-    }//GEN-LAST:event_regresarButtonActionPerformed
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
         regresar();
@@ -399,6 +431,10 @@ public class VistaAlmacen extends javax.swing.JFrame {
         cargarSeleccion();
     }//GEN-LAST:event_tablaMouseClicked
 
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_limpiarButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnLogin;
@@ -418,7 +454,6 @@ public class VistaAlmacen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpiarButton;
     private javax.swing.JTextField loteField;
-    private javax.swing.JButton regresarButton;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

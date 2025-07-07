@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class VistaContenedor extends javax.swing.JFrame {
         initComponents();
         iniciarTabla();
         inicializarComboBox();
+        personalizarTablaEmbarcaciones(tabla);
         contenedor = new Contenedor();
     }
 
@@ -55,6 +59,51 @@ public class VistaContenedor extends javax.swing.JFrame {
         //Cargar listado de pacientes
         listar();
     }
+
+    private void personalizarTablaEmbarcaciones(JTable tabla) {
+        // Estilo del encabezado
+        JTableHeader header = tabla.getTableHeader();
+        header.setBackground(new Color(0, 133, 189)); // Azul marino
+        header.setForeground(Color.WHITE);            // Letras blancas
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        // Estilo de celdas (datos)
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(Color.WHITE);       // Fondo blanco
+        cellRenderer.setForeground(Color.BLACK);       // Texto negro
+        cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        tabla.setRowHeight(25);
+        tabla.setShowGrid(true);
+        tabla.setGridColor(new Color(0, 133, 189)); // Líneas azuladas
+    }
+
+    private void personalizarTablaEmbarcaciones(JScrollPane scrollPane) {
+        JTable tabla = (JTable) scrollPane.getViewport().getView();
+
+        JTableHeader header = tabla.getTableHeader();
+        header.setBackground(new Color(0, 133, 189));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(Color.WHITE);
+        cellRenderer.setForeground(Color.BLACK);
+        cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        tabla.setRowHeight(25);
+        tabla.setShowGrid(true);
+        tabla.setGridColor(new Color(0, 133, 189));
+    }
+
 
     public void listar(){
         this.tablaModelo.setRowCount(0);
@@ -205,7 +254,6 @@ public class VistaContenedor extends javax.swing.JFrame {
         observacionesField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        regresarButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnMain = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
@@ -217,13 +265,34 @@ public class VistaContenedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("Empresa");
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setText("Empresa:");
 
-        jLabel3.setText("Unidad de medida");
+        empresaComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        empresaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        empresaComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel4.setText("Peso total");
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setText("Volumen:");
 
-        jLabel5.setText("Serie");
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setText("Peso total:");
+
+        medidaField.setBackground(new java.awt.Color(255, 255, 255));
+        medidaField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        medidaField.setForeground(new java.awt.Color(0, 0, 0));
+
+        pesoField.setBackground(new java.awt.Color(255, 255, 255));
+        pesoField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        pesoField.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setText("Serie:");
+        jLabel5.setToolTipText("");
+
+        observacionesField.setBackground(new java.awt.Color(255, 255, 255));
+        observacionesField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        observacionesField.setForeground(new java.awt.Color(0, 0, 0));
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -249,13 +318,6 @@ public class VistaContenedor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        regresarButton.setText("Regresar");
-        regresarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regresarButtonActionPerformed(evt);
-            }
-        });
-
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
@@ -273,6 +335,10 @@ public class VistaContenedor extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel6.setText("CONTENEDORES");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -280,6 +346,8 @@ public class VistaContenedor extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(btnMain)
+                .addGap(381, 381, 381)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogin)
                 .addGap(62, 62, 62))
@@ -289,36 +357,46 @@ public class VistaContenedor extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
                     .addComponent(btnLogin)
                     .addComponent(btnMain))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 48)); // NOI18N
-        jLabel6.setText("CONTENEDORES");
-
-        limpiarButton.setText("Limpiar");
+        limpiarButton.setBackground(new java.awt.Color(0, 133, 189));
+        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
+        limpiarButton.setText("LIMPIAR");
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarButtonActionPerformed(evt);
             }
         });
 
-        guardarButton.setText("Guardar");
+        guardarButton.setBackground(new java.awt.Color(0, 133, 189));
+        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        guardarButton.setForeground(new java.awt.Color(255, 255, 255));
+        guardarButton.setText("GUARDAR");
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guardarButtonActionPerformed(evt);
             }
         });
 
-        editarButton.setText("Editar");
+        editarButton.setBackground(new java.awt.Color(0, 133, 189));
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editarButton.setForeground(new java.awt.Color(255, 255, 255));
+        editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarButtonActionPerformed(evt);
             }
         });
 
-        eliminarButton.setText("Eliminar");
+        eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
+        eliminarButton.setText("ELIMINAR");
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarButtonActionPerformed(evt);
@@ -331,81 +409,65 @@ public class VistaContenedor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(medidaField)
+                    .addComponent(observacionesField)
+                    .addComponent(pesoField)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(empresaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(medidaField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pesoField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addComponent(limpiarButton)
-                                .addGap(18, 18, 18)
                                 .addComponent(guardarButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(editarButton)
                                 .addGap(18, 18, 18)
-                                .addComponent(eliminarButton))
-                            .addComponent(jLabel5)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(105, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(252, 252, 252)
-                .addComponent(regresarButton)
-                .addGap(114, 114, 114))
+                                .addComponent(limpiarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(eliminarButton)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(empresaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(89, 89, 89)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(regresarButton)
-                        .addGap(38, 38, 38)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(empresaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(medidaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pesoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(limpiarButton)
-                    .addComponent(guardarButton)
-                    .addComponent(editarButton)
-                    .addComponent(eliminarButton))
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(empresaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(medidaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(pesoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
+                .addGap(138, 138, 138))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
-        regresar();
-    }//GEN-LAST:event_regresarButtonActionPerformed
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
         regresar();
@@ -465,7 +527,6 @@ public class VistaContenedor extends javax.swing.JFrame {
     private javax.swing.JTextField medidaField;
     private javax.swing.JTextField observacionesField;
     private javax.swing.JTextField pesoField;
-    private javax.swing.JButton regresarButton;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
