@@ -1,6 +1,7 @@
 package com.upsin.embarcaciones_poo.servicio;
 
 import com.upsin.embarcaciones_poo.modelo.EmbarcacionDescarga;
+import com.upsin.embarcaciones_poo.modelo.EmbarcacionDescargaId;
 import com.upsin.embarcaciones_poo.repositorio.EmbarcacionDescargaRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class EmbarcacionDescargaServicio {
         return embarcacionDescargas;
     }
 
-    public EmbarcacionDescarga buscarPorId(Integer id){
+    public EmbarcacionDescarga buscarPorId(EmbarcacionDescargaId id){
         return repositorio.findById(id).orElse(null);
     }
 

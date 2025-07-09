@@ -165,7 +165,6 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
 
     private void eliminar(){
         embarcacionContenedorServicio.eliminar(embarcacionContenedor);
-
         limpiar();
         listar();
     }

@@ -30,6 +30,8 @@ public class Embarcacion {
 
     @Override
     public String toString(){
-        return puertoOrigen.concat(" - ".concat(puertoDestino.concat(" : ".concat(String.valueOf(fechaSalida)))));
+        return String.valueOf(idEmbarcacion);
     }
+
+
 }
