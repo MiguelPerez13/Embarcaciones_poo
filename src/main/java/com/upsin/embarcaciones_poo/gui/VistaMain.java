@@ -470,6 +470,7 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void bntAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAlmacenActionPerformed
         vistaAlmacen.inicializarContenedores();
+        vistaAlmacen.listar();
         vistaAlmacen.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bntAlmacenActionPerformed
@@ -482,6 +483,9 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnDescargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargaActionPerformed
         vistaDescarga.setVisible(true);
+        vistaDescarga.inicializarContenedores();
+        vistaDescarga.inicializarEmbarcaciones();
+        vistaDescarga.listar();
         vistaDescarga.listar();
         this.setVisible(false);
     }//GEN-LAST:event_btnDescargaActionPerformed
