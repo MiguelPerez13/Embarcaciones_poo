@@ -108,6 +108,9 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         embarcacionContenedor.setContenedor(contenedor);
         embarcacionContenedor.setEmbarcacion(embarcacion);
 
+        EmbarcacionContenedorId embarcacionContenedorId = new EmbarcacionContenedorId(embarcacion.getIdEmbarcacion(),contenedor.getIdContenedor());
+        embarcacionContenedor.setId(embarcacionContenedorId);
+
         embarcacionContenedorServicio.guardar(embarcacionContenedor);
 
         limpiar();
@@ -369,10 +372,6 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
-        Contenedor contenedor = (Contenedor) contenedoresComboBox.getSelectedItem();
-        Embarcacion embarcacion = (Embarcacion) embarcacionesComboBox.getSelectedItem();
-        EmbarcacionContenedorId embarcacionContenedorId = new EmbarcacionContenedorId(embarcacion.getIdEmbarcacion(),contenedor.getIdContenedor());
-        embarcacionContenedor.setId(embarcacionContenedorId);
         guardar();
     }//GEN-LAST:event_guardarButtonActionPerformed
 
