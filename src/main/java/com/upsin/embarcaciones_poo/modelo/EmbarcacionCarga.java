@@ -11,18 +11,18 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode
 public class EmbarcacionCarga {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    private EmbarcacionCargaId id;
 
     @ManyToOne
-    @JoinColumn(name = "idContenedor", referencedColumnName = "idContenedor")
-    private Contenedor contenedor;
+    @JoinColumn(name = "idEmbarcacion", insertable = false, updatable = false)
+    private Embarcacion embarcacion;
+
+    @ManyToOne
+    @JoinColumn(name = "idAlmacen", insertable = false, updatable = false)
+    private Almacen almacen;
 
     @Temporal(TemporalType.DATE)
     private Date fechaCarga;
-
-    @ManyToOne
-    @JoinColumn(name = "loteAlmacen", referencedColumnName = "loteAlmacen")
-    private Almacen almacen;
 }
+

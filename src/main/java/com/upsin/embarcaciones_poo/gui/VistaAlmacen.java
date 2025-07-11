@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.util.Date;
 import java.util.List;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
 
 @Component
 public class VistaAlmacen extends javax.swing.JFrame {
@@ -60,7 +60,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
         tabla.setShowGrid(true);
         tabla.setGridColor(new Color(0, 133, 189)); // Líneas azuladas
     }
-   
+
    public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
