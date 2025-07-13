@@ -1,29 +1,48 @@
 package com.upsin.embarcaciones_poo.gui;
 
+import com.upsin.embarcaciones_poo.modelo.Almacen;
+import com.upsin.embarcaciones_poo.modelo.Embarcacion;
+import com.upsin.embarcaciones_poo.modelo.RetiroContenedor;
+import com.upsin.embarcaciones_poo.servicio.AlmacenServicio;
 import com.upsin.embarcaciones_poo.servicio.RetiroContenedorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class VistaRetiros extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaRetiros.class.getName());
-    private VistaMain vistaMain;
-    private RetiroContenedorServicio retiroServicio;
-    
-    @Autowired
-    public VistaRetiros(RetiroContenedorServicio retiroServicio) {
-        this.retiroServicio = retiroServicio;
-        initComponents();
-        personalizarTablaRetiros();
-    }
 
-    public void setVistaMain(VistaMain vistaMain) {
-        this.vistaMain = vistaMain;
+    private RetiroContenedorServicio retiroServicio;
+    private AlmacenServicio almacenServicio;
+    private DefaultTableModel tablaModelo;
+    private RetiroContenedor retiro;
+    private VistaMain vistaMain;
+
+
+
+
+    @Autowired
+    public VistaRetiros(RetiroContenedorServicio retiroServicio, AlmacenServicio almacenServicio) {
+        this.retiroServicio = retiroServicio;
+        this.almacenServicio = almacenServicio;
+        this.retiro = new RetiroContenedor();
+        initComponents();
+        iniciarTabla();
+        personalizarTablaRetiros();
+        cargarAlmacenes();
+
+        jTable1.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                cargarSeleccion();
+            }
+        });
     }
 
     private void personalizarTablaRetiros() {
@@ -46,19 +65,187 @@ public class VistaRetiros extends javax.swing.JFrame {
         jTable1.setGridColor(new Color(0, 133, 189));
     }
 
+    private void iniciarTabla() {
+        tablaModelo = new DefaultTableModel(0, 2) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
+
+        String[] columnas = {
+                "ID Retiro", "Almacén", "Receptor", "Tipo Vehículo",
+                "Matrícula", "Empresa Transporte", "Fecha Retiro", "Observaciones"
+        };
+        tablaModelo.setColumnIdentifiers(columnas);
+        jTable1.setModel(tablaModelo);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        listar();
+    }
+
+    private void cargarAlmacenes() {
+        List<Almacen> almacenes = almacenServicio.listarAlmacen();
+        jComboBox1.removeAllItems();
+        for (Almacen a : almacenes) {
+            jComboBox1.addItem(a);
+        }
+    }
+
+    private void listar() {
+        tablaModelo.setRowCount(0);
+        List<RetiroContenedor> retiroContenedors = retiroServicio.listarRetiroContenedor();
+
+        for (RetiroContenedor r : retiroContenedors) {
+            Object[] renglon = {
+                    r.getIdRetiro(),
+                    r.getAlmacen() != null ? r.getAlmacen().getLoteAlmacen() : "N/A",
+                    r.getNombreReceptor(),
+                    r.getTipoVehiculo(),
+                    r.getMatricula(),
+                    r.getEmpresaTransporte(),
+                    r.getFechaRetiro(),
+                    r.getObservaciones()
+            };
+            tablaModelo.addRow(renglon);
+        }
+    }
+
+    private void limpiar() {
+        retiro = new RetiroContenedor();
+        jComboBox1.setSelectedIndex(-1);
+        NombreText.setText("");
+        TipoVehiculoText.setText("");
+        MatriculaText.setText("");
+        EmpresaTrasnText.setText("");
+        FechaRetiroDATE.setDate(null);
+        ObservacionesText.setText("");
+    }
+
+    private void guardar() {
+        try {
+            if (jComboBox1.getItemCount() == 0 || jComboBox1.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione un lote de almacén válido.");
+                return;
+            }
+
+            Almacen almacen;
+            try {
+                almacen = (Almacen) jComboBox1.getSelectedItem();
+            } catch (ClassCastException e) {
+                JOptionPane.showMessageDialog(this, "Error al obtener el lote de almacén seleccionado.");
+                return;
+            }
+
+            String nombreReceptor = NombreText.getText().trim();
+            String tipoVehiculo = TipoVehiculoText.getText().trim();
+            String matricula = MatriculaText.getText().trim();
+            String empresaTransporte = EmpresaTrasnText.getText().trim();
+            Date fechaRetiro;
+
+            try {
+                fechaRetiro = FechaRetiroDATE.getDate();
+                if (fechaRetiro == null) {
+                    JOptionPane.showMessageDialog(this, "Seleccione una fecha de retiro válida.");
+                    return;
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al leer la fecha de retiro.");
+                return;
+            }
+
+            String observaciones = ObservacionesText.getText().trim();
+
+            if (nombreReceptor.isEmpty() || tipoVehiculo.isEmpty() || matricula.isEmpty() ||
+                    empresaTransporte.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Llena todos los campos obligatorios del formulario.");
+                return;
+            }
+
+            retiro = new RetiroContenedor();
+            retiro.setAlmacen(almacen);
+            retiro.setNombreReceptor(nombreReceptor);
+            retiro.setTipoVehiculo(tipoVehiculo);
+            retiro.setMatricula(matricula);
+            retiro.setEmpresaTransporte(empresaTransporte);
+            retiro.setFechaRetiro(fechaRetiro);
+            retiro.setObservaciones(observaciones);
+
+            try {
+                retiroServicio.guardar(retiro);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ocurrió un error al guardar el retiro:\n" + e.getMessage());
+                return;
+            }
+
+            limpiar();
+            listar();
+            JOptionPane.showMessageDialog(this, "Retiro guardado correctamente.");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage());
+        }
+    }
+
+    private void cargarSeleccion() {
+        int fila = jTable1.getSelectedRow();
+        if (fila == -1) return;
+
+        Integer id = (Integer) jTable1.getModel().getValueAt(fila, 0);
+        retiro = retiroServicio.buscarPorId(id);
+
+        if (retiro.getAlmacen() != null)
+            jComboBox1.setSelectedItem(retiro.getAlmacen());
+        else
+            jComboBox1.setSelectedIndex(-1);
+
+        NombreText.setText(retiro.getNombreReceptor());
+        TipoVehiculoText.setText(retiro.getTipoVehiculo());
+        MatriculaText.setText(retiro.getMatricula());
+        EmpresaTrasnText.setText(retiro.getEmpresaTransporte());
+        FechaRetiroDATE.setDate(retiro.getFechaRetiro());
+        ObservacionesText.setText(retiro.getObservaciones());
+    }
+
+    private boolean verificarSeleccion() {
+        if (retiro.getIdRetiro() == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona un registro antes de continuar");
+            return false;
+        }
+        return true;
+    }
+
+    private void eliminar() {
+        if (verificarSeleccion()) {
+            retiroServicio.eliminar(retiro);
+            limpiar();
+            listar();
+        }
+    }
+
+    public void setVistaMain(VistaMain vistaMain) {
+        this.vistaMain = vistaMain;
+    }
+
+
+
+
+
+
+
+
+
+
 
     public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
     }
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        loteSpinner = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         EmpresaTrasnText = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -81,6 +268,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<Almacen>();
 
         jLabel6.setText("Matricula");
 
@@ -88,8 +276,6 @@ public class VistaRetiros extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Lote de almacen:");
-
-        loteSpinner.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Nombre del receptor:");
@@ -223,6 +409,8 @@ public class VistaRetiros extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -230,21 +418,19 @@ public class VistaRetiros extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(NombreText, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                        .addComponent(loteSpinner))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(MatriculaText, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(TipoVehiculoText, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(EmpresaTrasnText)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel8)
-                        .addComponent(FechaRetiroDATE, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
-                    .addComponent(jLabel7))
+                    .addComponent(NombreText, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                    .addComponent(MatriculaText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TipoVehiculoText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(EmpresaTrasnText)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8)
+                    .addComponent(FechaRetiroDATE, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
@@ -271,8 +457,8 @@ public class VistaRetiros extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(loteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(NombreText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,19 +507,23 @@ public class VistaRetiros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        guardar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        if (verificarSeleccion()) {
+            guardar();
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
+        limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        retiroServicio.eliminar(retiro);
+        limpiar();
+        listar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -350,6 +540,7 @@ public class VistaRetiros extends javax.swing.JFrame {
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JComboBox<Almacen> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -361,7 +552,6 @@ public class VistaRetiros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JSpinner loteSpinner;
     private javax.swing.JScrollPane tabla;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,16 +16,16 @@ public class RetiroContenedor {
     private Integer idRetiro;
 
     @ManyToOne
-    @JoinColumn(name = "loteAlmacen", referencedColumnName = "loteAlmacen")
+    @JoinColumn(name = "idAlmacen", referencedColumnName = "idAlmacen")
     private Almacen almacen;
-    
+
     private String nombreReceptor;
     private String tipoVehiculo;
     private String matricula;
     private String empresaTransporte;
-    
+
     @Temporal(TemporalType.DATE)
     private Date fechaRetiro;
-    
+
     private String observaciones;
 }
