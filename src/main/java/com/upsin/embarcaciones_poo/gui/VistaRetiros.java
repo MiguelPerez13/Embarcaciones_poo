@@ -82,7 +82,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         listar();
     }
 
-    private void cargarAlmacenes() {
+    public void cargarAlmacenes() {
         List<Almacen> almacenes = almacenServicio.listarAlmacen();
         jComboBox1.removeAllItems();
         for (Almacen a : almacenes) {
@@ -90,7 +90,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         }
     }
 
-    private void listar() {
+    public void listar() {
         tablaModelo.setRowCount(0);
         List<RetiroContenedor> retiroContenedors = retiroServicio.listarRetiroContenedor();
 
@@ -224,16 +224,6 @@ public class VistaRetiros extends javax.swing.JFrame {
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
     }
-
-
-
-
-
-
-
-
-
-
 
     public void regresar(){
         this.setVisible(false);
