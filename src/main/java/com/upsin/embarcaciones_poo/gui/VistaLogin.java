@@ -185,6 +185,8 @@ public class VistaLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         if(login()){
+            vistaMain.serPermiso(usuario.getPermiso());
+            limpiar();
             setVisible(false);
             vistaMain.setVisible(true);
         }

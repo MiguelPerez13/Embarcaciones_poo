@@ -22,6 +22,7 @@ public class VistaMain extends javax.swing.JFrame {
     private final VistaRetiros vistaRetiros;
     private final VistaTipoBarcos vistaTipoBarcos;
     private VistaLogin vistaLogin;
+    private Integer permiso;
 
 
 
@@ -72,11 +73,23 @@ public class VistaMain extends javax.swing.JFrame {
         this.vistaLogin = login;
     }
 
+    public void serPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
     public void volverLogin(){
         this.setVisible(false);
         vistaLogin.setVisible(true);
     }
 
+    private boolean verifiarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 || permiso == 0){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
+    }
 
 
     /**
@@ -421,72 +434,92 @@ public class VistaMain extends javax.swing.JFrame {
 
 
     private void btnBarcosActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaBarcos.inicializarCombobox();
-        vistaBarcos.listar();
-        vistaBarcos.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(2)){
+            vistaBarcos.inicializarCombobox();
+            vistaBarcos.listar();
+            vistaBarcos.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnEmbarcacionesActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaEmbarcaciones.inicializarComboBox();
-        vistaEmbarcaciones.listar();
-        vistaEmbarcaciones.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(2)){
+            vistaEmbarcaciones.inicializarComboBox();
+            vistaEmbarcaciones.listar();
+            vistaEmbarcaciones.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnEmbarcacionContenedorActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaEmbarcacionesContenedores.inicializarContenedores();
-        vistaEmbarcacionesContenedores.inicializarEmbarcaciones();
-        vistaEmbarcacionesContenedores.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(2)){
+            vistaEmbarcacionesContenedores.inicializarContenedores();
+            vistaEmbarcacionesContenedores.inicializarEmbarcaciones();
+            vistaEmbarcacionesContenedores.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnContenedorActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaContenedor.inicializarComboBox();
-        vistaContenedor.listar();
-        vistaContenedor.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(2)){
+            vistaContenedor.inicializarComboBox();
+            vistaContenedor.listar();
+            vistaContenedor.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaRetiros.listar();
-        vistaRetiros.cargarAlmacenes();
-        vistaRetiros.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(1)){
+            vistaRetiros.listar();
+            vistaRetiros.cargarAlmacenes();
+            vistaRetiros.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnCargaActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaCarga.inicializarAlmacen();
-        vistaCarga.inicializarEmbarcaciones();
-        vistaCarga.listar();
-        vistaCarga.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(1)){
+            vistaCarga.inicializarAlmacen();
+            vistaCarga.inicializarEmbarcaciones();
+            vistaCarga.listar();
+            vistaCarga.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaProductos.inicializarComboBox();
-        vistaProductos.listar();
-        vistaProductos.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(2)){
+            vistaProductos.inicializarComboBox();
+            vistaProductos.listar();
+            vistaProductos.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaEmpresas.setVisible(true);
-        vistaEmpresas.listar();
-        this.setVisible(false);
+        if(verifiarPermisos(2)){
+            vistaEmpresas.setVisible(true);
+            vistaEmpresas.listar();
+            this.setVisible(false);
+        }
     }
 
     private void btnTipoBarcoActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaTipoBarcos.setVisible(true);
-        vistaTipoBarcos.listar();
-        this.setVisible(false);
+        if(verifiarPermisos(2)){
+            vistaTipoBarcos.setVisible(true);
+            vistaTipoBarcos.listar();
+            this.setVisible(false);
+        }
     }
 
     private void bntAlmacenActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaAlmacen.inicializarContenedores();
-        vistaAlmacen.listar();
-        vistaAlmacen.setVisible(true);
-        this.setVisible(false);
+        if(verifiarPermisos(1)){
+            vistaAlmacen.inicializarContenedores();
+            vistaAlmacen.listar();
+            vistaAlmacen.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
@@ -494,12 +527,14 @@ public class VistaMain extends javax.swing.JFrame {
     }
 
     private void btnDescargaActionPerformed(java.awt.event.ActionEvent evt) {
-        vistaDescarga.setVisible(true);
-        vistaDescarga.inicializarContenedores();
-        vistaDescarga.inicializarEmbarcaciones();
-        vistaDescarga.listar();
-        vistaDescarga.listar();
-        this.setVisible(false);
+        if(verifiarPermisos(1)){
+            vistaDescarga.setVisible(true);
+            vistaDescarga.inicializarContenedores();
+            vistaDescarga.inicializarEmbarcaciones();
+            vistaDescarga.listar();
+            vistaDescarga.listar();
+            this.setVisible(false);
+        }
     }
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
