@@ -440,11 +440,16 @@ public class VistaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnContenedorActionPerformed
 
     private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiroActionPerformed
+        vistaRetiros.listar();
+        vistaRetiros.cargarAlmacenes();
         vistaRetiros.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRetiroActionPerformed
 
     private void btnCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaActionPerformed
+        vistaCarga.inicializarAlmacen();
+        vistaCarga.inicializarEmbarcaciones();
+        vistaCarga.listar();
         vistaCarga.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCargaActionPerformed

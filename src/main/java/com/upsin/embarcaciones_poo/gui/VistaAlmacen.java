@@ -323,7 +323,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
 
         estadoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         estadoComboBox.setForeground(new java.awt.Color(0, 0, 0));
-        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almacen", "Enviado" }));
+        estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almacen", "Transito" }));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Fecha de llegada:");
