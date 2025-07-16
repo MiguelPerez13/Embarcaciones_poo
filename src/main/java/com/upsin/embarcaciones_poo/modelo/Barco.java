@@ -24,4 +24,10 @@ public class Barco {
     private Float capacidadCarga;
 
     private String estado;
+
+    @Override
+    public String toString() {
+        return this.nombre; // o getNombre();
+    }
+
 }

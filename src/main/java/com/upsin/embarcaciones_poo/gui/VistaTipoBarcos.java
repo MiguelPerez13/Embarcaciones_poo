@@ -1,10 +1,14 @@
 package com.upsin.embarcaciones_poo.gui;
 import com.upsin.embarcaciones_poo.modelo.TipoBarco;
 import com.upsin.embarcaciones_poo.servicio.TipoBarcoServicio;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,22 +20,46 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     private TipoBarco tipoBarco;
     private VistaMain vistaMain;
     
-    // constructor de la vista con @Autowired
+    
     @Autowired
     public VistaTipoBarcos(TipoBarcoServicio tipoBarcoServicio) {
         this.tipoBarcoServicio = tipoBarcoServicio;
         initComponents();
         iniciarTabla();
-    }    
+        personalizarTablaBarcos();
+        tipoBarco = new TipoBarco();
+    }   
     
-    // setter de vista main
+    private void personalizarTablaBarcos() {
+        
+        JTableHeader header = tabla.getTableHeader();
+        header.setBackground(new Color(0, 133, 189)); 
+        header.setForeground(Color.WHITE);            
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(Color.WHITE);       
+        cellRenderer.setForeground(Color.BLACK);       
+        cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        tabla.setRowHeight(25);
+        tabla.setShowGrid(true);
+        tabla.setGridColor(new Color(0, 133, 189)); 
+    }
+    
+    
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
     }
     
-    // inicializar la tabla con el formato de la tabla tipo barcos
+    
     public void iniciarTabla(){
-            // evitar la edicion de tablas
+            
         this.tablaModelo = new DefaultTableModel(0, 3){
             @Override
             public boolean isCellEditable(int row,int column){return false;}
@@ -42,12 +70,12 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         this.tabla.setModel(tablaModelo);
         this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        //Cargar listado de pacientes
+        
         listar();
     }
 
-    // listar los tipos de barcos de la base de datos
-    private void listar(){
+    
+    public void listar(){
         this.tablaModelo.setRowCount(0);
         List<TipoBarco> tiposBarcos = tipoBarcoServicio.listarBarcos();
         tiposBarcos.forEach(tipoBarco -> {
@@ -60,27 +88,28 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         });
     }
     
-    //guarda el registro en la base de datos, en caso de que la variable tipoBarco  
-    //tenga un id, en vez de guardar va a editar ese registro
+    
+    
     public void guardar(){      
         String nombre = nombreLabel.getText();
         String descripcion = descripcionLabel.getText();
-        
-        if( true ){
-            //aca irian las validaciones          
-            tipoBarco.setNombreTipo(nombre);
-            tipoBarco.setDescripcion(descripcion);
-            
-            tipoBarcoServicio.guardarTipoBarco(tipoBarco);
-        }else{
-            //aca si no se se validan
-            System.out.println("hola");
+
+        if(nombre.isEmpty() || descripcion.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Llene todos los campos antes de continuar");
+            return;
         }
+
+            
+        tipoBarco.setNombreTipo(nombre);
+        tipoBarco.setDescripcion(descripcion);
+            
+        tipoBarcoServicio.guardarTipoBarco(tipoBarco);
+
         listar();
         limpiar();
     }
     
-    //carga el registro seleccionado de la tabla para su edicion o eliminacion
+    
     public void cargarSeleccion(){
         var renglon = tabla.getSelectedRow();
         Integer id = (Integer) tabla.getModel().getValueAt(renglon, 0);
@@ -91,35 +120,44 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         descripcionLabel.setText(tipoBarco.getDescripcion());
     }
     
-    //elimina el registro seleccionado
+    
     public void eliminar(){
         tipoBarcoServicio.eliminarTipoBarco(tipoBarco);
+        listar();
+        limpiar();
     }
     
-    //limpia el formulatio y la variable tipoBarco
+    
     public void limpiar(){
         nombreLabel.setText("");
         descripcionLabel.setText("");
-        this.tipoBarco=null;
+        this.tipoBarco= new TipoBarco();
     }
     
-    //regresa a la vista main
+    
     public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
     }
 
+    private boolean verificarSeleccion(){
+        if(tipoBarco.getIdTipoBarco() != null){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"Seleccione un registro antes de continuar");
+            return false;
+        }
+    }
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JTextField();
         descripcionLabel = new javax.swing.JTextField();
         guardatButton = new javax.swing.JButton();
-        salirButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         eliminarButton = new javax.swing.JButton();
@@ -128,35 +166,33 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnMain = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
-        jLabel2.setText("Registro Tipos de Barco");
-
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel4.setText("Nombre:");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel5.setText("Descripcion:");
 
+        nombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        nombreLabel.setForeground(new java.awt.Color(0, 0, 0));
+
+        descripcionLabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         descripcionLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descripcionLabelActionPerformed(evt);
             }
         });
 
-        guardatButton.setText("Guardar");
+        guardatButton.setBackground(new java.awt.Color(0, 133, 189));
+        guardatButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        guardatButton.setForeground(new java.awt.Color(255, 255, 255));
+        guardatButton.setText("GUARDAR");
         guardatButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guardatButtonActionPerformed(evt);
-            }
-        });
-
-        salirButton.setText("Salir");
-        salirButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salirButtonActionPerformed(evt);
             }
         });
 
@@ -167,21 +203,30 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        eliminarButton.setText("Eliminar");
+        eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
+        eliminarButton.setText("ELIMINAR\n");
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarButtonActionPerformed(evt);
             }
         });
 
-        editarButton.setText("Editar");
+        editarButton.setBackground(new java.awt.Color(0, 133, 189));
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        editarButton.setForeground(new java.awt.Color(255, 255, 255));
+        editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarButtonActionPerformed(evt);
             }
         });
 
-        limpiarButton.setText("Limpiar");
+        limpiarButton.setBackground(new java.awt.Color(0, 133, 189));
+        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
+        limpiarButton.setText("LIMPIAR");
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarButtonActionPerformed(evt);
@@ -191,19 +236,23 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 30)); 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel2.setText("Registro Tipos de Barco");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,6 +261,8 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(btnMain)
+                .addGap(300, 300, 300)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogin)
                 .addGap(62, 62, 62))
@@ -221,6 +272,7 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addComponent(btnLogin)
                     .addComponent(btnMain))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -232,110 +284,94 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nombreLabel)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(descripcionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(guardatButton)
+                            .addGap(18, 18, 18)
+                            .addComponent(editarButton)
+                            .addGap(18, 18, 18)
                             .addComponent(limpiarButton)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(guardatButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(editarButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(eliminarButton)))
-                        .addGap(212, 212, 212)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(salirButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(112, 112, 112)))
-                .addGap(213, 213, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addComponent(eliminarButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(descripcionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                            .addComponent(nombreLabel, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addGap(106, 106, 106)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel2)
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(limpiarButton)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(descripcionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
+                        .addGap(91, 91, 91)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(guardatButton)
-                            .addComponent(editarButton)
-                            .addComponent(eliminarButton))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(salirButton)
-                .addContainerGap())
+                            .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guardatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void descripcionLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcionLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descripcionLabelActionPerformed
+    private void descripcionLabelActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void guardatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardatButtonActionPerformed
+    private void guardatButtonActionPerformed(java.awt.event.ActionEvent evt) {
         this.tipoBarco = new TipoBarco(null,"","");
         guardar();
-    }//GEN-LAST:event_guardatButtonActionPerformed
+    }
 
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
-        eliminar();
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(verificarSeleccion()){
+            eliminar();
+        }
+    }
+
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(verificarSeleccion()){
+            guardar();
+        }
+    }
+
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-        listar();
-    }//GEN-LAST:event_eliminarButtonActionPerformed
+    }
 
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
-        guardar();
-    }//GEN-LAST:event_editarButtonActionPerformed
-
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
-        regresar();
-    }//GEN-LAST:event_limpiarButtonActionPerformed
-
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {
         cargarSeleccion();
-    }//GEN-LAST:event_tablaMouseClicked
+    }
 
-    private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_salirButtonActionPerformed
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
-        regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
-
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
     private javax.swing.JTextField descripcionLabel;
@@ -349,7 +385,6 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpiarButton;
     private javax.swing.JTextField nombreLabel;
-    private javax.swing.JButton salirButton;
     private javax.swing.JTable tabla;
-    // End of variables declaration//GEN-END:variables
+    
 }

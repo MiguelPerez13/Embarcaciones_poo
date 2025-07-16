@@ -8,21 +8,25 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 public class EmbarcacionDescarga {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+
+    @EmbeddedId
+    private EmbarcacionDescargaId id;
 
     @ManyToOne
-    @JoinColumn(name = "idContenedor", referencedColumnName = "idContenedor")
+    @MapsId("idEmbarcacion")
+    @JoinColumn(name = "idEmbarcacion")
+    private Embarcacion embarcacion;
+
+    @ManyToOne
+    @MapsId("idContenedor")
+    @JoinColumn(name = "idContenedor")
     private Contenedor contenedor;
 
     @Temporal(TemporalType.DATE)
-    private Date fechaLlegada;
+    private Date fechaDescarga;
 
-    @ManyToOne
-    @JoinColumn(name = "loteAlmacen", referencedColumnName = "loteAlmacen")
-    private Almacen almacen;
+    @Column(name = "loteAlmacen")
+    private String loteAlmacen;
 }
+
