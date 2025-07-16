@@ -16,11 +16,11 @@ public class EmbarcacionContenedor {
 
     @ManyToOne
     @MapsId("idEmbarcacion")
-    @JoinColumn(name = "idEmbarcacion") // <-- CORRECTO
+    @JoinColumn(name = "idEmbarcacion")
     private Embarcacion embarcacion;
 
     @ManyToOne
     @MapsId("idContenedor")
-    @JoinColumn(name = "idContenedor") // <-- CORREGIDO
+    @JoinColumn(name = "idContenedor")
     private Contenedor contenedor;
 }

@@ -39,16 +39,16 @@ public class VistaBarcos extends javax.swing.JFrame {
     }
 
     private void personalizarTablaBarcos() {
-        // Estilo del encabezado
+
         JTableHeader header = tabla.getTableHeader();
-        header.setBackground(new Color(0, 133, 189)); // Azul marino
-        header.setForeground(Color.WHITE);            // Letras blancas
+        header.setBackground(new Color(0, 133, 189));
+        header.setForeground(Color.WHITE);
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        // Estilo de celdas (datos)
+
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setBackground(Color.WHITE);       // Fondo blanco
-        cellRenderer.setForeground(Color.BLACK);       // Texto negro
+        cellRenderer.setBackground(Color.WHITE);
+        cellRenderer.setForeground(Color.BLACK);
         cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
         for (int i = 0; i < tabla.getColumnCount(); i++) {
@@ -57,11 +57,11 @@ public class VistaBarcos extends javax.swing.JFrame {
 
         tabla.setRowHeight(25);
         tabla.setShowGrid(true);
-        tabla.setGridColor(new Color(0, 133, 189)); // Líneas azuladas
+        tabla.setGridColor(new Color(0, 133, 189));
     }
 
     public void iniciarTabla(){
-        // evitar la edicion de tablas
+
         this.tablaModelo = new DefaultTableModel(0, 5){
             @Override
             public boolean isCellEditable(int row,int column){return false;}
@@ -72,7 +72,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         this.tabla.setModel(tablaModelo);
         this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        //Cargar listado de pacientes
+
         listar();
     }
 
@@ -185,7 +185,7 @@ public class VistaBarcos extends javax.swing.JFrame {
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         capacidadLabel = new javax.swing.JTextField();
@@ -211,7 +211,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         capacidadLabel.setBackground(new java.awt.Color(255, 255, 255));
-        capacidadLabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        capacidadLabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         capacidadLabel.setForeground(new java.awt.Color(0, 0, 0));
         capacidadLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,20 +219,20 @@ public class VistaBarcos extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Tipo de barco");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Nombre:");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Capacidad de Carga:");
 
         nombreLabel.setBackground(new java.awt.Color(255, 255, 255));
-        nombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        nombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         nombreLabel.setForeground(new java.awt.Color(0, 0, 0));
         nombreLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,12 +240,12 @@ public class VistaBarcos extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Estado:");
 
         guardarButton.setBackground(new java.awt.Color(0, 133, 189));
-        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         guardarButton.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton.setText("GUARDAR");
         guardarButton.setMaximumSize(new java.awt.Dimension(84, 27));
@@ -282,21 +282,21 @@ public class VistaBarcos extends javax.swing.JFrame {
             }
         });
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel3.setForeground(new java.awt.Color(0, 0, 51));
         jLabel3.setText("REGISTRO DE BARCOS");
 
@@ -325,11 +325,11 @@ public class VistaBarcos extends javax.swing.JFrame {
         );
 
         tipoBarcoComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        tipoBarcoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tipoBarcoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         tipoBarcoComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
         eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
-        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
         eliminarButton.setText("ELIMINAR");
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -339,7 +339,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         });
 
         editarButton.setBackground(new java.awt.Color(0, 133, 189));
-        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         editarButton.setForeground(new java.awt.Color(255, 255, 255));
         editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -349,7 +349,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         });
 
         limpiarButton.setBackground(new java.awt.Color(0, 133, 189));
-        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
         limpiarButton.setText("LIMPIAR");
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -359,7 +359,7 @@ public class VistaBarcos extends javax.swing.JFrame {
         });
 
         estadoComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        estadoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        estadoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         estadoComboBox.setForeground(new java.awt.Color(0, 0, 0));
         estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo", "En mantenimiento", "Fuera de servicio", "Pendiente de registro" }));
 
@@ -428,55 +428,54 @@ public class VistaBarcos extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void capacidadLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_capacidadLabelActionPerformed
+    private void capacidadLabelActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         barco = new Barco();
         guardar();
-    }//GEN-LAST:event_guardarButtonActionPerformed
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_jPanel1MouseClicked
+    }
 
-    private void nombreLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreLabelActionPerformed
+    private void nombreLabelActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
        if(verificarSeleccion()){
             eliminar();
         }
-    }//GEN-LAST:event_eliminarButtonActionPerformed
+    }
 
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()) guardar();
-    }//GEN-LAST:event_editarButtonActionPerformed
+    }
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {
         cargarSeleccion();
-    }//GEN-LAST:event_tablaMouseClicked
+    }
 
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-    }//GEN-LAST:event_limpiarButtonActionPerformed
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
     private javax.swing.JTextField capacidadLabel;
@@ -495,5 +494,5 @@ public class VistaBarcos extends javax.swing.JFrame {
     private javax.swing.JTextField nombreLabel;
     private javax.swing.JTable tabla;
     private javax.swing.JComboBox<TipoBarco> tipoBarcoComboBox;
-    // End of variables declaration//GEN-END:variables
+    
 }

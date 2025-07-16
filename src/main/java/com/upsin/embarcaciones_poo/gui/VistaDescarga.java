@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs:
+ * Click nbfs:
  */
 package com.upsin.embarcaciones_poo.gui;
 
@@ -81,7 +81,7 @@ public class VistaDescarga extends javax.swing.JFrame {
     }
 
     public void iniciarTabla(){
-        // evitar la edicion de tablas
+        
         this.tablaModelo = new DefaultTableModel(0, 4){
             @Override
             public boolean isCellEditable(int row,int column){return false;}
@@ -140,7 +140,7 @@ public class VistaDescarga extends javax.swing.JFrame {
     }
 
     private void guardar() {
-        // Validar que haya contenedores y embarcaciones cargados en los combos
+        
         if (ContComboBox.getItemCount() == 0) {
             JOptionPane.showMessageDialog(this, "No existen registros de contenedores");
             return;
@@ -151,13 +151,13 @@ public class VistaDescarga extends javax.swing.JFrame {
             return;
         }
 
-        // Obtener objetos seleccionados
+        
         Contenedor contenedor = (Contenedor) ContComboBox.getSelectedItem();
         Embarcacion embarcacion = (Embarcacion) EmbComboBox.getSelectedItem();
 
         if (embarcacion == null || contenedor == null) return;
 
-        // Obtener fecha y lote
+        
         Date fecha = FechaDate.getDate();
         String lote = LoteText.getText().trim();
 
@@ -166,20 +166,20 @@ public class VistaDescarga extends javax.swing.JFrame {
             return;
         }
 
-        // Crear y asignar el ID compuesto
+        
         EmbarcacionDescargaId id = new EmbarcacionDescargaId(
                 embarcacion.getIdEmbarcacion(),
                 contenedor.getIdContenedor()
         );
 
-        // Asignar a la entidad
+        
         embarcacionDescarga.setId(id);
         embarcacionDescarga.setEmbarcacion(embarcacion);
         embarcacionDescarga.setContenedor(contenedor);
         embarcacionDescarga.setFechaDescarga(fecha);
         embarcacionDescarga.setLoteAlmacen(lote);
 
-        // Guardar usando el servicio
+        
         embarcacionDescargaServicio.guardar(embarcacionDescarga);
 
         JOptionPane.showMessageDialog(this, "Registro guardado correctamente");
@@ -237,7 +237,7 @@ public class VistaDescarga extends javax.swing.JFrame {
     }
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -264,21 +264,21 @@ public class VistaDescarga extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel2.setForeground(new java.awt.Color(0, 0, 51));
         jLabel2.setText("ALMACEN");
 
@@ -307,28 +307,28 @@ public class VistaDescarga extends javax.swing.JFrame {
         );
 
         EmbComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        EmbComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        EmbComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         EmbComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
         ContComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        ContComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ContComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         ContComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
-        EmbLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        EmbLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
         EmbLabel.setText("Embarcacion:");
 
-        ContLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        ContLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
         ContLabel.setText("Contenedor:");
 
-        FechaLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        FechaLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
         FechaLabel.setText("Fecha Descarga:");
 
-        FechaDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        FechaDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
-        LoteLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        LoteLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
         LoteLabel.setText("Lote Almacen:");
 
-        LoteText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        LoteText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -344,7 +344,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabla);
 
         btnEliminar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -354,7 +354,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         });
 
         btnModificar.setBackground(new java.awt.Color(0, 133, 189));
-        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -364,7 +364,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         });
 
         btnLimpiar.setBackground(new java.awt.Color(0, 133, 189));
-        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("LIMPIAR");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -374,7 +374,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         });
 
         btnGuardar.setBackground(new java.awt.Color(0, 133, 189));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("GUARDAR");
         btnGuardar.setMaximumSize(new java.awt.Dimension(84, 27));
@@ -450,39 +450,38 @@ public class VistaDescarga extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             eliminar();
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             guardar();
         }
-    }//GEN-LAST:event_btnModificarActionPerformed
+    }
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
            limpiar();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    }
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         guardar();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JComboBox<Contenedor> ContComboBox;
     private javax.swing.JLabel ContLabel;
     private javax.swing.JComboBox<Embarcacion> EmbComboBox;
@@ -501,5 +500,5 @@ public class VistaDescarga extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
-    // End of variables declaration//GEN-END:variables
+    
 }

@@ -52,16 +52,16 @@ public class VistaProductos extends javax.swing.JFrame {
     }
     
     private void personalizarTablaBarcos() {
-        // Estilo del encabezado
+        
         JTableHeader header = jTable1.getTableHeader();
-        header.setBackground(new Color(0, 133, 189)); // Azul marino
-        header.setForeground(Color.WHITE);            // Letras blancas
+        header.setBackground(new Color(0, 133, 189)); 
+        header.setForeground(Color.WHITE);            
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        // Estilo de celdas (datos)
+        
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setBackground(Color.WHITE);       // Fondo blanco
-        cellRenderer.setForeground(Color.BLACK);       // Texto negro
+        cellRenderer.setBackground(Color.WHITE);       
+        cellRenderer.setForeground(Color.BLACK);       
         cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
@@ -70,7 +70,7 @@ public class VistaProductos extends javax.swing.JFrame {
 
         jTable1.setRowHeight(25);
         jTable1.setShowGrid(true);
-        jTable1.setGridColor(new Color(0, 133, 189)); // Líneas azuladas
+        jTable1.setGridColor(new Color(0, 133, 189)); 
     }
 
     public void setVistaMain(VistaMain vistaMain) {
@@ -83,7 +83,7 @@ public class VistaProductos extends javax.swing.JFrame {
     }
 
     private void iniciarTabla() {
-        this.tablaModelo = new DefaultTableModel(0, 7) { // Cambia 6 a 7 columnas
+        this.tablaModelo = new DefaultTableModel(0, 7) { 
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -110,7 +110,7 @@ public class VistaProductos extends javax.swing.JFrame {
 
     private void guardar() {
 
-        // Validar si existen contenedores registrados
+        
 
         if (contenedorComboBox.getItemCount() == 0) {
             JOptionPane.showMessageDialog(this, "⚠️ No hay contenedores registrados. Por favor, registre uno antes de continuar.");
@@ -265,7 +265,7 @@ public class VistaProductos extends javax.swing.JFrame {
     }
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         jLabel6 = new javax.swing.JLabel();
@@ -293,7 +293,7 @@ public class VistaProductos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel6.setText("Tipo de Producto:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -323,7 +323,7 @@ public class VistaProductos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         Guardar.setBackground(new java.awt.Color(0, 133, 189));
-        Guardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Guardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("GUARDAR");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -332,17 +332,17 @@ public class VistaProductos extends javax.swing.JFrame {
             }
         });
 
-        DescripcionText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        DescripcionText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         DescripcionText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DescripcionTextActionPerformed(evt);
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); 
         jLabel8.setText("Cantidad:");
 
-        PesoUDouble.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        PesoUDouble.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         PesoUDouble.setForeground(new java.awt.Color(0, 0, 0));
         PesoUDouble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,27 +350,27 @@ public class VistaProductos extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel9.setText("Descripcion:");
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel10.setForeground(new java.awt.Color(0, 0, 51));
         jLabel10.setText("PRODUCTOS");
 
@@ -399,7 +399,7 @@ public class VistaProductos extends javax.swing.JFrame {
         );
 
         Limpiar.setBackground(new java.awt.Color(0, 133, 189));
-        Limpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Limpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         Limpiar.setForeground(new java.awt.Color(255, 255, 255));
         Limpiar.setText("LIMPIAR");
         Limpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +409,7 @@ public class VistaProductos extends javax.swing.JFrame {
         });
 
         Eliminar.setBackground(new java.awt.Color(0, 133, 189));
-        Eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         Eliminar.setForeground(new java.awt.Color(255, 255, 255));
         Eliminar.setText("ELIMINAR");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -419,7 +419,7 @@ public class VistaProductos extends javax.swing.JFrame {
         });
 
         Editar.setBackground(new java.awt.Color(0, 133, 189));
-        Editar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Editar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         Editar.setForeground(new java.awt.Color(255, 255, 255));
         Editar.setText("MODIFICAR");
         Editar.addActionListener(new java.awt.event.ActionListener() {
@@ -428,24 +428,24 @@ public class VistaProductos extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Productos Alimenticios", "Bienes de consumo", "Maquinaria y Partes", "Vehiculos", "Productos farmacéuticos", "Materiales químicos", "Materiales de construcción", "Productos de papel", "Articulos peligrosos" }));
 
-        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         NombreText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NombreTextActionPerformed(evt);
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel11.setText("Peso Unitario:");
 
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel12.setText("Nombre:");
 
-        CantidadNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        CantidadNumber.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         CantidadNumber.setForeground(new java.awt.Color(0, 0, 0));
         CantidadNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -453,10 +453,10 @@ public class VistaProductos extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel1.setText("Contenedor:");
 
-        contenedorComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        contenedorComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         contenedorComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -532,56 +532,55 @@ public class VistaProductos extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-          producto = new Producto(); // nuevo producto
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {
+          producto = new Producto(); 
           guardar();
-    }//GEN-LAST:event_GuardarActionPerformed
+    }
 
-    private void DescripcionTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DescripcionTextActionPerformed
+    private void DescripcionTextActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void PesoUDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesoUDoubleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PesoUDoubleActionPerformed
+    private void PesoUDoubleActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void NombreTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTextActionPerformed
+    private void NombreTextActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void CantidadNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CantidadNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CantidadNumberActionPerformed
+    private void CantidadNumberActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             guardar();
         }
-    }//GEN-LAST:event_EditarActionPerformed
+    }
 
-    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             eliminar();
         }
-    }//GEN-LAST:event_EliminarActionPerformed
+    }
 
-    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-    }//GEN-LAST:event_LimpiarActionPerformed
+    }
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
         int row = jTable1.getSelectedRow();
     if (row >= 0) {
         Integer id = (Integer) tablaModelo.getValueAt(row, 0);
@@ -594,13 +593,13 @@ public class VistaProductos extends javax.swing.JFrame {
             CantidadNumber.setText(producto.getCantidad().toString());
             PesoUDouble.setText(producto.getPesoUnitario().toString());
             DescripcionText.setText(producto.getDescripcion());
-            // Si quieres mostrar el idContenedor en algún campo, hazlo aquí.
+            
         }
     }
-    }//GEN-LAST:event_jTable1MouseClicked
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JTextField CantidadNumber;
     private javax.swing.JTextField DescripcionText;
     private javax.swing.JButton Editar;
@@ -623,5 +622,5 @@ public class VistaProductos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    // End of variables declaration//GEN-END:variables
+    
 }
