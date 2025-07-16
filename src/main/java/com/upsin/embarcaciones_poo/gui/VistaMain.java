@@ -517,6 +517,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(1)){
             vistaAlmacen.inicializarContenedores();
             vistaAlmacen.listar();
+            vistaAlmacen.setPermiso(permiso);
             vistaAlmacen.setVisible(true);
             this.setVisible(false);
         }
