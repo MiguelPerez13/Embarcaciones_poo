@@ -437,6 +437,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaBarcos.inicializarCombobox();
             vistaBarcos.listar();
+            vistaBarcos.setPermiso(permiso);
             vistaBarcos.setVisible(true);
             this.setVisible(false);
         }
@@ -466,6 +467,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaContenedor.inicializarComboBox();
             vistaContenedor.listar();
+            vistaContenedor.setPermiso(permiso);
             vistaContenedor.setVisible(true);
             this.setVisible(false);
         }
