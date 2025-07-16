@@ -1,9 +1,6 @@
 package com.upsin.embarcaciones_poo.gui;
 
-import com.upsin.embarcaciones_poo.modelo.Contenedor;
-import com.upsin.embarcaciones_poo.modelo.Embarcacion;
-import com.upsin.embarcaciones_poo.modelo.EmbarcacionContenedor;
-import com.upsin.embarcaciones_poo.modelo.EmbarcacionContenedorId;
+import com.upsin.embarcaciones_poo.modelo.*;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
 import com.upsin.embarcaciones_poo.servicio.EmbarcacionContenedorServicio;
 import com.upsin.embarcaciones_poo.servicio.EmbarcacionServicio;
@@ -27,6 +24,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
     private ContenedorServicio contenedorServicio;
     private EmbarcacionContenedor embarcacionContenedor;
     private DefaultTableModel tablaModelo;
+    private Integer permiso;
 
     
     @Autowired
@@ -62,7 +60,9 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         tabla.setGridColor(new Color(0, 133, 189));
     }
 
-
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
 
     public void iniciarTabla(){
         
@@ -184,6 +184,17 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         this.setVisible(false);
         vistaMain.setVisible(true);
     }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
+    }
+
+
     @SuppressWarnings("unchecked")
     
     private void initComponents() {
@@ -395,18 +406,26 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        guardar();
-    }
-
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(2)){
+            embarcacionContenedor = new EmbarcacionContenedor();
             guardar();
         }
     }
 
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
+        }
+    }
+
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()) eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
+        }
     }
 
     private void limpairButtonActionPerformed(java.awt.event.ActionEvent evt) {

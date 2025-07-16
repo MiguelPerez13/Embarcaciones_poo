@@ -1,5 +1,6 @@
 package com.upsin.embarcaciones_poo.gui;
 
+import com.upsin.embarcaciones_poo.modelo.Almacen;
 import com.upsin.embarcaciones_poo.modelo.Barco;
 import com.upsin.embarcaciones_poo.modelo.Embarcacion;
 import com.upsin.embarcaciones_poo.servicio.BarcoServicio;
@@ -24,8 +25,12 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     private BarcoServicio barcoServicio;
     private EmbarcacionServicio embarcacionServicio;
     private Embarcacion embarcacion;
+    private Integer permiso;
 
 
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
 
     public VistaEmbarcaciones(EmbarcacionServicio embarcacionServicio, BarcoServicio barcoServicio) {
         this.embarcacionServicio = embarcacionServicio;
@@ -217,6 +222,13 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         }
     }
 
+    private boolean verificarSeleccion() {
+        if (embarcacion == null || embarcacion.getIdEmbarcacion() == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona una embarcación de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
 
     public void cargarSeleccion() {
@@ -282,69 +294,14 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         }
     }
 
+
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            if (embarcacion == null || embarcacion.getIdEmbarcacion() == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona un registro para modificar.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
             }
-
-            Barco barcoSeleccionado = (Barco) jComboBox1.getSelectedItem();
-            String puertoOrigen = PueroOrigenTEXT.getText().trim();
-            String puertoDestino = PuertoDestinoTEXT.getText().trim();
-            Date fechaSalida = FechaSalidaDATE.getDate();
-            Date fechaLlegada = FechaLlegadaDATE.getDate();
-
-            if (barcoSeleccionado == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona un barco.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (puertoOrigen.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingresa el puerto de origen.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (puertoDestino.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingresa el puerto de destino.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (fechaSalida == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona la fecha de salida.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (fechaLlegada == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona la fecha de llegada.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (fechaLlegada.before(fechaSalida)) {
-                JOptionPane.showMessageDialog(this, "La fecha de llegada no puede ser anterior a la fecha de salida.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            embarcacion.setBarco(barcoSeleccionado);
-            embarcacion.setPuertoOrigen(puertoOrigen);
-            embarcacion.setPuertoDestino(puertoDestino);
-            embarcacion.setFechaSalida(fechaSalida);
-            embarcacion.setFechaLlegada(fechaLlegada);
-
-            embarcacionServicio.guardar(embarcacion);
-
-            JOptionPane.showMessageDialog(this, "Embarcación modificada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-            limpiar();
-            listar();
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error modificando embarcación: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-
-
-
-
-
-
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
@@ -353,6 +310,15 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
    public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
    
     @SuppressWarnings("unchecked")
@@ -596,7 +562,10 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        guardar();
+        if(verificarPermisos(2)){
+            embarcacion = new Embarcacion();
+            guardar();
+        }
     }
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -604,7 +573,11 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
+        }
     }
 
 

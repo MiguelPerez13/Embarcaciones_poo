@@ -1,4 +1,5 @@
 package com.upsin.embarcaciones_poo.gui;
+import com.upsin.embarcaciones_poo.modelo.Almacen;
 import com.upsin.embarcaciones_poo.modelo.TipoBarco;
 import com.upsin.embarcaciones_poo.servicio.TipoBarcoServicio;
 import java.awt.Color;
@@ -19,6 +20,7 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     private DefaultTableModel tablaModelo;
     private TipoBarco tipoBarco;
     private VistaMain vistaMain;
+    private Integer permiso;
     
     
     @Autowired
@@ -28,7 +30,11 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         iniciarTabla();
         personalizarTablaBarcos();
         tipoBarco = new TipoBarco();
-    }   
+    }
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
     
     private void personalizarTablaBarcos() {
         
@@ -145,6 +151,15 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
             return true;
         }else{
             JOptionPane.showMessageDialog(this,"Seleccione un registro antes de continuar");
+            return false;
+        }
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
             return false;
         }
     }
@@ -336,19 +351,25 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     }
 
     private void guardatButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        this.tipoBarco = new TipoBarco(null,"","");
-        guardar();
+        if(verificarPermisos(2)){
+            tipoBarco = new TipoBarco();
+            guardar();
+        }
     }
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
         }
     }
 
     private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            guardar();
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
         }
     }
 

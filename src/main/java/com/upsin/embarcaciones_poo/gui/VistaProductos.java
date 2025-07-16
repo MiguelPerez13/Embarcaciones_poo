@@ -1,6 +1,7 @@
 package com.upsin.embarcaciones_poo.gui;
 
 
+import com.upsin.embarcaciones_poo.modelo.Almacen;
 import com.upsin.embarcaciones_poo.modelo.Contenedor;
 import com.upsin.embarcaciones_poo.modelo.Producto;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
@@ -24,7 +25,7 @@ public class VistaProductos extends javax.swing.JFrame {
     private Producto producto;
     private DefaultTableModel tablaModelo;
     private ContenedorServicio contenedorServicio;
-
+    private Integer permiso;
 
     @Autowired
     public VistaProductos(ProductoServicio productoServicio, ContenedorServicio contenedorServicio) {
@@ -76,7 +77,11 @@ public class VistaProductos extends javax.swing.JFrame {
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
     }
-   
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
    public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
@@ -106,7 +111,6 @@ public class VistaProductos extends javax.swing.JFrame {
         });
 
     }
-
 
     private void guardar() {
 
@@ -213,8 +217,6 @@ public class VistaProductos extends javax.swing.JFrame {
         });
     }
 
-
-
     private void eliminar() {
         if (producto != null) {
             productoServicio.eliminar(producto);
@@ -226,7 +228,6 @@ public class VistaProductos extends javax.swing.JFrame {
         }
     }
 
-
     private void limpiar() {
         producto = new Producto();
         jComboBox1.setSelectedIndex(0);
@@ -234,6 +235,15 @@ public class VistaProductos extends javax.swing.JFrame {
         CantidadNumber.setText("");
         PesoUDouble.setText("");
         DescripcionText.setText("");
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
 
     private void cargarSeleccion() {
@@ -535,8 +545,10 @@ public class VistaProductos extends javax.swing.JFrame {
     }
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {
-          producto = new Producto(); 
-          guardar();
+        if(verificarPermisos(2)){
+            producto = new Producto();
+            guardar();
+        }
     }
 
     private void DescripcionTextActionPerformed(java.awt.event.ActionEvent evt) {
@@ -565,14 +577,18 @@ public class VistaProductos extends javax.swing.JFrame {
     }
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            guardar();
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
         }
     }
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
         }
     }
 

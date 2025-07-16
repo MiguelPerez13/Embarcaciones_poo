@@ -24,6 +24,8 @@ public class VistaRetiros extends javax.swing.JFrame {
     private DefaultTableModel tablaModelo;
     private RetiroContenedor retiro;
     private VistaMain vistaMain;
+    private Integer permiso;
+
 
 
 
@@ -43,6 +45,10 @@ public class VistaRetiros extends javax.swing.JFrame {
                 cargarSeleccion();
             }
         });
+    }
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
     }
 
     private void personalizarTablaRetiros() {
@@ -228,6 +234,15 @@ public class VistaRetiros extends javax.swing.JFrame {
     public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -496,12 +511,17 @@ public class VistaRetiros extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        guardar();
+        if(verificarPermisos(2)){
+            retiro = new RetiroContenedor();
+            guardar();
+        }
     }
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (verificarSeleccion()) {
-            guardar();
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
         }
     }
 
@@ -510,9 +530,11 @@ public class VistaRetiros extends javax.swing.JFrame {
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        retiroServicio.eliminar(retiro);
-        limpiar();
-        listar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
+        }
     }
 
 
