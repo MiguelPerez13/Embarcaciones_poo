@@ -4,6 +4,7 @@
  */
 package com.upsin.embarcaciones_poo.gui;
 
+import com.upsin.embarcaciones_poo.modelo.Almacen;
 import com.upsin.embarcaciones_poo.modelo.Contenedor;
 import com.upsin.embarcaciones_poo.modelo.Empresa;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
@@ -41,21 +42,12 @@ public class VistaContenedor extends javax.swing.JFrame {
         contenedor = new Contenedor();
     }
 
-    public void setVistaMain(VistaMain vistaMain) {
-        this.vistaMain = vistaMain;
-    }
-
     public void setPermiso(Integer permiso){
         this.permiso = permiso;
     }
 
-    private boolean verificarPermisos(Integer nivel){
-        if(permiso == nivel || permiso == 3 ){
-            return true;
-        }else{
-            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
-            return false;
-        }
+    public void setVistaMain(VistaMain vistaMain) {
+        this.vistaMain = vistaMain;
     }
 
     public void iniciarTabla(){
@@ -118,7 +110,6 @@ public class VistaContenedor extends javax.swing.JFrame {
         tabla.setGridColor(new Color(0, 133, 189));
     }
 
-
     public void listar(){
         this.tablaModelo.setRowCount(0);
 
@@ -136,7 +127,6 @@ public class VistaContenedor extends javax.swing.JFrame {
             tablaModelo.addRow(renglon);
         });
     }
-
 
     public void regresar(){
         this.setVisible(false);
@@ -216,8 +206,6 @@ public class VistaContenedor extends javax.swing.JFrame {
 
     }
 
-
-
     public void cargarSeleccion(){
         var renglon = tabla.getSelectedRow();
         Integer id = (Integer) tabla.getModel().getValueAt(renglon,0);
@@ -252,6 +240,15 @@ public class VistaContenedor extends javax.swing.JFrame {
         observacionesField.setText("");
 
         contenedor = new Contenedor();
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
     
     @SuppressWarnings("unchecked")

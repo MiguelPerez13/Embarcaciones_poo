@@ -1,5 +1,6 @@
 package com.upsin.embarcaciones_poo.gui;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.upsin.embarcaciones_poo.modelo.Almacen;
 import com.upsin.embarcaciones_poo.modelo.Barco;
 import com.upsin.embarcaciones_poo.modelo.TipoBarco;
 import com.upsin.embarcaciones_poo.servicio.BarcoServicio;
@@ -32,15 +33,16 @@ public class VistaBarcos extends javax.swing.JFrame {
         iniciarTabla();
         personalizarTablaBarcos();
         inicializarCombobox();
-        barco = new Barco();
-    }
 
-    public void setVistaMain(VistaMain vistaMain) {
-        this.vistaMain = vistaMain;
+        barco = new Barco();
     }
 
     public void setPermiso(Integer permiso){
         this.permiso = permiso;
+    }
+
+    public void setVistaMain(VistaMain vistaMain) {
+        this.vistaMain = vistaMain;
     }
 
     private boolean verificarPermisos(Integer nivel){

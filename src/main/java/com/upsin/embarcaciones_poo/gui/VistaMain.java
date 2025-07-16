@@ -475,6 +475,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(1)){
             vistaRetiros.listar();
             vistaRetiros.cargarAlmacenes();
+            vistaRetiros.setPermiso(permiso);
             vistaRetiros.setVisible(true);
             this.setVisible(false);
         }
@@ -485,6 +486,7 @@ public class VistaMain extends javax.swing.JFrame {
             vistaCarga.inicializarAlmacen();
             vistaCarga.inicializarEmbarcaciones();
             vistaCarga.listar();
+            vistaCarga.setPermiso(permiso);
             vistaCarga.setVisible(true);
             this.setVisible(false);
         }
@@ -538,6 +540,7 @@ public class VistaMain extends javax.swing.JFrame {
             vistaDescarga.setVisible(true);
             vistaDescarga.inicializarContenedores();
             vistaDescarga.inicializarEmbarcaciones();
+            vistaDescarga.setPermiso(permiso);
             vistaDescarga.listar();
             vistaDescarga.listar();
             this.setVisible(false);
