@@ -483,7 +483,7 @@ public class VistaDescarga extends javax.swing.JFrame {
     }
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarPermisos(2)){
+        if(verificarPermisos(1)){
             if (verificarSeleccion()) {
                 guardar();
             }
@@ -495,7 +495,7 @@ public class VistaDescarga extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarPermisos(2)){
+        if(verificarPermisos(1)){
             embarcacionDescarga = new EmbarcacionDescarga();
             guardar();
         }

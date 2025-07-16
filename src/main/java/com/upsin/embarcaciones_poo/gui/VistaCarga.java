@@ -426,14 +426,14 @@ public class VistaCarga extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarPermisos(2)){
+        if(verificarPermisos(1)){
             embarcacionCarga = new EmbarcacionCarga();
             guardar();
         }
     }
 
     private void modificarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarPermisos(2)){
+        if(verificarPermisos(1)){
             if (verificarSeleccion()) {
                 guardar();
             }
