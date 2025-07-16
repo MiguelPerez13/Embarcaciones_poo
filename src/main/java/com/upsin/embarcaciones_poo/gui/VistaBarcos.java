@@ -22,6 +22,7 @@ public class VistaBarcos extends javax.swing.JFrame {
     private VistaMain vistaMain;
     private DefaultTableModel tablaModelo;
     private Barco barco;
+    private Integer permiso;
 
     @Autowired
     public VistaBarcos(BarcoServicio barcoServicio, TipoBarcoServicio tipoBarcoServicio) {
@@ -36,6 +37,19 @@ public class VistaBarcos extends javax.swing.JFrame {
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
+    }
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
 
     private void personalizarTablaBarcos() {
@@ -435,8 +449,10 @@ public class VistaBarcos extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        barco = new Barco();
-        guardar();
+        if(verificarPermisos(2)){
+            barco = new Barco();
+            guardar();
+        }
     }
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
@@ -457,13 +473,17 @@ public class VistaBarcos extends javax.swing.JFrame {
     }
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-       if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
         }
     }
 
     private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()) guardar();
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) guardar();
+        }
     }
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {

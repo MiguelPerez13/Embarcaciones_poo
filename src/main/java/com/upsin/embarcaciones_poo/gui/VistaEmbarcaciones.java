@@ -45,6 +45,19 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         embarcacion = new Embarcacion();
     }
 
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
+    }
+
     private void personalizarTablaEmbarcaciones2() {
         JTableHeader header = Tabla.getTableHeader();
         header.setBackground(new Color(0, 133, 189));
@@ -337,14 +350,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error modificando embarcación: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-
-
-
-
-
-
+    
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
@@ -596,7 +602,9 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        guardar();
+        if(verificarPermisos(2)){
+            guardar();
+        }
     }
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -604,7 +612,9 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        eliminar();
+        if(verificarPermisos(3)){
+            eliminar();
+        }
     }
 
 
