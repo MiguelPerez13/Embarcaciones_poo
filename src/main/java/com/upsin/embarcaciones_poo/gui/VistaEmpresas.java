@@ -34,16 +34,16 @@ public class VistaEmpresas extends javax.swing.JFrame {
     }
     
     private void personalizarTablaBarcos() {
-        // Estilo del encabezado
+        
         JTableHeader header = TablaEmpresas.getTableHeader();
-        header.setBackground(new Color(0, 133, 189)); // Azul marino
-        header.setForeground(Color.WHITE);            // Letras blancas
+        header.setBackground(new Color(0, 133, 189)); 
+        header.setForeground(Color.WHITE);            
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        // Estilo de celdas (datos)
+        
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setBackground(Color.WHITE);       // Fondo blanco
-        cellRenderer.setForeground(Color.BLACK);       // Texto negro
+        cellRenderer.setBackground(Color.WHITE);       
+        cellRenderer.setForeground(Color.BLACK);       
         cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
         for (int i = 0; i < TablaEmpresas.getColumnCount(); i++) {
@@ -52,7 +52,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
 
         TablaEmpresas.setRowHeight(25);
         TablaEmpresas.setShowGrid(true);
-        TablaEmpresas.setGridColor(new Color(0, 133, 189)); // Líneas azuladas
+        TablaEmpresas.setGridColor(new Color(0, 133, 189)); 
     }
 
     public void setVistaMain(VistaMain vistaMain) {
@@ -63,7 +63,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
         this.tablaModelo = new DefaultTableModel(0, 8) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // evitar edición directa
+                return false; 
             }
         };
         String[] columnas = {"Id", "Nombre", "RFC", "Telefono", "Email", "Direccion", "Tipo Empresa", "Fecha Registro"};
@@ -86,19 +86,19 @@ public class VistaEmpresas extends javax.swing.JFrame {
         String tipoEmpresa = tipoEmpresaField.getText().trim();
         Date fecha = fechaRegistroDate.getDate();
 
-        // Validar nombre (no vacío)
+        
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
             return;
         }
 
-        // Validar RFC (ejemplo simple: no vacío y longitud mínima)
+        
         if (rfc.isEmpty() || rfc.length() < 10) {
             JOptionPane.showMessageDialog(this, "El RFC es inválido o está vacío.");
             return;
         }
 
-        // Validar teléfono (debe ser numérico)
+        
         try {
             Long.parseLong(telefono);
         } catch (NumberFormatException e) {
@@ -106,13 +106,13 @@ public class VistaEmpresas extends javax.swing.JFrame {
             return;
         }
 
-        // Validar email (mínimo que tenga un '@')
+        
         if (!email.contains("@") || email.startsWith("@") || email.endsWith("@")) {
             JOptionPane.showMessageDialog(this, "El correo electrónico no es válido.");
             return;
         }
 
-        // Validar dirección (no vacío)
+        
         if (direccion.isEmpty()) {
             JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía.");
             return;
@@ -171,8 +171,8 @@ public class VistaEmpresas extends javax.swing.JFrame {
     public void eliminar() {
         if (empresa != null) {
             empresaServicio.eliminar(empresa);
-            listar();   // Actualizar la tabla
-            limpiar();  // Limpiar campos y resetear entidad
+            listar();   
+            limpiar();  
         } else {
             System.out.println("No hay empresa seleccionada para eliminar");
         }
@@ -189,7 +189,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
     }
 
     public void listar() {
-        this.tablaModelo.setRowCount(0); // Limpiar la tabla
+        this.tablaModelo.setRowCount(0); 
 
         List<Empresa> empresas = empresaServicio.listarEmpresa();
 
@@ -218,7 +218,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         TelefonoText = new javax.swing.JTextField();
@@ -248,7 +248,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        TelefonoText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        TelefonoText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         TelefonoText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TelefonoTextActionPerformed(evt);
@@ -256,7 +256,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
         });
 
         btnGuardar.setBackground(new java.awt.Color(0, 133, 189));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -265,20 +265,20 @@ public class VistaEmpresas extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel5.setText("Nombre:");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel6.setText("RFC:");
 
-        RFCText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        RFCText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         RFCText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RFCTextActionPerformed(evt);
             }
         });
 
-        DireccionText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        DireccionText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         DireccionText.setForeground(new java.awt.Color(0, 0, 0));
         DireccionText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +286,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel8.setText("Email:");
 
         TablaEmpresas.setModel(new javax.swing.table.DefaultTableModel(
@@ -307,7 +307,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TablaEmpresas);
 
-        emailText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        emailText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         emailText.setForeground(new java.awt.Color(0, 0, 0));
         emailText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,10 +315,10 @@ public class VistaEmpresas extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel9.setText("Direccion:");
 
-        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         NombreText.setForeground(new java.awt.Color(0, 0, 0));
         NombreText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,16 +326,16 @@ public class VistaEmpresas extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel7.setText("Telefono:");
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel10.setText("Fecha de registro:");
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel11.setText("Tipo de Empresa:");
 
-        tipoEmpresaField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tipoEmpresaField.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         tipoEmpresaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoEmpresaFieldActionPerformed(evt);
@@ -343,7 +343,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
         });
 
         btnEditar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("MODIFICAR");
         btnEditar.setToolTipText("");
@@ -356,21 +356,21 @@ public class VistaEmpresas extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel3.setForeground(new java.awt.Color(0, 0, 51));
         jLabel3.setText("EMPRESAS");
 
@@ -399,7 +399,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
         );
 
         btnEliminar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,10 +407,10 @@ public class VistaEmpresas extends javax.swing.JFrame {
             }
         });
 
-        fechaRegistroDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        fechaRegistroDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
         limpiarButton.setBackground(new java.awt.Color(0, 133, 189));
-        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
         limpiarButton.setText("LIMPIAR");
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -517,71 +517,70 @@ public class VistaEmpresas extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void TelefonoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonoTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TelefonoTextActionPerformed
+    private void TelefonoTextActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        this.empresa = new Empresa(); // Nuevo registro
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        this.empresa = new Empresa(); 
         guardar();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }
 
-    private void RFCTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RFCTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RFCTextActionPerformed
+    private void RFCTextActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void DireccionTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DireccionTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DireccionTextActionPerformed
+    private void DireccionTextActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void emailTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailTextActionPerformed
+    private void emailTextActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void tipoEmpresaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoEmpresaFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoEmpresaFieldActionPerformed
+    private void tipoEmpresaFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void NombreTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreTextActionPerformed
+    private void NombreTextActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             guardar();
         }
-    }//GEN-LAST:event_btnEditarActionPerformed
+    }
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             eliminar();
             listar();
             limpiar();
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }
 
-    private void TablaEmpresasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaEmpresasMouseClicked
+    private void TablaEmpresasMouseClicked(java.awt.event.MouseEvent evt) {
         cargarSeleccion();
-    }//GEN-LAST:event_TablaEmpresasMouseClicked
+    }
 
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-    }//GEN-LAST:event_limpiarButtonActionPerformed
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JTextField DireccionText;
     private javax.swing.JTextField NombreText;
     private javax.swing.JTextField RFCText;
@@ -606,5 +605,5 @@ public class VistaEmpresas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpiarButton;
     private javax.swing.JTextField tipoEmpresaField;
-    // End of variables declaration//GEN-END:variables
+    
 }

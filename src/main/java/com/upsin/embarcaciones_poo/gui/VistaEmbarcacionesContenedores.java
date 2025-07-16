@@ -65,7 +65,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
 
 
     public void iniciarTabla(){
-        // evitar la edicion de tablas
+        
         this.tablaModelo = new DefaultTableModel(0, 2){
             @Override
             public boolean isCellEditable(int row,int column){return false;}
@@ -76,7 +76,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         this.tabla.setModel(tablaModelo);
         this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        //Cargar listado de pacientes
+        
         listar();
     }
 
@@ -185,7 +185,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         vistaMain.setVisible(true);
     }
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         embarcacionesComboBox = new javax.swing.JComboBox<>();
@@ -206,17 +206,17 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         embarcacionesComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        embarcacionesComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        embarcacionesComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         embarcacionesComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
         contenedoresComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        contenedoresComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        contenedoresComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         contenedoresComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel2.setText("Embarcacion");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel3.setText("Contenedor");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -248,21 +248,21 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("CONTENEDORES");
 
@@ -291,7 +291,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         );
 
         guardarButton.setBackground(new java.awt.Color(0, 133, 189));
-        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         guardarButton.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton.setText("GUARDAR");
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -301,7 +301,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         });
 
         editarButton.setBackground(new java.awt.Color(0, 133, 189));
-        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); 
         editarButton.setForeground(new java.awt.Color(255, 255, 255));
         editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -311,7 +311,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         });
 
         eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
-        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
         eliminarButton.setText("ELIMINAR");
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -321,7 +321,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         });
 
         limpairButton.setBackground(new java.awt.Color(0, 133, 189));
-        limpairButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        limpairButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         limpairButton.setForeground(new java.awt.Color(255, 255, 255));
         limpairButton.setText("LIMPIAR");
         limpairButton.addActionListener(new java.awt.event.ActionListener() {
@@ -383,43 +383,42 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         guardar();
-    }//GEN-LAST:event_guardarButtonActionPerformed
+    }
 
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             eliminar();
             guardar();
         }
-    }//GEN-LAST:event_editarButtonActionPerformed
+    }
 
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()) eliminar();
-    }//GEN-LAST:event_eliminarButtonActionPerformed
+    }
 
-    private void limpairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpairButtonActionPerformed
+    private void limpairButtonActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-    }//GEN-LAST:event_limpairButtonActionPerformed
+    }
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {
         cargarSeleccion();
-    }//GEN-LAST:event_tablaMouseClicked
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JScrollPane Tabla;
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
@@ -434,5 +433,5 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton limpairButton;
     private javax.swing.JTable tabla;
-    // End of variables declaration//GEN-END:variables
+    
 }

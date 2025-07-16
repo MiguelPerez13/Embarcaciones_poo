@@ -231,7 +231,7 @@ public class VistaRetiros extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         jLabel6 = new javax.swing.JLabel();
@@ -264,41 +264,41 @@ public class VistaRetiros extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel2.setText("Lote de almacen:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); 
         jLabel3.setText("Nombre del receptor:");
 
-        EmpresaTrasnText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        EmpresaTrasnText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         EmpresaTrasnText.setToolTipText("");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel4.setText("Tipo de vehiculo:");
 
-        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel5.setText("Matricula:");
         jLabel5.setToolTipText("");
 
-        TipoVehiculoText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        TipoVehiculoText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel7.setText("Fecha de retiro:");
 
-        MatriculaText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        MatriculaText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel8.setText("Empresa de transporte:");
 
         FechaRetiroDATE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        FechaRetiroDATE.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        FechaRetiroDATE.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel9.setText("Observaciones");
 
-        ObservacionesText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        ObservacionesText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -316,21 +316,21 @@ public class VistaRetiros extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel10.setForeground(new java.awt.Color(0, 0, 51));
         jLabel10.setText("RETIROS");
 
@@ -360,7 +360,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         );
 
         btnGuardar.setBackground(new java.awt.Color(0, 133, 189));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -370,7 +370,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         });
 
         btnModificar.setBackground(new java.awt.Color(0, 133, 189));
-        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -380,7 +380,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         });
 
         btnLimpiar.setBackground(new java.awt.Color(0, 133, 189));
-        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("LIMPIAR");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -390,7 +390,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         });
 
         btnEliminar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -399,7 +399,7 @@ public class VistaRetiros extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -484,40 +484,39 @@ public class VistaRetiros extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         guardar();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
         if (verificarSeleccion()) {
             guardar();
         }
-    }//GEN-LAST:event_btnModificarActionPerformed
+    }
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    }
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         retiroServicio.eliminar(retiro);
         limpiar();
         listar();
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JTextField EmpresaTrasnText;
     private com.toedter.calendar.JDateChooser FechaRetiroDATE;
     private javax.swing.JTextField MatriculaText;
@@ -543,5 +542,5 @@ public class VistaRetiros extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane tabla;
-    // End of variables declaration//GEN-END:variables
+    
 }

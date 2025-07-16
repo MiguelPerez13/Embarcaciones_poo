@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs:
+ * Click nbfs:
  */
 package com.upsin.embarcaciones_poo.gui;
 
@@ -45,7 +45,7 @@ public class VistaContenedor extends javax.swing.JFrame {
     }
 
     public void iniciarTabla(){
-        // evitar la edicion de tablas
+
         this.tablaModelo = new DefaultTableModel(0, 5){
             @Override
             public boolean isCellEditable(int row,int column){return false;}
@@ -56,21 +56,21 @@ public class VistaContenedor extends javax.swing.JFrame {
         this.tabla.setModel(tablaModelo);
         this.tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        //Cargar listado de pacientes
+        
         listar();
     }
 
     private void personalizarTablaEmbarcaciones(JTable tabla) {
-        // Estilo del encabezado
+        
         JTableHeader header = tabla.getTableHeader();
-        header.setBackground(new Color(0, 133, 189)); // Azul marino
-        header.setForeground(Color.WHITE);            // Letras blancas
+        header.setBackground(new Color(0, 133, 189)); 
+        header.setForeground(Color.WHITE);            
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        // Estilo de celdas (datos)
+        
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setBackground(Color.WHITE);       // Fondo blanco
-        cellRenderer.setForeground(Color.BLACK);       // Texto negro
+        cellRenderer.setBackground(Color.WHITE);       
+        cellRenderer.setForeground(Color.BLACK);       
         cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
         for (int i = 0; i < tabla.getColumnCount(); i++) {
@@ -79,7 +79,7 @@ public class VistaContenedor extends javax.swing.JFrame {
 
         tabla.setRowHeight(25);
         tabla.setShowGrid(true);
-        tabla.setGridColor(new Color(0, 133, 189)); // Líneas azuladas
+        tabla.setGridColor(new Color(0, 133, 189)); 
     }
 
     private void personalizarTablaEmbarcaciones(JScrollPane scrollPane) {
@@ -147,7 +147,7 @@ public class VistaContenedor extends javax.swing.JFrame {
 
         if (empresaComboBox.getItemCount() == 0) {
             JOptionPane.showMessageDialog(this, "⚠️ No hay empresas registradas. No se puede guardar el contenedor.");
-            return; // detener el método
+            return; 
         }
 
         if(empresaComboBox.getSelectedItem() == null){
@@ -241,7 +241,7 @@ public class VistaContenedor extends javax.swing.JFrame {
     }
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
@@ -265,33 +265,33 @@ public class VistaContenedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel2.setText("Empresa:");
 
         empresaComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        empresaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        empresaComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         empresaComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel3.setText("Volumen:");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel4.setText("Peso total:");
 
         medidaField.setBackground(new java.awt.Color(255, 255, 255));
-        medidaField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        medidaField.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         medidaField.setForeground(new java.awt.Color(0, 0, 0));
 
         pesoField.setBackground(new java.awt.Color(255, 255, 255));
-        pesoField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        pesoField.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         pesoField.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); 
         jLabel5.setText("Serie:");
         jLabel5.setToolTipText("");
 
         observacionesField.setBackground(new java.awt.Color(255, 255, 255));
-        observacionesField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        observacionesField.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
         observacionesField.setForeground(new java.awt.Color(0, 0, 0));
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -321,21 +321,21 @@ public class VistaContenedor extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("CONTENEDORES");
 
@@ -364,7 +364,7 @@ public class VistaContenedor extends javax.swing.JFrame {
         );
 
         limpiarButton.setBackground(new java.awt.Color(0, 133, 189));
-        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
         limpiarButton.setText("LIMPIAR");
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -374,7 +374,7 @@ public class VistaContenedor extends javax.swing.JFrame {
         });
 
         guardarButton.setBackground(new java.awt.Color(0, 133, 189));
-        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         guardarButton.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton.setText("GUARDAR");
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -384,7 +384,7 @@ public class VistaContenedor extends javax.swing.JFrame {
         });
 
         editarButton.setBackground(new java.awt.Color(0, 133, 189));
-        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         editarButton.setForeground(new java.awt.Color(255, 255, 255));
         editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -394,7 +394,7 @@ public class VistaContenedor extends javax.swing.JFrame {
         });
 
         eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
-        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
         eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
         eliminarButton.setText("ELIMINAR");
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -467,49 +467,48 @@ public class VistaContenedor extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-    }//GEN-LAST:event_limpiarButtonActionPerformed
+    }
 
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         contenedor = new Contenedor();
         guardar();
-    }//GEN-LAST:event_guardarButtonActionPerformed
+    }
 
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             guardar();
         }
-    }//GEN-LAST:event_editarButtonActionPerformed
+    }
 
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             eliminar();
         }
-    }//GEN-LAST:event_eliminarButtonActionPerformed
+    }
 
-    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {
 
-    }//GEN-LAST:event_jScrollPane1MouseClicked
+    }
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {
         cargarSeleccion();
-    }//GEN-LAST:event_tablaMouseClicked
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
     private javax.swing.JButton editarButton;
@@ -528,5 +527,5 @@ public class VistaContenedor extends javax.swing.JFrame {
     private javax.swing.JTextField observacionesField;
     private javax.swing.JTextField pesoField;
     private javax.swing.JTable tabla;
-    // End of variables declaration//GEN-END:variables
+    
 }

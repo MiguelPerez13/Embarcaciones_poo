@@ -64,7 +64,7 @@ public class VistaCarga extends javax.swing.JFrame {
     }
 
     public void iniciarTabla(){
-        // evitar la edicion de tablas
+
         this.tablaModelo = new DefaultTableModel(0, 3){
             @Override
             public boolean isCellEditable(int row,int column){return false;}
@@ -195,7 +195,7 @@ public class VistaCarga extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
@@ -260,21 +260,21 @@ public class VistaCarga extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); 
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("CARGA Y DESCARGA");
 
@@ -396,51 +396,50 @@ public class VistaCarga extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
+    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         regresar();
-    }//GEN-LAST:event_regresarButtonActionPerformed
+    }
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
-    }//GEN-LAST:event_btnMainMouseClicked
+    }
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        VistaLogin login = new VistaLogin();  // Crear instancia
-        login.setVisible(true);               // Mostrar nueva ventana
-        this.setVisible(false);               // Ocultar la actual
-    }//GEN-LAST:event_btnLoginMouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+        setVisible(false);
+        vistaMain.volverLogin();
+    }
 
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         guardar();
-    }//GEN-LAST:event_guardarButtonActionPerformed
+    }
 
-    private void modificarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButtonActionPerformed
+    private void modificarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             var fecha = this.fecha.getDate();
             eliminar();
             this.fecha.setDate(fecha);
             guardar();
         }
-    }//GEN-LAST:event_modificarButtonActionPerformed
+    }
 
-    private void elminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elminarButtonActionPerformed
+    private void elminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(verificarSeleccion()){
             eliminar();
         }
-    }//GEN-LAST:event_elminarButtonActionPerformed
+    }
 
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {
         limpiar();
-    }//GEN-LAST:event_limpiarButtonActionPerformed
+    }
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {
         cargarSeleccion();
-    }//GEN-LAST:event_tablaMouseClicked
+    }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    
     private javax.swing.JComboBox<Almacen> almacenComboBox;
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
@@ -458,5 +457,5 @@ public class VistaCarga extends javax.swing.JFrame {
     private javax.swing.JButton modificarButton;
     private javax.swing.JButton regresarButton;
     private javax.swing.JTable tabla;
-    // End of variables declaration//GEN-END:variables
+    
 }
