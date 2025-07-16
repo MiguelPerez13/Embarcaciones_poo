@@ -24,6 +24,7 @@ public class VistaProductos extends javax.swing.JFrame {
     private Producto producto;
     private DefaultTableModel tablaModelo;
     private ContenedorServicio contenedorServicio;
+    private Integer permiso;
 
 
     @Autowired
@@ -36,6 +37,19 @@ public class VistaProductos extends javax.swing.JFrame {
         personalizarTablaBarcos();
         listar();
         producto = new Producto();
+    }
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
+    private boolean verificarPermisos(Integer nivel) {
+        if (permiso == nivel || permiso == 3) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
 
     private void llenarComboTipoProducto() {
@@ -535,8 +549,10 @@ public class VistaProductos extends javax.swing.JFrame {
     }
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {
-          producto = new Producto(); 
-          guardar();
+        if(verificarPermisos(2)){
+            producto = new Producto();
+            guardar();
+        }
     }
 
     private void DescripcionTextActionPerformed(java.awt.event.ActionEvent evt) {
@@ -565,14 +581,18 @@ public class VistaProductos extends javax.swing.JFrame {
     }
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            guardar();
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
         }
     }
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
         }
     }
 

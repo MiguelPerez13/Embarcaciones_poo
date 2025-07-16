@@ -24,6 +24,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     private BarcoServicio barcoServicio;
     private EmbarcacionServicio embarcacionServicio;
     private Embarcacion embarcacion;
+    private Integer permiso;
 
 
 
@@ -40,8 +41,6 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
                 cargarSeleccion();
             }
         });
-
-        btnModificar.addActionListener(evt -> btnModificarActionPerformed(evt));
         embarcacion = new Embarcacion();
     }
 
@@ -295,62 +294,13 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         }
     }
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            if (embarcacion == null || embarcacion.getIdEmbarcacion() == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona un registro para modificar.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            Barco barcoSeleccionado = (Barco) jComboBox1.getSelectedItem();
-            String puertoOrigen = PueroOrigenTEXT.getText().trim();
-            String puertoDestino = PuertoDestinoTEXT.getText().trim();
-            Date fechaSalida = FechaSalidaDATE.getDate();
-            Date fechaLlegada = FechaLlegadaDATE.getDate();
-
-            if (barcoSeleccionado == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona un barco.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (puertoOrigen.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingresa el puerto de origen.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (puertoDestino.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingresa el puerto de destino.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (fechaSalida == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona la fecha de salida.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (fechaLlegada == null) {
-                JOptionPane.showMessageDialog(this, "Selecciona la fecha de llegada.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            if (fechaLlegada.before(fechaSalida)) {
-                JOptionPane.showMessageDialog(this, "La fecha de llegada no puede ser anterior a la fecha de salida.", "Validación", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            embarcacion.setBarco(barcoSeleccionado);
-            embarcacion.setPuertoOrigen(puertoOrigen);
-            embarcacion.setPuertoDestino(puertoDestino);
-            embarcacion.setFechaSalida(fechaSalida);
-            embarcacion.setFechaLlegada(fechaLlegada);
-
-            embarcacionServicio.guardar(embarcacion);
-
-            JOptionPane.showMessageDialog(this, "Embarcación modificada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-            limpiar();
-            listar();
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error modificando embarcación: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    private boolean verificarSeleccion(){
+        if(embarcacion.getIdEmbarcacion() == null){
+            JOptionPane.showMessageDialog(this,"Seleccione un registro antes de continuar");
+            return false;
         }
+        return true;
     }
-    
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
@@ -360,9 +310,9 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         this.setVisible(false);
         vistaMain.setVisible(true);
     }
-   
+
     @SuppressWarnings("unchecked")
-    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
@@ -388,35 +338,35 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Barco:");
 
         jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setText("Puerto de origen:");
 
         PueroOrigenTEXT.setBackground(new java.awt.Color(255, 255, 255));
-        PueroOrigenTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        PueroOrigenTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         PueroOrigenTEXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PueroOrigenTEXTActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setText("Puerto de destino:");
 
-        PuertoDestinoTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        PuertoDestinoTEXT.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel5.setText("Fecha de salida:");
 
         FechaSalidaDATE.setBackground(new java.awt.Color(255, 255, 255));
         FechaSalidaDATE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 16)); 
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel6.setText("Fecha de llegada:");
 
         FechaLlegadaDATE.setBackground(new java.awt.Color(255, 255, 255));
@@ -438,21 +388,21 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 30)); 
+        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 51));
         jLabel7.setText("BARCOS ACTIVOS");
 
@@ -481,7 +431,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         );
 
         btnEliminar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -491,7 +441,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         });
 
         btnLimpiar.setBackground(new java.awt.Color(0, 133, 189));
-        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("LIMPIAR");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -501,12 +451,17 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         });
 
         btnModificar.setBackground(new java.awt.Color(0, 133, 189));
-        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setBackground(new java.awt.Color(0, 133, 189));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -586,40 +541,50 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
         regresar();
-    }
+    }//GEN-LAST:event_btnMainMouseClicked
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         setVisible(false);
         vistaMain.volverLogin();
-    }
+    }//GEN-LAST:event_btnLoginMouseClicked
 
-    private void PueroOrigenTEXTActionPerformed(java.awt.event.ActionEvent evt) {
+    private void PueroOrigenTEXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PueroOrigenTEXTActionPerformed
         
-    }
+    }//GEN-LAST:event_PueroOrigenTEXTActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                           
         if(verificarPermisos(2)){
             guardar();
         }
-    }
+    }                                             
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiar();
-    }
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if(verificarPermisos(3)){
-            eliminar();
+            if(verificarSeleccion()){
+                eliminar();
+            }
         }
-    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if(verificarPermisos(2)){
+            if(verificarSeleccion()){
+                guardar();
+            }
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
 
 
-    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser FechaLlegadaDATE;
     private com.toedter.calendar.JDateChooser FechaSalidaDATE;
     private javax.swing.JTextField PueroOrigenTEXT;
@@ -640,5 +605,5 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    
+    // End of variables declaration//GEN-END:variables
 }

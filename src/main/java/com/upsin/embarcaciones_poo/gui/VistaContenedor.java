@@ -28,6 +28,7 @@ public class VistaContenedor extends javax.swing.JFrame {
     private EmpresaServicio empresaServicio;
     private DefaultTableModel tablaModelo;
     private Contenedor contenedor;
+    private Integer permiso;
 
     @Autowired
     public VistaContenedor(ContenedorServicio contenedorServicio, EmpresaServicio empresaServicio) {
@@ -503,7 +504,7 @@ public class VistaContenedor extends javax.swing.JFrame {
     }
 
     private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()2){
+        if(verificarPermisos(2)){
             if (verificarSeleccion()) {
                 guardar();
             }

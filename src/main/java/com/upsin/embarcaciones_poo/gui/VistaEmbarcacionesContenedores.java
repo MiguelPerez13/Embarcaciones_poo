@@ -27,6 +27,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
     private ContenedorServicio contenedorServicio;
     private EmbarcacionContenedor embarcacionContenedor;
     private DefaultTableModel tablaModelo;
+    private Integer permiso;
 
     
     @Autowired
@@ -62,9 +63,21 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         tabla.setGridColor(new Color(0, 133, 189));
     }
 
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
+    private boolean verificarPermisos(Integer nivel) {
+        if (permiso == nivel || permiso == 3) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "No tienes permisos para realizar la operacion");
+            return false;
+        }
+    }
 
 
-    public void iniciarTabla(){
+        public void iniciarTabla(){
         
         this.tablaModelo = new DefaultTableModel(0, 2){
             @Override
@@ -395,18 +408,24 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        guardar();
-    }
-
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(2)){
             guardar();
         }
     }
 
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                eliminar();
+                guardar();
+            }
+        }
+    }
+
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()) eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) eliminar();
+        }
     }
 
     private void limpairButtonActionPerformed(java.awt.event.ActionEvent evt) {
