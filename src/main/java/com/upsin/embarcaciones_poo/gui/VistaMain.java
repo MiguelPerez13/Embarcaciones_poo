@@ -437,6 +437,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaBarcos.inicializarCombobox();
             vistaBarcos.listar();
+            vistaBarcos.setPermiso(permiso);
             vistaBarcos.setVisible(true);
             this.setVisible(false);
         }
@@ -446,6 +447,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaEmbarcaciones.inicializarComboBox();
             vistaEmbarcaciones.listar();
+            vistaEmbarcaciones.setPermiso(permiso);
             vistaEmbarcaciones.setVisible(true);
             this.setVisible(false);
         }
@@ -455,6 +457,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaEmbarcacionesContenedores.inicializarContenedores();
             vistaEmbarcacionesContenedores.inicializarEmbarcaciones();
+            vistaEmbarcacionesContenedores.setPermiso(permiso);
             vistaEmbarcacionesContenedores.setVisible(true);
             this.setVisible(false);
         }
@@ -464,6 +467,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaContenedor.inicializarComboBox();
             vistaContenedor.listar();
+            vistaContenedor.setPermiso(permiso);
             vistaContenedor.setVisible(true);
             this.setVisible(false);
         }
@@ -473,6 +477,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(1)){
             vistaRetiros.listar();
             vistaRetiros.cargarAlmacenes();
+            vistaRetiros.setPermiso(permiso);
             vistaRetiros.setVisible(true);
             this.setVisible(false);
         }
@@ -483,6 +488,7 @@ public class VistaMain extends javax.swing.JFrame {
             vistaCarga.inicializarAlmacen();
             vistaCarga.inicializarEmbarcaciones();
             vistaCarga.listar();
+            vistaCarga.setPermiso(permiso);
             vistaCarga.setVisible(true);
             this.setVisible(false);
         }
@@ -492,6 +498,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaProductos.inicializarComboBox();
             vistaProductos.listar();
+            vistaProductos.setPermiso(permiso);
             vistaProductos.setVisible(true);
             this.setVisible(false);
         }
@@ -501,12 +508,15 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(2)){
             vistaEmpresas.setVisible(true);
             vistaEmpresas.listar();
+            vistaEmpresas.setPermiso(permiso);
             this.setVisible(false);
         }
     }
 
     private void btnTipoBarcoActionPerformed(java.awt.event.ActionEvent evt) {
         if(verifiarPermisos(2)){
+            vistaTipoBarcos.listar();
+            vistaTipoBarcos.setPermiso(permiso);
             vistaTipoBarcos.setVisible(true);
             vistaTipoBarcos.listar();
             this.setVisible(false);
@@ -517,6 +527,7 @@ public class VistaMain extends javax.swing.JFrame {
         if(verifiarPermisos(1)){
             vistaAlmacen.inicializarContenedores();
             vistaAlmacen.listar();
+            vistaAlmacen.setPermiso(permiso);
             vistaAlmacen.setVisible(true);
             this.setVisible(false);
         }
@@ -531,6 +542,7 @@ public class VistaMain extends javax.swing.JFrame {
             vistaDescarga.setVisible(true);
             vistaDescarga.inicializarContenedores();
             vistaDescarga.inicializarEmbarcaciones();
+            vistaDescarga.setPermiso(permiso);
             vistaDescarga.listar();
             vistaDescarga.listar();
             this.setVisible(false);

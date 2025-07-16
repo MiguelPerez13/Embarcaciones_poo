@@ -25,6 +25,7 @@ public class VistaCarga extends javax.swing.JFrame {
     private DefaultTableModel tablaModelo;
     private VistaMain vistaMain;
     private EmbarcacionCarga embarcacionCarga;
+    private Integer permiso;
 
     @Autowired
     public VistaCarga(EmbarcacionCargaServicio embarcacionCargaServicio, AlmacenServicio almacenServicio, EmbarcacionServicio embarcacionServicio) {
@@ -38,7 +39,11 @@ public class VistaCarga extends javax.swing.JFrame {
         inicializarEmbarcaciones();
         inicializarAlmacen();
     }
-    
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
     }
@@ -192,6 +197,15 @@ public class VistaCarga extends javax.swing.JFrame {
    public void regresar(){
         this.setVisible(false);
         vistaMain.setVisible(true);
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -412,21 +426,25 @@ public class VistaCarga extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        guardar();
-    }
-
-    private void modificarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            var fecha = this.fecha.getDate();
-            eliminar();
-            this.fecha.setDate(fecha);
+        if(verificarPermisos(1)){
+            embarcacionCarga = new EmbarcacionCarga();
             guardar();
         }
     }
 
+    private void modificarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(verificarPermisos(1)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
+        }
+    }
+
     private void elminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
         }
     }
 

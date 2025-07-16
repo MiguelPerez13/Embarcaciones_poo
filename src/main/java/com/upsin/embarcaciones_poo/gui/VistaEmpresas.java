@@ -22,6 +22,7 @@ public class VistaEmpresas extends javax.swing.JFrame {
     private DefaultTableModel tablaModelo;
     private EmpresaServicio empresaServicio;
     private Empresa empresa;
+    private Integer permiso;
 
     @Autowired
     public VistaEmpresas(EmpresaServicio empresaServicio) {
@@ -57,6 +58,19 @@ public class VistaEmpresas extends javax.swing.JFrame {
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
+    }
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
+    private boolean verificarPermisos(Integer nivel) {
+        if (permiso == nivel || permiso == 3) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, "No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
 
     private void iniciarTabla() {
@@ -524,8 +538,10 @@ public class VistaEmpresas extends javax.swing.JFrame {
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        this.empresa = new Empresa(); 
-        guardar();
+        if(verificarPermisos(2)){
+            this.empresa = new Empresa();
+            guardar();
+        }
     }
 
     private void RFCTextActionPerformed(java.awt.event.ActionEvent evt) {
@@ -558,16 +574,20 @@ public class VistaEmpresas extends javax.swing.JFrame {
     }
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            guardar();
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
         }
     }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
-            listar();
-            limpiar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+                listar();
+                limpiar();
+            }
         }
     }
 

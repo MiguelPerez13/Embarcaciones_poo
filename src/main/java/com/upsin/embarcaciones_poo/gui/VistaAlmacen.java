@@ -23,6 +23,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
     private Almacen almacen;
     private ContenedorServicio contenedorServicio;
     private DefaultTableModel tablaModelo;
+    private Integer permiso;
     
     @Autowired
     public VistaAlmacen(AlmacenServicio almacenServicio, ContenedorServicio contenedorServicio) {
@@ -37,6 +38,10 @@ public class VistaAlmacen extends javax.swing.JFrame {
 
    public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
+    }
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
     }
    
    private void personalizarTablaBarcos() {
@@ -166,7 +171,18 @@ public class VistaAlmacen extends javax.swing.JFrame {
         listar();
     }
 
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
+    }
+
     private void limpiar(){
+        loteField.setText("");
+        dateChooser.setDate(null);
         almacen =  new Almacen();
     }
     
@@ -400,8 +416,10 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        almacen = new Almacen();
-        guardar();
+        if(verificarPermisos(1)){
+            almacen = new Almacen();
+            guardar();
+        }
     }
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
@@ -414,14 +432,18 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }
 
     private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            guardar();
+        if(verificarPermisos(1)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
         }
     }
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
         }
     }
 
@@ -430,7 +452,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }
 
     private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        
+        limpiar();
     }
 
 
