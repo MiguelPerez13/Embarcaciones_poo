@@ -171,7 +171,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
         listar();
     }
 
-    private boolean verifiarPermisos(Integer nivel){
+    private boolean verificarPermisos(Integer nivel){
         if(permiso == nivel || permiso == 3 ){
             return true;
         }else{
@@ -416,7 +416,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verifiarPermisos(1)){
+        if(verificarPermisos(1)){
             almacen = new Almacen();
             guardar();
         }
@@ -432,7 +432,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }
 
     private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verifiarPermisos(1)){
+        if(verificarPermisos(1)){
             if (verificarSeleccion()) {
                 guardar();
             }
@@ -440,7 +440,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verifiarPermisos(3)){
+        if(verificarPermisos(3)){
             if (verificarSeleccion()) {
                 eliminar();
             }

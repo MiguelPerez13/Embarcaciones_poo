@@ -28,6 +28,7 @@ public class VistaContenedor extends javax.swing.JFrame {
     private EmpresaServicio empresaServicio;
     private DefaultTableModel tablaModelo;
     private Contenedor contenedor;
+    private Integer permiso;
 
     @Autowired
     public VistaContenedor(ContenedorServicio contenedorServicio, EmpresaServicio empresaServicio) {
@@ -42,6 +43,19 @@ public class VistaContenedor extends javax.swing.JFrame {
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
+    }
+
+    public void setPermiso(Integer permiso){
+        this.permiso = permiso;
+    }
+
+    private boolean verificarPermisos(Integer nivel){
+        if(permiso == nivel || permiso == 3 ){
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(this,"No tienes permisos para realizar la operacion");
+            return false;
+        }
     }
 
     public void iniciarTabla(){
@@ -483,19 +497,25 @@ public class VistaContenedor extends javax.swing.JFrame {
     }
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        contenedor = new Contenedor();
-        guardar();
-    }
-
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
+        if(verificarPermisos(2)){
+            contenedor = new Contenedor();
             guardar();
         }
     }
 
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(verificarPermisos(2)){
+            if (verificarSeleccion()) {
+                guardar();
+            }
+        }
+    }
+
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarSeleccion()){
-            eliminar();
+        if(verificarPermisos(3)){
+            if (verificarSeleccion()) {
+                eliminar();
+            }
         }
     }
 
