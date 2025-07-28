@@ -66,7 +66,7 @@ public class VistaLogin extends javax.swing.JFrame {
         usuarioTexto = new javax.swing.JTextPane();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        passwTexto = new javax.swing.JTextPane();
+        passwTexto = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
@@ -77,13 +77,13 @@ public class VistaLogin extends javax.swing.JFrame {
         PanelFondo.setForeground(new java.awt.Color(0, 0, 0));
         PanelFondo.setPreferredSize(new java.awt.Dimension(1400, 700));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png")));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36));
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("INICIAR SESION");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20));
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("CONTRASEÑA");
 
@@ -92,12 +92,12 @@ public class VistaLogin extends javax.swing.JFrame {
 
         usuarioTexto.setBackground(new java.awt.Color(255, 255, 255));
         usuarioTexto.setBorder(null);
-        usuarioTexto.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        usuarioTexto.setFont(new java.awt.Font("Segoe UI", 0, 16));
         usuarioTexto.setForeground(new java.awt.Color(0, 0, 0));
         usuarioTexto.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(usuarioTexto);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20));
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("USUARIO");
 
@@ -106,13 +106,13 @@ public class VistaLogin extends javax.swing.JFrame {
 
         passwTexto.setBackground(new java.awt.Color(255, 255, 255));
         passwTexto.setBorder(null);
-        passwTexto.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        passwTexto.setFont(new java.awt.Font("Segoe UI", 0, 16));
         passwTexto.setForeground(new java.awt.Color(0, 0, 0));
         passwTexto.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane2.setViewportView(passwTexto);
 
         jButton1.setBackground(new java.awt.Color(0, 133, 189));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("ENTRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +121,7 @@ public class VistaLogin extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/PanelLogin.png"))); 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/PanelLogin.png")));
 
         javax.swing.GroupLayout PanelFondoLayout = new javax.swing.GroupLayout(PanelFondo);
         PanelFondo.setLayout(PanelFondoLayout);
@@ -204,7 +204,7 @@ public class VistaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextPane passwTexto;
+    private javax.swing.JPasswordField passwTexto;
     private javax.swing.JTextPane usuarioTexto;
     
 }
