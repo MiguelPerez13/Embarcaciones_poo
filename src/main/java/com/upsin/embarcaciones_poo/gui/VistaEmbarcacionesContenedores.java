@@ -197,8 +197,9 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         this.setVisible(false);
         vistaMain.setVisible(true);
     }
-    @SuppressWarnings("unchecked")
     
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         embarcacionesComboBox = new javax.swing.JComboBox<>();
@@ -219,32 +220,32 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         embarcacionesComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        embarcacionesComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        embarcacionesComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         embarcacionesComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
         contenedoresComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        contenedoresComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        contenedoresComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         contenedoresComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Embarcacion");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setText("Contenedor");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
+                new Object [][] {
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null}
+                },
+                new String [] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -261,50 +262,50 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); 
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("CONTENEDORES");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(btnMain)
-                .addGap(323, 323, 323)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
-                .addComponent(btnLogin)
-                .addGap(62, 62, 62))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(btnMain)
+                                .addGap(323, 323, 323)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 457, Short.MAX_VALUE)
+                                .addComponent(btnLogin)
+                                .addGap(62, 62, 62))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(btnLogin)
-                    .addComponent(btnMain))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(btnLogin)
+                                        .addComponent(btnMain))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         guardarButton.setBackground(new java.awt.Color(0, 133, 189));
-        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         guardarButton.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton.setText("GUARDAR");
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -314,7 +315,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         });
 
         editarButton.setBackground(new java.awt.Color(0, 133, 189));
-        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); 
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         editarButton.setForeground(new java.awt.Color(255, 255, 255));
         editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -324,7 +325,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         });
 
         eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
-        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
         eliminarButton.setText("ELIMINAR");
         eliminarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -334,7 +335,7 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         });
 
         limpairButton.setBackground(new java.awt.Color(0, 133, 189));
-        limpairButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        limpairButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         limpairButton.setForeground(new java.awt.Color(255, 255, 255));
         limpairButton.setText("LIMPIAR");
         limpairButton.addActionListener(new java.awt.event.ActionListener() {
@@ -346,98 +347,98 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(embarcacionesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(106, 106, 106)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(contenedoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(guardarButton)
-                                .addGap(30, 30, 30)
-                                .addComponent(editarButton)
-                                .addGap(32, 32, 32)
-                                .addComponent(eliminarButton)
-                                .addGap(28, 28, 28)
-                                .addComponent(limpairButton))))
-                    .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 1256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(embarcacionesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(106, 106, 106)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel3)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(contenedoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(guardarButton)
+                                                                .addGap(30, 30, 30)
+                                                                .addComponent(editarButton)
+                                                                .addGap(32, 32, 32)
+                                                                .addComponent(eliminarButton)
+                                                                .addGap(28, 28, 28)
+                                                                .addComponent(limpairButton))))
+                                        .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 1256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(contenedoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(limpairButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(embarcacionesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(contenedoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(limpairButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(embarcacionesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                                .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66))
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
         regresar();
-    }
+    }//GEN-LAST:event_btnMainMouseClicked
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         setVisible(false);
         vistaMain.volverLogin();
-    }
+    }//GEN-LAST:event_btnLoginMouseClicked
 
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
         if(verificarPermisos(2)){
             guardar();
         }
-    }
+    }//GEN-LAST:event_guardarButtonActionPerformed
 
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
         if(verificarPermisos(2)){
             if (verificarSeleccion()) {
                 eliminar();
                 guardar();
             }
         }
-    }
+    }//GEN-LAST:event_editarButtonActionPerformed
 
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
         if(verificarPermisos(3)){
             if (verificarSeleccion()) eliminar();
         }
-    }
+    }//GEN-LAST:event_eliminarButtonActionPerformed
 
-    private void limpairButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void limpairButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpairButtonActionPerformed
         limpiar();
-    }
+    }//GEN-LAST:event_limpairButtonActionPerformed
 
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         cargarSeleccion();
-    }
+    }//GEN-LAST:event_tablaMouseClicked
 
 
-    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane Tabla;
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
@@ -452,5 +453,5 @@ public class VistaEmbarcacionesContenedores extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton limpairButton;
     private javax.swing.JTable tabla;
-    
+    // End of variables declaration//GEN-END:variables
 }
