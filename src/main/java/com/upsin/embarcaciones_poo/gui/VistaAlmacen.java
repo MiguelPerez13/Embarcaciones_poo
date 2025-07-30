@@ -187,7 +187,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }
     
     @SuppressWarnings("unchecked")
-    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         guardarButton = new javax.swing.JButton();
@@ -202,7 +202,6 @@ public class VistaAlmacen extends javax.swing.JFrame {
         btnLogin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         editarButton = new javax.swing.JButton();
-        eliminarButton = new javax.swing.JButton();
         limpiarButton = new javax.swing.JButton();
         contenedoresComboBox = new javax.swing.JComboBox<>();
         estadoComboBox = new javax.swing.JComboBox<>();
@@ -212,7 +211,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         guardarButton.setBackground(new java.awt.Color(0, 133, 189));
-        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        guardarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         guardarButton.setForeground(new java.awt.Color(255, 255, 255));
         guardarButton.setText("GUARDAR");
         guardarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -246,36 +245,36 @@ public class VistaAlmacen extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setText("Lote:");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setText("Contenedor:");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); 
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Estado:");
 
-        loteField.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        loteField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         loteField.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 30)); 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 51));
         jLabel2.setText("ALMACEN");
 
@@ -304,7 +303,7 @@ public class VistaAlmacen extends javax.swing.JFrame {
         );
 
         editarButton.setBackground(new java.awt.Color(0, 133, 189));
-        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        editarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         editarButton.setForeground(new java.awt.Color(255, 255, 255));
         editarButton.setText("MODIFICAR");
         editarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -313,18 +312,8 @@ public class VistaAlmacen extends javax.swing.JFrame {
             }
         });
 
-        eliminarButton.setBackground(new java.awt.Color(0, 133, 189));
-        eliminarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
-        eliminarButton.setForeground(new java.awt.Color(255, 255, 255));
-        eliminarButton.setText("ELIMINAR");
-        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarButtonActionPerformed(evt);
-            }
-        });
-
         limpiarButton.setBackground(new java.awt.Color(0, 133, 189));
-        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        limpiarButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         limpiarButton.setForeground(new java.awt.Color(255, 255, 255));
         limpiarButton.setText("LIMPIAR");
         limpiarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -333,14 +322,14 @@ public class VistaAlmacen extends javax.swing.JFrame {
             }
         });
 
-        contenedoresComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        contenedoresComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         contenedoresComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
-        estadoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        estadoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         estadoComboBox.setForeground(new java.awt.Color(0, 0, 0));
         estadoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Almacen", "Transito" }));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); 
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Fecha de llegada:");
 
         dateChooser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -357,24 +346,21 @@ public class VistaAlmacen extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(107, 1313, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(guardarButton)
-                                .addGap(18, 18, 18)
+                                .addGap(64, 64, 64)
                                 .addComponent(editarButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(eliminarButton)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(limpiarButton))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(contenedoresComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(loteField)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(estadoComboBox, 0, 402, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contenedoresComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(loteField)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(estadoComboBox, 0, 402, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61))))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -405,7 +391,6 @@ public class VistaAlmacen extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(eliminarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
@@ -413,56 +398,50 @@ public class VistaAlmacen extends javax.swing.JFrame {
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
         if(verificarPermisos(1)){
             almacen = new Almacen();
             guardar();
         }
-    }
+    }//GEN-LAST:event_guardarButtonActionPerformed
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
+
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
         regresar();
-    }
+    }//GEN-LAST:event_btnMainMouseClicked
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         setVisible(false);
         vistaMain.volverLogin();
-    }
+    }//GEN-LAST:event_btnLoginMouseClicked
 
-    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void editarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarButtonActionPerformed
         if(verificarPermisos(1)){
             if (verificarSeleccion()) {
                 guardar();
             }
         }
-    }
+    }//GEN-LAST:event_editarButtonActionPerformed
 
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarPermisos(3)){
-            if (verificarSeleccion()) {
-                eliminar();
-            }
-        }
-    }
-
-    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         cargarSeleccion();
-    }
+    }//GEN-LAST:event_tablaMouseClicked
 
-    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
         limpiar();
-    }
+    }//GEN-LAST:event_limpiarButtonActionPerformed
 
 
-    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
     private javax.swing.JComboBox<Contenedor> contenedoresComboBox;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JButton editarButton;
-    private javax.swing.JButton eliminarButton;
     private javax.swing.JComboBox<String> estadoComboBox;
     private javax.swing.JButton guardarButton;
     private javax.swing.JLabel jLabel2;
@@ -475,5 +454,5 @@ public class VistaAlmacen extends javax.swing.JFrame {
     private javax.swing.JButton limpiarButton;
     private javax.swing.JTextField loteField;
     private javax.swing.JTable tabla;
-    
+    // End of variables declaration//GEN-END:variables
 }
