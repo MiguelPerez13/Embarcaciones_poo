@@ -435,6 +435,7 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnBarcosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarcosActionPerformed
         if(verifiarPermisos(2)){
+            vistaBarcos.setPermiso(this.permiso);
             vistaBarcos.inicializarCombobox();
             vistaBarcos.listar();
             vistaBarcos.setPermiso(permiso);
@@ -445,9 +446,9 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnEmbarcacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmbarcacionesActionPerformed
         if(verifiarPermisos(2)){
+            vistaEmbarcaciones.setPermiso(this.permiso);
             vistaEmbarcaciones.inicializarComboBox();
             vistaEmbarcaciones.listar();
-            vistaEmbarcaciones.setPermiso(permiso);
             vistaEmbarcaciones.setVisible(true);
             this.setVisible(false);
         }
@@ -455,9 +456,9 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnEmbarcacionContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmbarcacionContenedorActionPerformed
         if(verifiarPermisos(2)){
+            vistaEmbarcacionesContenedores.setPermiso(this.permiso);
             vistaEmbarcacionesContenedores.inicializarContenedores();
             vistaEmbarcacionesContenedores.inicializarEmbarcaciones();
-            vistaEmbarcacionesContenedores.setPermiso(permiso);
             vistaEmbarcacionesContenedores.setVisible(true);
             this.setVisible(false);
         }
@@ -465,6 +466,7 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnContenedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContenedorActionPerformed
         if(verifiarPermisos(2)){
+            vistaContenedor.setPermiso(this.permiso);
             vistaContenedor.inicializarComboBox();
             vistaContenedor.listar();
             vistaContenedor.setPermiso(permiso);
@@ -475,9 +477,9 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiroActionPerformed
         if(verifiarPermisos(1)){
+            vistaRetiros.setPermiso(this.permiso);
             vistaRetiros.listar();
             vistaRetiros.cargarAlmacenes();
-            vistaRetiros.setPermiso(permiso);
             vistaRetiros.setVisible(true);
             this.setVisible(false);
         }
@@ -485,10 +487,10 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaActionPerformed
         if(verifiarPermisos(1)){
+            vistaCarga.setPermiso(this.permiso);
             vistaCarga.inicializarAlmacen();
             vistaCarga.inicializarEmbarcaciones();
             vistaCarga.listar();
-            vistaCarga.setPermiso(permiso);
             vistaCarga.setVisible(true);
             this.setVisible(false);
         }
@@ -496,9 +498,9 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
         if(verifiarPermisos(2)){
+            vistaProductos.setPermiso(this.permiso);
             vistaProductos.inicializarComboBox();
             vistaProductos.listar();
-            vistaProductos.setPermiso(permiso);
             vistaProductos.setVisible(true);
             this.setVisible(false);
         }
@@ -506,17 +508,17 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
         if(verifiarPermisos(2)){
-            vistaEmpresas.setVisible(true);
+            vistaEmpresas.setPermiso(this.permiso);
             vistaEmpresas.listar();
-            vistaEmpresas.setPermiso(permiso);
+            vistaEmpresas.setVisible(true);
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
     private void btnTipoBarcoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoBarcoActionPerformed
         if(verifiarPermisos(2)){
+            vistaTipoBarcos.setPermiso(this.permiso);
             vistaTipoBarcos.listar();
-            vistaTipoBarcos.setPermiso(permiso);
             vistaTipoBarcos.setVisible(true);
             vistaTipoBarcos.listar();
             this.setVisible(false);
@@ -525,9 +527,9 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void bntAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAlmacenActionPerformed
         if(verifiarPermisos(1)){
+            vistaAlmacen.setPermiso(this.permiso);
             vistaAlmacen.inicializarContenedores();
             vistaAlmacen.listar();
-            vistaAlmacen.setPermiso(permiso);
             vistaAlmacen.setVisible(true);
             this.setVisible(false);
         }
@@ -539,10 +541,10 @@ public class VistaMain extends javax.swing.JFrame {
 
     private void btnDescargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargaActionPerformed
         if(verifiarPermisos(1)){
+            vistaDescarga.setPermiso(this.permiso);
             vistaDescarga.setVisible(true);
             vistaDescarga.inicializarContenedores();
             vistaDescarga.inicializarEmbarcaciones();
-            vistaDescarga.setPermiso(permiso);
             vistaDescarga.listar();
             vistaDescarga.listar();
             this.setVisible(false);

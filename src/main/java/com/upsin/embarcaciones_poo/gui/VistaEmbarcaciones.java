@@ -4,8 +4,8 @@ import com.upsin.embarcaciones_poo.modelo.Barco;
 import com.upsin.embarcaciones_poo.modelo.Embarcacion;
 import com.upsin.embarcaciones_poo.servicio.BarcoServicio;
 import com.upsin.embarcaciones_poo.servicio.EmbarcacionServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,7 +27,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     private Integer permiso;
 
 
-
+    @Autowired
     public VistaEmbarcaciones(EmbarcacionServicio embarcacionServicio, BarcoServicio barcoServicio) {
         this.embarcacionServicio = embarcacionServicio;
         this.barcoServicio = barcoServicio;
@@ -82,41 +82,24 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         try {
             jComboBox1.removeAllItems();
             List<Barco> barcos = barcoServicio.listarBarco();
+
+
             if (barcos == null || barcos.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No se encontraron barcos disponibles.", "Atención", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
             for (Barco barco : barcos) {
                 if (barco != null) {
                     jComboBox1.addItem(barco);
                 }
             }
+
             if (jComboBox1.getItemCount() > 0) {
                 jComboBox1.setSelectedIndex(0);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error cargando barcos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    private void personalizarTablaEmbarcaciones() {
-        JTableHeader header = Tabla.getTableHeader();
-        header.setBackground(new Color(0, 133, 189));
-        header.setForeground(Color.WHITE);
-        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
-
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setBackground(Color.WHITE);
-        cellRenderer.setForeground(Color.BLACK);
-        cellRenderer.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-
-        for (int i = 0; i < Tabla.getColumnCount(); i++) {
-            Tabla.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-
-        Tabla.setRowHeight(25);
-        Tabla.setShowGrid(true);
-        Tabla.setGridColor(new Color(0, 133, 189));
     }
 
     public void iniciarTabla() {
@@ -211,25 +194,6 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error guardando embarcación: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    public void cargarTabla() {
-        List<Embarcacion> lista = embarcacionServicio.listarEmbarcacion();
-        DefaultTableModel modelo = (DefaultTableModel) Tabla.getModel();
-        modelo.setRowCount(0);  
-
-        for (Embarcacion e : lista) {
-            Object[] fila = {
-                    e.getBarco().getNombre(),
-                    e.getPuertoOrigen(),
-                    e.getPuertoDestino(),
-                    e.getFechaSalida(),
-                    e.getFechaLlegada()
-            };
-            modelo.addRow(fila);
-        }
-    }
-
-
 
     public void cargarSeleccion() {
         try {
@@ -331,7 +295,6 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         btnMain = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -430,16 +393,6 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnEliminar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         btnLimpiar.setBackground(new java.awt.Color(0, 133, 189));
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
@@ -477,27 +430,23 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(FechaLlegadaDATE, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(FechaSalidaDATE, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
-                        .addComponent(PueroOrigenTEXT, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
-                        .addComponent(PuertoDestinoTEXT)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(FechaLlegadaDATE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FechaSalidaDATE, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(PueroOrigenTEXT, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                    .addComponent(PuertoDestinoTEXT)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
+                        .addGap(73, 73, 73)
                         .addComponent(btnModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpiar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimpiar)))
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 72, Short.MAX_VALUE))
@@ -532,8 +481,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -566,14 +514,6 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if(verificarPermisos(3)){
-            if(verificarSeleccion()){
-                eliminar();
-            }
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if(verificarPermisos(2)){
             if(verificarSeleccion()){
@@ -590,7 +530,6 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     private javax.swing.JTextField PueroOrigenTEXT;
     private javax.swing.JTextField PuertoDestinoTEXT;
     private javax.swing.JTable Tabla;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel btnLogin;

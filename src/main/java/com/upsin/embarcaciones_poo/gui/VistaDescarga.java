@@ -249,8 +249,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         }
     }
     
-    @SuppressWarnings("unchecked")
-    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -267,7 +266,6 @@ public class VistaDescarga extends javax.swing.JFrame {
         LoteText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -277,21 +275,21 @@ public class VistaDescarga extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 30)); 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 51));
         jLabel2.setText("ALMACEN");
 
@@ -320,28 +318,28 @@ public class VistaDescarga extends javax.swing.JFrame {
         );
 
         EmbComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        EmbComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        EmbComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         EmbComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
         ContComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        ContComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        ContComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         ContComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
-        EmbLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
+        EmbLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         EmbLabel.setText("Embarcacion:");
 
-        ContLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
+        ContLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         ContLabel.setText("Contenedor:");
 
-        FechaLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
+        FechaLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         FechaLabel.setText("Fecha Descarga:");
 
-        FechaDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        FechaDate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        LoteLabel.setFont(new java.awt.Font("Arial", 1, 18)); 
+        LoteLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         LoteLabel.setText("Lote Almacen:");
 
-        LoteText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        LoteText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -356,18 +354,8 @@ public class VistaDescarga extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
-        btnEliminar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         btnModificar.setBackground(new java.awt.Color(0, 133, 189));
-        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -377,7 +365,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         });
 
         btnLimpiar.setBackground(new java.awt.Color(0, 133, 189));
-        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("LIMPIAR");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -387,7 +375,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         });
 
         btnGuardar.setBackground(new java.awt.Color(0, 133, 189));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("GUARDAR");
         btnGuardar.setMaximumSize(new java.awt.Dimension(84, 27));
@@ -420,12 +408,10 @@ public class VistaDescarga extends javax.swing.JFrame {
                         .addComponent(EmbComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(66, 66, 66)
                         .addComponent(btnModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(77, 77, 77)
+                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51))
@@ -456,14 +442,13 @@ public class VistaDescarga extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 84, Short.MAX_VALUE))
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
         regresar();
@@ -501,7 +486,7 @@ public class VistaDescarga extends javax.swing.JFrame {
         }
     }
 
-    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Contenedor> ContComboBox;
     private javax.swing.JLabel ContLabel;
     private javax.swing.JComboBox<Embarcacion> EmbComboBox;
@@ -510,7 +495,6 @@ public class VistaDescarga extends javax.swing.JFrame {
     private javax.swing.JLabel FechaLabel;
     private javax.swing.JLabel LoteLabel;
     private javax.swing.JTextField LoteText;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel btnLogin;
@@ -520,5 +504,5 @@ public class VistaDescarga extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
-    
+    // End of variables declaration//GEN-END:variables
 }
