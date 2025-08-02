@@ -1,5 +1,16 @@
 package com.upsin.embarcaciones_poo.gui;
 
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.Element;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.LineSeparator;
 import com.upsin.embarcaciones_poo.modelo.*;
 import com.upsin.embarcaciones_poo.servicio.AlmacenServicio;
 import com.upsin.embarcaciones_poo.servicio.EmbarcacionCargaServicio;
@@ -12,8 +23,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class VistaCarga extends javax.swing.JFrame {
@@ -46,6 +60,118 @@ public class VistaCarga extends javax.swing.JFrame {
 
     public void setVistaMain(VistaMain vistaMain) {
         this.vistaMain = vistaMain;
+    }
+    
+    private void exportarTablaAPDF() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar PDF");
+        fileChooser.setSelectedFile(new java.io.File("reporte_cargas.pdf"));
+
+        int seleccion = fileChooser.showSaveDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                Document document = new Document(PageSize.A4.rotate(), 36, 36, 54, 36);
+                PdfWriter.getInstance(document, new FileOutputStream(fileChooser.getSelectedFile()));
+
+                document.open();
+
+                
+                PdfPTable headerTable = new PdfPTable(2);
+                headerTable.setWidthPercentage(100);
+                headerTable.setWidths(new float[]{1, 3});
+
+                try {
+                    com.lowagie.text.Image logo = com.lowagie.text.Image.getInstance("C:/Users/josue/OneDrive/Documents/POO/src/main/resources/Icons/LogoFInal.png");
+                    logo.scaleToFit(100, 50);
+                    PdfPCell logoCell = new PdfPCell(logo, false);
+                    logoCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
+                    headerTable.addCell(logoCell);
+                } catch (Exception e) {
+                    System.err.println("No se pudo cargar el logo: " + e.getMessage());
+                    PdfPCell emptyCell = new PdfPCell(new Phrase(""));
+                    emptyCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
+                    headerTable.addCell(emptyCell);
+                }
+
+                SimpleDateFormat formatoFecha = new SimpleDateFormat(
+                        "EEEE, d 'de' MMMM 'de' yyyy, HH:mm:ss",
+                        new Locale("es", "ES")
+                );
+                String fechaFormateada = formatoFecha.format(new Date());
+                com.lowagie.text.Font fechaFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Color.DARK_GRAY);
+                PdfPCell fechaCell = new PdfPCell(new Phrase("Fecha de generación: " + fechaFormateada, fechaFont));
+                fechaCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
+                fechaCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                fechaCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+                headerTable.addCell(fechaCell);
+
+                document.add(headerTable);
+                document.add(new Paragraph("\n"));
+
+                
+                com.lowagie.text.Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.BLACK);
+                Paragraph titulo = new Paragraph("Reporte de Carga ", tituloFont);
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingAfter(5);
+                document.add(titulo);
+
+                
+                LineSeparator ls = new LineSeparator();
+                ls.setLineColor(Color.GRAY);
+                document.add(new Chunk(ls));
+                document.add(new Paragraph("\n"));
+
+                
+                PdfPTable pdfTable = new PdfPTable(tabla.getColumnCount());
+                pdfTable.setWidthPercentage(100);
+
+                
+                com.lowagie.text.Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.WHITE);
+                Color headerBgColor = new Color(0, 102, 153);
+
+                for (int i = 0; i < tabla.getColumnCount(); i++) {
+                    PdfPCell cell = new PdfPCell(new Phrase(tabla.getColumnName(i), headerFont));
+                    cell.setBackgroundColor(headerBgColor);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setPadding(8);
+                    pdfTable.addCell(cell);
+                }
+
+                
+                Color rowColor1 = Color.WHITE;
+                Color rowColor2 = new Color(230, 240, 250);
+                com.lowagie.text.Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Color.BLACK);
+
+                for (int row = 0; row < tabla.getRowCount(); row++) {
+                    Color bgColor = (row % 2 == 0) ? rowColor1 : rowColor2;
+                    for (int col = 0; col < tabla.getColumnCount(); col++) {
+                        Object valor = tabla.getValueAt(row, col);
+                        PdfPCell cell = new PdfPCell(new Phrase(valor != null ? valor.toString() : "", cellFont));
+                        cell.setBackgroundColor(bgColor);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell.setPadding(6);
+                        pdfTable.addCell(cell);
+                    }
+                }
+
+                document.add(pdfTable);
+                document.add(new Paragraph("\n"));
+
+                
+                com.lowagie.text.Font totalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.BLACK);
+                Paragraph total = new Paragraph("Total de registros: " + tabla.getRowCount(), totalFont);
+                total.setAlignment(Element.ALIGN_RIGHT);
+                document.add(total);
+
+                document.close();
+                JOptionPane.showMessageDialog(this, "PDF generado con éxito", "Reporte", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al generar PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void personalizarTablaEmbarcaciones() {
@@ -228,6 +354,7 @@ public class VistaCarga extends javax.swing.JFrame {
         limpiarButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        imprimirButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -342,27 +469,39 @@ public class VistaCarga extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
+        imprimirButton.setBackground(new java.awt.Color(0, 133, 189));
+        imprimirButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        imprimirButton.setForeground(new java.awt.Color(255, 255, 255));
+        imprimirButton.setText("IMPRIMIR");
+        imprimirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(guardarButton)
-                        .addGap(64, 64, 64)
+                        .addGap(18, 18, 18)
                         .addComponent(editarButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(limpiarButton))
+                        .addGap(18, 18, 18)
+                        .addComponent(limpiarButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(imprimirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
                     .addComponent(almacenComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(embarcacionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(58, 58, 58)
+                    .addComponent(embarcacionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(75, 75, 75)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(94, Short.MAX_VALUE))
         );
@@ -388,7 +527,8 @@ public class VistaCarga extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(guardarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imprimirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 112, Short.MAX_VALUE))
         );
@@ -417,7 +557,7 @@ public class VistaCarga extends javax.swing.JFrame {
         if(verificarPermisos(1)){
             embarcacionCarga = new EmbarcacionCarga();
             guardar();
-        }//GEN-LAST:event_guardarButtonActionPerformed
+        }                                             
     }//GEN-LAST:event_guardarButtonActionPerformed
 
     private void limpiarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarButtonActionPerformed
@@ -428,6 +568,10 @@ public class VistaCarga extends javax.swing.JFrame {
         cargarSeleccion();
     }//GEN-LAST:event_tablaMouseClicked
 
+    private void imprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirButtonActionPerformed
+        exportarTablaAPDF();
+    }//GEN-LAST:event_imprimirButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Almacen> almacenComboBox;
     private javax.swing.JLabel btnLogin;
@@ -436,6 +580,7 @@ public class VistaCarga extends javax.swing.JFrame {
     private javax.swing.JComboBox<Embarcacion> embarcacionComboBox;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JButton guardarButton;
+    private javax.swing.JButton imprimirButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
