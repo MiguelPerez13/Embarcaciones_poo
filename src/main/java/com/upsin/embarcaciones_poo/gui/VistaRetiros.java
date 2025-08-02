@@ -89,7 +89,7 @@ public class VistaRetiros extends javax.swing.JFrame {
     }
 
     public void cargarAlmacenes() {
-        List<Almacen> almacenes = almacenServicio.listarAlmacen();
+        List<Almacen> almacenes = almacenServicio.listarActivos();
         jComboBox1.removeAllItems();
         for (Almacen a : almacenes) {
             jComboBox1.addItem(a);
