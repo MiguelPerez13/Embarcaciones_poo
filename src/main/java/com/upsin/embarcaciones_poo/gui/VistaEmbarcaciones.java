@@ -207,7 +207,7 @@ public class VistaEmbarcaciones extends javax.swing.JFrame {
     public void inicializarComboBox() {
         try {
             jComboBox1.removeAllItems();
-            List<Barco> barcos = barcoServicio.listarBarco();
+            List<Barco> barcos = barcoServicio.mostarBarcosActivos();
 
 
             if (barcos == null || barcos.isEmpty()) {

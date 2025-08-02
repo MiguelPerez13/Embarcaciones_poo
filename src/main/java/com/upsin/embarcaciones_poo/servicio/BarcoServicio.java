@@ -3,8 +3,11 @@ package com.upsin.embarcaciones_poo.servicio;
 import com.upsin.embarcaciones_poo.modelo.Barco;
 import com.upsin.embarcaciones_poo.repositorio.BarcoRepositorio;
 import java.util.List;
+
+import jakarta.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BarcoServicio {
@@ -13,8 +16,7 @@ public class BarcoServicio {
     private BarcoRepositorio repositorio;
     
     public List<Barco> listarBarco(){
-        List<Barco> barcos = repositorio.findAll();
-        return barcos;
+        return repositorio.findAll();
     }
     
     public Barco buscarPorId(Integer id){
@@ -27,5 +29,10 @@ public class BarcoServicio {
     
     public void eliminar(Barco barco){
         repositorio.delete(barco);
+    }
+
+    @Transactional
+    public List<Barco> mostarBarcosActivos(){
+        return repositorio.mostarbarcosActivos();
     }
 }

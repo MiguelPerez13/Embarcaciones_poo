@@ -234,7 +234,7 @@ public class VistaCarga extends javax.swing.JFrame {
     }
 
     public void inicializarAlmacen(){
-        List<Almacen> almacenes = almacenServicio.listarAlmacen();
+        List<Almacen> almacenes = almacenServicio.listarActivos();
 
         almacenComboBox.removeAllItems();
 
