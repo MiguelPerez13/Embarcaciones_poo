@@ -11,6 +11,8 @@ import com.upsin.embarcaciones_poo.servicio.AlmacenServicio;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
 import java.awt.Color;
 import java.awt.Font;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +74,8 @@ public class VistaAlmacen extends javax.swing.JFrame {
                 headerTable.setWidths(new float[]{1, 3});
 
                 try {
-                    Image logo = Image.getInstance("C:/Users/josue/OneDrive/Documents/POO/src/main/resources/Icons/LogoFInal.png");
+                    InputStream is = getClass().getClassLoader().getResourceAsStream("Icons/LogoFInal.png");
+                    Image logo = Image.getInstance(IOUtils.toByteArray(is));
                     logo.scaleToFit(100, 50);
                     PdfPCell logoCell = new PdfPCell(logo, false);
                     logoCell.setBorder(Rectangle.NO_BORDER);

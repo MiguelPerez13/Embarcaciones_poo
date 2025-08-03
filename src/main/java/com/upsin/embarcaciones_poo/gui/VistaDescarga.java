@@ -20,6 +20,7 @@ import com.upsin.embarcaciones_poo.modelo.*;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
 import com.upsin.embarcaciones_poo.servicio.EmbarcacionServicio;
 import com.upsin.embarcaciones_poo.servicio.EmbarcacionDescargaServicio;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -95,7 +97,8 @@ public class VistaDescarga extends javax.swing.JFrame {
                 headerTable.setWidths(new float[]{1, 3});
 
                 try {
-                    com.lowagie.text.Image logo = com.lowagie.text.Image.getInstance("C:/Users/josue/OneDrive/Documents/POO/src/main/resources/Icons/LogoFInal.png");
+                    InputStream is = getClass().getClassLoader().getResourceAsStream("Icons/LogoFInal.png");
+                    com.lowagie.text.Image logo = com.lowagie.text.Image.getInstance(IOUtils.toByteArray(is));
                     logo.scaleToFit(100, 50);
                     PdfPCell logoCell = new PdfPCell(logo, false);
                     logoCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
