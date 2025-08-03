@@ -20,6 +20,7 @@ import com.upsin.embarcaciones_poo.modelo.Contenedor;
 import com.upsin.embarcaciones_poo.modelo.Empresa;
 import com.upsin.embarcaciones_poo.servicio.ContenedorServicio;
 import com.upsin.embarcaciones_poo.servicio.EmpresaServicio;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -84,7 +86,8 @@ public class VistaContenedor extends javax.swing.JFrame {
                 headerTable.setWidths(new float[]{1, 3});
 
                 try {
-                    com.lowagie.text.Image logo = com.lowagie.text.Image.getInstance("C:/Users/josue/OneDrive/Documents/POO/src/main/resources/Icons/LogoFInal.png");
+                    InputStream is = getClass().getClassLoader().getResourceAsStream("Icons/LogoFInal.png");
+                    com.lowagie.text.Image logo = com.lowagie.text.Image.getInstance(IOUtils.toByteArray(is));
                     logo.scaleToFit(100, 50);
                     PdfPCell logoCell = new PdfPCell(logo, false);
                     logoCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
@@ -605,7 +608,9 @@ public class VistaContenedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void imprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirButtonActionPerformed
-        exportarTablaAPDF();
+        if(verificarPermisos(0)){
+            exportarTablaAPDF();
+        }
     }//GEN-LAST:event_imprimirButtonActionPerformed
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {

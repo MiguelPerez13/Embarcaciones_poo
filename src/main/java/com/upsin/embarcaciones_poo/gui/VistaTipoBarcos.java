@@ -1,14 +1,26 @@
 package com.upsin.embarcaciones_poo.gui;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.LineSeparator;
 import com.upsin.embarcaciones_poo.modelo.TipoBarco;
 import com.upsin.embarcaciones_poo.servicio.TipoBarcoServicio;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -133,7 +145,119 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         nombreLabel.setText(tipoBarco.getNombreTipo());
         descripcionLabel.setText(tipoBarco.getDescripcion());
     }
-    
+
+    private void exportarTablaAPDF() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar PDF");
+        fileChooser.setSelectedFile(new java.io.File("reporte_TipoBarcos.pdf"));
+
+        int seleccion = fileChooser.showSaveDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                Document document = new Document(PageSize.A4.rotate(), 36, 36, 54, 36);
+                PdfWriter.getInstance(document, new FileOutputStream(fileChooser.getSelectedFile()));
+
+                document.open();
+
+
+                PdfPTable headerTable = new PdfPTable(2);
+                headerTable.setWidthPercentage(100);
+                headerTable.setWidths(new float[]{1, 3});
+
+                try {
+                    InputStream is = getClass().getClassLoader().getResourceAsStream("Icons/LogoFInal.png");
+                    Image logo = Image.getInstance(IOUtils.toByteArray(is));
+                    logo.scaleToFit(100, 50);
+                    PdfPCell logoCell = new PdfPCell(logo, false);
+                    logoCell.setBorder(Rectangle.NO_BORDER);
+                    headerTable.addCell(logoCell);
+                } catch (Exception e) {
+                    System.err.println("No se pudo cargar el logo: " + e.getMessage());
+                    PdfPCell emptyCell = new PdfPCell(new Phrase(""));
+                    emptyCell.setBorder(Rectangle.NO_BORDER);
+                    headerTable.addCell(emptyCell);
+                }
+
+                SimpleDateFormat formatoFecha = new SimpleDateFormat(
+                        "EEEE, d 'de' MMMM 'de' yyyy, HH:mm:ss",
+                        new Locale("es", "ES")
+                );
+                String fechaFormateada = formatoFecha.format(new Date());
+                com.lowagie.text.Font fechaFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Color.DARK_GRAY);
+                PdfPCell fechaCell = new PdfPCell(new Phrase("Fecha de generación: " + fechaFormateada, fechaFont));
+                fechaCell.setBorder(Rectangle.NO_BORDER);
+                fechaCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                fechaCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+                headerTable.addCell(fechaCell);
+
+                document.add(headerTable);
+                document.add(new Paragraph("\n"));
+
+
+                com.lowagie.text.Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.BLACK);
+                Paragraph titulo = new Paragraph("Reporte de Tipo de Barcos ", tituloFont);
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingAfter(5);
+                document.add(titulo);
+
+
+                LineSeparator ls = new LineSeparator();
+                ls.setLineColor(Color.GRAY);
+                document.add(new Chunk(ls));
+                document.add(new Paragraph("\n"));
+
+
+                PdfPTable pdfTable = new PdfPTable(tabla.getColumnCount());
+                pdfTable.setWidthPercentage(100);
+
+
+                com.lowagie.text.Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.WHITE);
+                Color headerBgColor = new Color(0, 102, 153);
+
+                for (int i = 0; i < tabla.getColumnCount(); i++) {
+                    PdfPCell cell = new PdfPCell(new Phrase(tabla.getColumnName(i), headerFont));
+                    cell.setBackgroundColor(headerBgColor);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setPadding(8);
+                    pdfTable.addCell(cell);
+                }
+
+
+                Color rowColor1 = Color.WHITE;
+                Color rowColor2 = new Color(230, 240, 250);
+                com.lowagie.text.Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Color.BLACK);
+
+                for (int row = 0; row < tabla.getRowCount(); row++) {
+                    Color bgColor = (row % 2 == 0) ? rowColor1 : rowColor2;
+                    for (int col = 0; col < tabla.getColumnCount(); col++) {
+                        Object valor = tabla.getValueAt(row, col);
+                        PdfPCell cell = new PdfPCell(new Phrase(valor != null ? valor.toString() : "", cellFont));
+                        cell.setBackgroundColor(bgColor);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell.setPadding(6);
+                        pdfTable.addCell(cell);
+                    }
+                }
+
+                document.add(pdfTable);
+                document.add(new Paragraph("\n"));
+
+
+                com.lowagie.text.Font totalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.BLACK);
+                Paragraph total = new Paragraph("Total de registros: " + tabla.getRowCount(), totalFont);
+                total.setAlignment(Element.ALIGN_RIGHT);
+                document.add(total);
+
+                document.close();
+                JOptionPane.showMessageDialog(this, "PDF generado con éxito", "Reporte", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al generar PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     
     public void eliminar(){
         tipoBarcoServicio.eliminarTipoBarco(tipoBarco);
@@ -180,6 +304,7 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         btnMain = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        imprimirButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -280,6 +405,16 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        imprimirButton.setBackground(new java.awt.Color(0, 133, 189));
+        imprimirButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        imprimirButton.setForeground(new java.awt.Color(255, 255, 255));
+        imprimirButton.setText("IMPRIMIR");
+        imprimirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -287,20 +422,24 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(guardatButton)
-                            .addGap(65, 65, 65)
-                            .addComponent(editarButton)
-                            .addGap(75, 75, 75)
-                            .addComponent(limpiarButton))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(descripcionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                            .addComponent(nombreLabel, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(descripcionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                                .addComponent(nombreLabel, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(106, 106, 106))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(guardatButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(editarButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(limpiarButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(imprimirButton)
+                        .addGap(97, 97, 97)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(105, Short.MAX_VALUE))
         );
@@ -318,11 +457,12 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(descripcionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91)
+                        .addGap(90, 90, 90)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(editarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(limpiarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(guardatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(guardatButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imprimirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
@@ -366,6 +506,12 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
         vistaMain.volverLogin();
     }//GEN-LAST:event_btnLoginMouseClicked
 
+    private void imprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirButtonActionPerformed
+        if(verificarPermisos(0)){
+            exportarTablaAPDF();
+        }
+    }//GEN-LAST:event_imprimirButtonActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -374,6 +520,7 @@ public class VistaTipoBarcos extends javax.swing.JFrame {
     private javax.swing.JTextField descripcionLabel;
     private javax.swing.JButton editarButton;
     private javax.swing.JButton guardatButton;
+    private javax.swing.JButton imprimirButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
