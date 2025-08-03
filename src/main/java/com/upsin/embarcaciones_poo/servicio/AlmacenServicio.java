@@ -5,6 +5,7 @@ import com.upsin.embarcaciones_poo.repositorio.AlmacenRepositorio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AlmacenServicio {
@@ -13,8 +14,7 @@ public class AlmacenServicio {
     private AlmacenRepositorio almacenRepositorio;
     
     public List<Almacen> listarAlmacen(){
-        List<Almacen> almacenes = almacenRepositorio.findAll();
-        return almacenes;
+        return almacenRepositorio.findAll();
     }
     
     public Almacen buscarPorId(Integer id){
@@ -28,4 +28,10 @@ public class AlmacenServicio {
     public void eliminar(Almacen almacen){
         almacenRepositorio.delete(almacen);
     }
+
+    @Transactional
+    public List<Almacen> listarActivos(){
+        return almacenRepositorio.mostrarLotesAlmacen();
+    }
+
 }

@@ -1,10 +1,16 @@
 package com.upsin.embarcaciones_poo.gui;
 
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.LineSeparator;
 import com.upsin.embarcaciones_poo.modelo.Almacen;
 import com.upsin.embarcaciones_poo.modelo.Embarcacion;
 import com.upsin.embarcaciones_poo.modelo.RetiroContenedor;
 import com.upsin.embarcaciones_poo.servicio.AlmacenServicio;
 import com.upsin.embarcaciones_poo.servicio.RetiroContenedorServicio;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +19,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.Font;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class VistaRetiros extends javax.swing.JFrame {
@@ -89,7 +100,7 @@ public class VistaRetiros extends javax.swing.JFrame {
     }
 
     public void cargarAlmacenes() {
-        List<Almacen> almacenes = almacenServicio.listarAlmacen();
+        List<Almacen> almacenes = almacenServicio.listarActivos();
         jComboBox1.removeAllItems();
         for (Almacen a : almacenes) {
             jComboBox1.addItem(a);
@@ -211,6 +222,119 @@ public class VistaRetiros extends javax.swing.JFrame {
         ObservacionesText.setText(retiro.getObservaciones());
     }
 
+    private void exportarTablaAPDF() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar PDF");
+        fileChooser.setSelectedFile(new java.io.File("reporte_Retiros.pdf"));
+
+        int seleccion = fileChooser.showSaveDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                Document document = new Document(PageSize.A4.rotate(), 36, 36, 54, 36);
+                PdfWriter.getInstance(document, new FileOutputStream(fileChooser.getSelectedFile()));
+
+                document.open();
+
+
+                PdfPTable headerTable = new PdfPTable(2);
+                headerTable.setWidthPercentage(100);
+                headerTable.setWidths(new float[]{1, 3});
+
+                try {
+                    InputStream is = getClass().getClassLoader().getResourceAsStream("Icons/LogoFInal.png");
+                    com.lowagie.text.Image logo = com.lowagie.text.Image.getInstance(IOUtils.toByteArray(is));
+                    logo.scaleToFit(100, 50);
+                    PdfPCell logoCell = new PdfPCell(logo, false);
+                    logoCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
+                    headerTable.addCell(logoCell);
+                } catch (Exception e) {
+                    System.err.println("No se pudo cargar el logo: " + e.getMessage());
+                    PdfPCell emptyCell = new PdfPCell(new Phrase(""));
+                    emptyCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
+                    headerTable.addCell(emptyCell);
+                }
+
+                SimpleDateFormat formatoFecha = new SimpleDateFormat(
+                        "EEEE, d 'de' MMMM 'de' yyyy, HH:mm:ss",
+                        new Locale("es", "ES")
+                );
+                String fechaFormateada = formatoFecha.format(new Date());
+                com.lowagie.text.Font fechaFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Color.DARK_GRAY);
+                PdfPCell fechaCell = new PdfPCell(new Phrase("Fecha de generación: " + fechaFormateada, fechaFont));
+                fechaCell.setBorder(com.lowagie.text.Rectangle.NO_BORDER);
+                fechaCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                fechaCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
+                headerTable.addCell(fechaCell);
+
+                document.add(headerTable);
+                document.add(new Paragraph("\n"));
+
+
+                com.lowagie.text.Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.BLACK);
+                Paragraph titulo = new Paragraph("Reporte de Retiros ", tituloFont);
+                titulo.setAlignment(Element.ALIGN_CENTER);
+                titulo.setSpacingAfter(5);
+                document.add(titulo);
+
+
+                LineSeparator ls = new LineSeparator();
+                ls.setLineColor(Color.GRAY);
+                document.add(new Chunk(ls));
+                document.add(new Paragraph("\n"));
+
+
+                PdfPTable pdfTable = new PdfPTable(jTable1.getColumnCount());
+                pdfTable.setWidthPercentage(100);
+
+
+                com.lowagie.text.Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.WHITE);
+                Color headerBgColor = new Color(0, 102, 153);
+
+                for (int i = 0; i < jTable1.getColumnCount(); i++) {
+                    PdfPCell cell = new PdfPCell(new Phrase(jTable1.getColumnName(i), headerFont));
+                    cell.setBackgroundColor(headerBgColor);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setPadding(8);
+                    pdfTable.addCell(cell);
+                }
+
+
+                Color rowColor1 = Color.WHITE;
+                Color rowColor2 = new Color(230, 240, 250);
+                com.lowagie.text.Font cellFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Color.BLACK);
+
+                for (int row = 0; row < jTable1.getRowCount(); row++) {
+                    Color bgColor = (row % 2 == 0) ? rowColor1 : rowColor2;
+                    for (int col = 0; col < jTable1.getColumnCount(); col++) {
+                        Object valor = jTable1.getValueAt(row, col);
+                        PdfPCell cell = new PdfPCell(new Phrase(valor != null ? valor.toString() : "", cellFont));
+                        cell.setBackgroundColor(bgColor);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell.setPadding(6);
+                        pdfTable.addCell(cell);
+                    }
+                }
+
+                document.add(pdfTable);
+                document.add(new Paragraph("\n"));
+
+
+                com.lowagie.text.Font totalFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.BLACK);
+                Paragraph total = new Paragraph("Total de registros: " + jTable1.getRowCount(), totalFont);
+                total.setAlignment(Element.ALIGN_RIGHT);
+                document.add(total);
+
+                document.close();
+                JOptionPane.showMessageDialog(this, "PDF generado con éxito", "Reporte", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al generar PDF: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     private boolean verificarSeleccion() {
         if (retiro.getIdRetiro() == null) {
             JOptionPane.showMessageDialog(this, "Selecciona un registro antes de continuar");
@@ -246,7 +370,7 @@ public class VistaRetiros extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel6 = new javax.swing.JLabel();
@@ -272,48 +396,48 @@ public class VistaRetiros extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<Almacen>();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        imprimirButton = new javax.swing.JButton();
 
         jLabel6.setText("Matricula");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Lote de almacen:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Nombre del receptor:");
 
-        EmpresaTrasnText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        EmpresaTrasnText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         EmpresaTrasnText.setToolTipText("");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setText("Tipo de vehiculo:");
 
-        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        NombreText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel5.setText("Matricula:");
         jLabel5.setToolTipText("");
 
-        TipoVehiculoText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        TipoVehiculoText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel7.setText("Fecha de retiro:");
 
-        MatriculaText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        MatriculaText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setText("Empresa de transporte:");
 
         FechaRetiroDATE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        FechaRetiroDATE.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        FechaRetiroDATE.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); 
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setText("Observaciones");
 
-        ObservacionesText.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
+        ObservacionesText.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -331,21 +455,21 @@ public class VistaRetiros extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setForeground(new java.awt.Color(102, 204, 255));
 
-        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); 
+        btnMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/LogoFInal.png"))); // NOI18N
         btnMain.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnMainMouseClicked(evt);
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); 
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icono_CerrarSesion.png"))); // NOI18N
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 30)); 
+        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 30)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 51));
         jLabel10.setText("RETIROS");
 
@@ -375,7 +499,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         );
 
         btnGuardar.setBackground(new java.awt.Color(0, 133, 189));
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -385,7 +509,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         });
 
         btnModificar.setBackground(new java.awt.Color(0, 133, 189));
-        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -395,7 +519,7 @@ public class VistaRetiros extends javax.swing.JFrame {
         });
 
         btnLimpiar.setBackground(new java.awt.Color(0, 133, 189));
-        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("LIMPIAR");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -404,17 +528,17 @@ public class VistaRetiros extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setBackground(new java.awt.Color(0, 133, 189));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); 
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        imprimirButton.setBackground(new java.awt.Color(0, 133, 189));
+        imprimirButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        imprimirButton.setForeground(new java.awt.Color(255, 255, 255));
+        imprimirButton.setText("IMPRIMIR");
+        imprimirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                imprimirButtonActionPerformed(evt);
             }
         });
-
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); 
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -437,21 +561,23 @@ public class VistaRetiros extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(ObservacionesText, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGuardar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnModificar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnLimpiar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnEliminar))
-                        .addComponent(tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(69, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ObservacionesText, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpiar)
+                        .addGap(18, 18, 18)
+                        .addComponent(imprimirButton)
+                        .addGap(60, 60, 60))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,7 +616,7 @@ public class VistaRetiros extends javax.swing.JFrame {
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(imprimirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
@@ -499,58 +625,56 @@ public class VistaRetiros extends javax.swing.JFrame {
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
+    private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMainMouseClicked
         regresar();
-    }
+    }//GEN-LAST:event_btnMainMouseClicked
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         setVisible(false);
         vistaMain.volverLogin();
-    }
+    }//GEN-LAST:event_btnLoginMouseClicked
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if(verificarPermisos(1)){
             retiro = new RetiroContenedor();
             guardar();
         }
-    }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if(verificarPermisos(1)){
             if (verificarSeleccion()) {
                 guardar();
             }
         }
-    }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiar();
-    }
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
-        if(verificarPermisos(3)){
-            if (verificarSeleccion()) {
-                eliminar();
-            }
+    private void imprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirButtonActionPerformed
+        if(verificarPermisos(0)){
+            exportarTablaAPDF();
         }
-    }
+    }//GEN-LAST:event_imprimirButtonActionPerformed
 
 
-    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EmpresaTrasnText;
     private com.toedter.calendar.JDateChooser FechaRetiroDATE;
     private javax.swing.JTextField MatriculaText;
     private javax.swing.JTextField NombreText;
     private javax.swing.JTextField ObservacionesText;
     private javax.swing.JTextField TipoVehiculoText;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnMain;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton imprimirButton;
     private javax.swing.JComboBox<Almacen> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -564,5 +688,5 @@ public class VistaRetiros extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane tabla;
-    
+    // End of variables declaration//GEN-END:variables
 }
