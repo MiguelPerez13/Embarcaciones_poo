@@ -575,7 +575,9 @@ public class VistaAlmacen extends javax.swing.JFrame {
     }//GEN-LAST:event_limpiarButtonActionPerformed
 
     private void imprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirButtonActionPerformed
-        exportarTablaAPDF();
+        verificarPermisos(0){
+            exportarTablaAPDF();
+        }
     }//GEN-LAST:event_imprimirButtonActionPerformed
 
 

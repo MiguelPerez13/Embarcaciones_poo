@@ -572,7 +572,9 @@ public class VistaCarga extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaMouseClicked
 
     private void imprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirButtonActionPerformed
-        exportarTablaAPDF();
+        verificarPermisos(0){
+            exportarTablaAPDF();
+        }
     }//GEN-LAST:event_imprimirButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

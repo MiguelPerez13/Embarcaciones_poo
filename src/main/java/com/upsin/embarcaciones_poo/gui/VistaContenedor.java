@@ -608,7 +608,9 @@ public class VistaContenedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void imprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirButtonActionPerformed
-        exportarTablaAPDF();
+        verificarPermisos(0){
+            exportarTablaAPDF();
+        }
     }//GEN-LAST:event_imprimirButtonActionPerformed
 
     private void btnMainMouseClicked(java.awt.event.MouseEvent evt) {
