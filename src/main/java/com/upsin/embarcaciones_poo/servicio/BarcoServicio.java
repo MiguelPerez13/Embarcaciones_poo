@@ -33,6 +33,6 @@ public class BarcoServicio {
 
     @Transactional
     public List<Barco> mostarBarcosActivos(){
-        return repositorio.mostarbarcosActivos();
+        return repositorio.mostrarbarcosActivos();
     }
 }

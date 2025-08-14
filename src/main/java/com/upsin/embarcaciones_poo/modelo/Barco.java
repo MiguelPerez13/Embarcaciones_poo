@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "Barco")
 @EqualsAndHashCode
 public class Barco {
 

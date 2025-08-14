@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BarcoRepositorio extends JpaRepository<Barco,Integer>{
 
-    @Procedure (name = "Barco.mostarBarcosActivos")
-    List<Barco> mostarbarcosActivos();
+    @Procedure (name = "Barco.mostrarBarcosActivos")
+    List<Barco> mostrarbarcosActivos();
 }
